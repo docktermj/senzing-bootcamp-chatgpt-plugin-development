@@ -1,0 +1,38 @@
+{
+  "name": "senzing-bootcamp",
+  "version": "0.5.2",
+  "description": "Guided bootcamp for learning Senzing entity resolution with Codex, from first demo to production deployment.",
+  "author": {
+    "name": "Senzing",
+    "url": "https://senzing.com"
+  },
+  "homepage": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
+  "repository": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
+  "license": "Apache-2.0",
+  "keywords": [
+    "senzing",
+    "bootcamp",
+    "entity-resolution",
+    "tutorial",
+    "guided-learning"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Senzing Bootcamp",
+    "shortDescription": "Learn Senzing entity resolution in Codex.",
+    "longDescription": "A guided, hands-on Senzing entity-resolution bootcamp for the Codex IDE.",
+    "developerName": "Senzing",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://senzing.com",
+    "defaultPrompt": [
+      "Start the Senzing Bootcamp.",
+      "Resume my Senzing Bootcamp.",
+      "Check my bootcamp progress."
+    ]
+  }
+}
