@@ -56,14 +56,14 @@ recap PDF you can keep and share, and a production starter. See
    This is to allow HTTP servers during the Bootcamp.
     1. In `~/.codex/config.toml` add the following:
 
-    ```toml
-    [experimental_network]
-    enabled = true
-    allow_local_binding = true
-    ```
+        ```toml
+        [experimental_network]
+        enabled = true
+        allow_local_binding = true
+        ```
 
 1. Create a new project.
-    1. In Codex's left-hand navigation bar, to the right of "Projects", click on the plus sign, **+**.
+    1. In Codex's left-hand navigation bar, to the right of "Projects", click on the plus sign, "**+**".
     1. In the **Create project** dialog:
         1. Select Project type: "Local".
         1. Click "next" button.
