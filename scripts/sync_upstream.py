@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "senzing-bootcamp"
 OVERLAY = ROOT / "port" / "overlay"
-UPSTREAM_URL = "https://github.com/Senzing/senzing-bootcamp-claude-plugin.git"
+UPSTREAM_URL = "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development.git"
 SEMVER = re.compile(r"^(?:v)?(\d+)\.(\d+)\.(\d+)$")
 
 

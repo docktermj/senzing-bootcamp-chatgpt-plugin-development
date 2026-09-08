@@ -25,6 +25,7 @@ if not re.fullmatch(r"[0-9a-f]{40}", commit):
 required = [
     PLUGIN / ".mcp.json",
     PLUGIN / "skills/start-bootcamp/SKILL.md",
+    PLUGIN / "skills/package-bootcamp/SKILL.md",
     PLUGIN / "skills/bootcamp-onboarding/SKILL.md",
     PLUGIN / "skills/graduation/SKILL.md",
 ]
