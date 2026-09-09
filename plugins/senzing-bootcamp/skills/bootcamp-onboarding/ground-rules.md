@@ -677,7 +677,7 @@ interface**. Do not invent interface-specific commands or controls.
 - Progress -> `config/bootcamp_progress.json`. Preferences -> `config/bootcamp_preferences.yaml`.
 - **Batch administrative writes and keep them small (INV-012).** Every Write/Edit renders its diff
   inline to the bootcamper, and no harness setting suppresses that today (see
-  `../../docs/codex-port.md`), so the only lever is to write **rarely** and **small**. Therefore:
+  `../../hooks/README.md`), so the only lever is to write **rarely** and **small**. Therefore:
   update config at **step and module boundaries, not on every sub-step**; batch related fields into
   a **single** write instead of one write per field; prefer a **minimal edit** of the changed key
   over a full-file rewrite; and keep the config files small. Administrative writes are not narrated
@@ -810,7 +810,7 @@ the 👉 protocol above).
   that a prompt for one appeared over the bootcamp**, answer in **one sentence** — it is their
   session setting, the bootcamp neither needs nor recommends a value — and then re-present the
   pending 👉 question verbatim (see below). Do not turn it into a gate, do not offer to change it for
-  them, and do **not** claim the bootcamp can suppress or override a host control: the plugin ships skills, scripts, and an MCP configuration, none of which reach their interface. **Do not name a dismissal
+  them, and do **not** claim the bootcamp can suppress or override a host control: the plugin ships skills, lifecycle hooks, scripts, and an MCP configuration, none of which reach their interface. **Do not name a dismissal
   affordance either** — not "Don't show again", not any other — because directing them to a control
   that silences a host prompt is directing them to operate a second Codex-interface control. The
   bootcamp asks them to operate exactly one, the module-start model/effort switch, and never this

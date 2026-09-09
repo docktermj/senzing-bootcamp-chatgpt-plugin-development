@@ -98,7 +98,7 @@ Do this silently:
    is what makes Step 12 an **update** rather than an instruction to edit a file that does not
    exist — the file is written silently, like the rest of this step (INV-012).
 
-Codex does not load the upstream Claude lifecycle hooks. The active skills perform checkpoint, resume, and safety checks explicitly; see `../../docs/codex-port.md`.
+Codex discovers the bundled lifecycle hooks in `hooks/hooks.json`; the bootcamper must review and trust them when enabling the plugin. See `../../docs/codex-port.md`.
 
 ## 2. Prerequisite check
 

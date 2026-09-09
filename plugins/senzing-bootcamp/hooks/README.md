@@ -1,0 +1,117 @@
+<!-- Adapted for Codex from the version-matched Senzing upstream release. -->
+
+# Bootcamp hooks
+
+The plugin ships these hooks (registered in `hooks.json`). Following the bootcamp
+convention, each hook's purpose is phrased beginning with the word "to", from the
+bootcamper's point of view. In the Kiro Power these were named hook files
+(e.g. "to review what you said"); in the Codex plugin they are `command`-type
+hooks wired to small **Python** scripts under `../scripts/`, each invoked by a
+`command` string naming the interpreter and the script, quoted
+(`python3 "<plugin-root>/scripts/<script>.py"`).
+
+Every hook is gated on an active bootcamp. Each script no-ops unless a
+`config/bootcamp_progress.json` file exists in the working directory, so the
+plugin never alters unrelated Codex sessions.
+
+| Event | Script | Purpose |
+|-------|--------|---------|
+| `SessionStart` | `scripts/session-start.py` | to resume an in-progress bootcamp (offers to continue from the last recorded module, and folds any in-progress recap checkpoint into the recap). |
+| `UserPromptSubmit` | `scripts/socratic-controller.py` | to restore the active module on every answer and keep automatic work moving until the next Socratic question. |
+| `UserPromptSubmit` | `scripts/feedback-capture.py` | to capture bootcamp feedback, bootcamper notes and verbosity changes at any time (routes "bootcamp feedback", "make a note" and "change verbosity" requests to the right workflow). |
+| `UserPromptSubmit` | `scripts/checkpoint-tick.py` | to keep the in-progress recap checkpoint durable (creates `docs/progress/recap_checkpoint.md` as an empty scaffold within a turn of the bootcamp starting, and reminds the guide once to keep it current). Runs per turn because a bootcamp becomes active *after* `SessionStart` has already run; silent on every turn after the file exists. |
+| `PreToolUse` (Write, Edit) | `scripts/write-gate.py` | to keep your files in the project (blocks writes whose resolved target is outside the project — system temp and Downloads get a more specific message — and obvious hardcoded secrets, during a bootcamp). |
+| `Stop` | `scripts/stop-nudge.py` | to review what you said and end each turn with one leading question (a loop-safe safety net for the closing 👉 question). |
+| `PreCompact` | `scripts/precompact-recap.py` | to preserve your in-progress recap before the conversation is compacted (folds the module recap checkpoint into the recap). |
+| `SessionEnd` | `scripts/session-end.py` | to preserve your in-progress recap when the session ends (folds the module recap checkpoint into the recap). |
+
+**Convention (INV-016 interpretation):** the "begin with the word 'to'" rule applies
+to each hook's **documented purpose** — the Purpose column above — not to the runtime
+text a hook emits (block reasons, injected context, resume notes), which is written
+for clarity and is delivered to Claude rather than shown directly to the bootcamper.
+Every hook MUST carry a "to …" purpose entry in this table, and new hooks follow the
+same rule. This is the settled reading of INV-016 (whose own examples — "to process
+your request", "to review what you said" — are purposes), resolving the earlier
+ambiguity between the purpose-phrasing and emitted-message readings.
+
+## Runtime prerequisites (per platform)
+
+The hooks are **Python 3** scripts, invoked as `type: command` hooks whose `command`
+string names both the interpreter and the script, with the plugin root **quoted**
+(`{"command": "python3 \"<plugin-root>/scripts/<hook>.py\""}`). The quoting is
+what keeps a plugin root containing a space working.
+
+> ⚠️ **Corrected 2026-08-21.** This section previously described an *exec form*
+> (`{"command": "python3", "args": [...]}`) and claimed it spawned the interpreter with
+> no shell on any platform. That was wrong: `args` is not part of the `type: command`
+> schema, so every hook launched a bare `python3`, which read the event payload as its
+> program and never ran the script. A command hook is a shell command string by design,
+> so there is no shell-free form to prefer. INV-052 carries the corrected form.
+
+The only requirement is a `python3` on `PATH`, and it is **not a new dependency** —
+the bootcamp already requires `python3` for the graduation recap PDF
+(`scripts/generate_recap_pdf.py`, always run at graduation) and, when the chosen language is
+Python, the Truth Set visualization server (`scripts/senzing_viz_server.py`, the reference per
+INV-090), so any machine that can run the bootcamp can run the hooks.
+
+| Platform | Requirement | Notes |
+|----------|-------------|-------|
+| Linux | `python3` on `PATH` | Already required by the bootcamp. |
+| macOS | `python3` on `PATH` | Already required by the bootcamp. The per-user temp dir under `$TMPDIR` is handled by the write-gate. |
+| Windows | `python3` on `PATH` | The command name must be `python3` (the name the rest of the plugin already uses); if only `python`/`py` is installed, add a `python3` entry to `PATH`. |
+
+Codex substitutes `${PLUGIN_ROOT}` in each hook command on all three platforms. Keep it quoted inside the `command` string:
+the expanded path can contain a space, and unquoted it would split into two arguments.
+
+## Design notes
+
+- **Deterministic gates, not model judgment.** The `Stop` and `PreToolUse` hooks
+  are `command` scripts that decide behavior from the on-disk bootcamp-active
+  signal, so they never fire in non-bootcamp sessions.
+- **Non-blocking by default.** The write-gate can block a tool call (exit 2), and only
+  for a target outside the project or an obvious secret, during a bootcamp. The `Stop` hook can block a turn
+  from ending (`decision: block`) to request the one forgotten closing 👉 question, but
+  only once: it returns success whenever `stop_hook_active` is true, so it can never loop
+  on its own continuation, and it stays silent when the session is not a bootcamp, when
+  the nudge is disabled (see [Disabling / quieting the Stop-hook nudge](#disabling--quieting-the-stop-hook-nudge)),
+  or when the current turn already ends with a 👉 question. Detection uses Codex's stable `last_assistant_message` Stop-hook field, and the block reason tells the model to repeat nothing it has already asked. The `UserPromptSubmit` hook injects guidance via
+  `additionalContext`; `SessionStart` emits resume context. Everything else emits nothing.
+- **Hooks ship with the plugin.** Codex discovers `hooks/hooks.json` automatically; there is no hook-install step. Because bundled hooks are non-managed, the bootcamper must review and trust the current definitions before Codex runs them.
+- **Recap durability.** The recap (`docs/bootcamp_recap.md`) is finalized per
+  module at completion, but an interrupted module (quit / compaction / new session) would
+  otherwise lose its in-progress narrative. To close that gap the guide keeps an
+  in-progress checkpoint at `docs/progress/recap_checkpoint.md` (refreshed at each step
+  boundary, wrapped in `<!-- RECAP-CHECKPOINT:START -->` … `<!-- RECAP-CHECKPOINT:END -->`
+  markers), and three hooks — `PreCompact`, `SessionEnd`, and `SessionStart` — fold it into
+  `docs/bootcamp_recap.md`. The fold (in the shared, non-hook helper
+  `scripts/recap_checkpoint.py`) is deterministic, idempotent, and append-only with respect
+  to completed `## {module}` sections: it only ever replaces the marker-fenced block, so
+  repeated folds never duplicate and a finalized section is never rewritten. Module
+  completion appends the final section and clears the checkpoint.
+
+## Disabling / quieting the Stop-hook nudge
+
+The `Stop` hook (`scripts/stop-nudge.py`) is a safety net for the single closing
+👉 question. It stays silent whenever the current turn already ends with a 👉
+question. It reads Codex's stable `last_assistant_message` field rather than parsing the unstable transcript format. If you still
+want to turn it off, there are two documented, opt-out switches (either one works;
+both are read cross-platform with no shell and no extra dependency):
+
+| Switch | Where | Effect |
+|--------|-------|--------|
+| `SENZING_BOOTCAMP_DISABLE_STOP_NUDGE` | environment variable | Set to `1`/`true`/`yes`/`on` to disable the nudge for the session. |
+| `disable_stop_nudge: true` | top-level key in `config/bootcamp_preferences.yaml` | Disables the nudge for the project. |
+
+When either switch is on, the hook returns success immediately (exit 0, no block),
+so a turn can never be re-opened to re-ask a closing question. Remove the env var or
+set `disable_stop_nudge: false` to re-enable it.
+
+## Administrative write noise (no harness suppression)
+
+Every `Write`/`Edit` tool result renders its file content or diff inline in the
+transcript — including the small administrative config writes the bootcamp makes
+(`config/bootcamp_progress.json`, `config/bootcamp_preferences.yaml`). In a
+prose-driven guided experience this is visual noise, and it runs against the spirit of
+INV-012 (output that is not important to the bootcamper is suppressed).
+
+The Codex interface controls tool-result rendering. The plugin cannot suppress that host-owned UI, so it minimizes administrative write frequency and uses concise commentary to keep the bootcamper informed.

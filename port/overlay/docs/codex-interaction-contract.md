@@ -5,6 +5,10 @@ not change the bootcamp's question-and-answer rhythm.
 
 ## Continue through non-yielding work
 
+- On every bootcamper response, the `UserPromptSubmit` controller identifies the active skill from
+  `config/bootcamp_progress.json`. Read that skill and process the answer before advancing.
+- Before automatic work, send concise commentary that says what Codex is working on. For long work,
+  provide periodic commentary so the bootcamper never has to guess whether Codex is still working.
 - Commentary is a progress update, never a bootcamp turn boundary. Use concise commentary while
   commands or other automatic work run, then continue executing the active skill in the same turn.
 - A completed command, successful setup check, generated scenario, written file, checkpoint, status
@@ -31,3 +35,8 @@ phase file, or selected module in the same turn. A final response containing onl
 The only exceptions are a genuine blocker that requires user action and a terminal workflow that
 the shipped skill explicitly ends without a question. State a blocker as the action required; do
 not disguise ordinary automatic work as a blocker.
+
+The bundled `Stop` hook is the mechanical safety net for this contract. If an active bootcamp would
+stop on a status-only final response, it continues the turn and directs Codex back to the recorded
+module. A visible `👉` question means Codex is waiting for the bootcamper; commentary and the app's
+running state mean Codex is working.

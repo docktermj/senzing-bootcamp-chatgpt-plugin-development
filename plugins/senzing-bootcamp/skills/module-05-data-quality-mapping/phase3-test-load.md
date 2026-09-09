@@ -308,5 +308,5 @@ split above and continuing.
 
 ## Lifecycle checks
 
-Codex does not load the upstream Claude hooks. Perform the closing-question, checkpoint, and write-safety checks explicitly according to the bootcamp ground rules.
+Codex discovers the bundled bootcamp hooks after the bootcamper reviews and trusts them. The skill still performs closing-question, checkpoint, and write-safety checks explicitly according to the bootcamp ground rules; the hooks are the mechanical safety net.
 

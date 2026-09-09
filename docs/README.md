@@ -5,6 +5,10 @@ A version-pinned Codex IDE port of the
 It guides a bootcamper through a hands-on Senzing entity-resolution curriculum while using the
 hosted Senzing MCP server for current, grounded product guidance.
 
+The Codex port ships trusted lifecycle hooks as well as skills. The per-prompt controller restores
+the active module on every answer, and the Stop hook keeps the Socratic workflow from yielding on a
+status-only response. Manual testing must include reviewing and trusting these hooks.
+
 The generated plugin is in `plugins/senzing-bootcamp`. Its version always matches the latest stable
 SemVer upstream tag used to build it; `main` is never used as an implicit source.
 
@@ -18,6 +22,7 @@ python3 /home/senzing/.codex/skills/.system/plugin-creator/scripts/validate_plug
 ```
 
 See `docs/PORTING.md` for the synchronization and ownership model and
+`specs/INVARIANTS.md` for permanent Codex implementation guarantees, and
 `docs/MANUAL_TESTING.md` for the pre-release test gate.
 
 The Codex desktop app is sufficient for manual testing. The optional `codex` terminal program is

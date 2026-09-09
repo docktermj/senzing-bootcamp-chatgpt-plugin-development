@@ -86,7 +86,6 @@ def port_text(path: Path) -> None:
     text = original
     for old, new in REPLACEMENTS:
         text = text.replace(old, new)
-    text = text.replace("../../hooks/README.md", "../../docs/codex-port.md")
     if text != original:
         notice = "Adapted for Codex from the version-matched Senzing upstream release."
         if path.suffix == ".md":
@@ -128,13 +127,90 @@ def build(source: Path, expected_tag: str | None) -> str:
 
     upstream_plugin = source / "plugins/senzing-bootcamp"
     PLUGIN.mkdir(parents=True, exist_ok=True)
-    for name in ("skills", "scripts", "docs"):
+    for name in ("skills", "scripts", "docs", "hooks"):
         copy_tree(upstream_plugin / name, PLUGIN / name)
     shutil.copy2(upstream_plugin / ".mcp.json", PLUGIN / ".mcp.json")
 
     for path in PLUGIN.rglob("*"):
         if path.is_file() and path.suffix in {".md", ".py", ".json"}:
             port_text(path)
+
+    # Codex discovers hooks/hooks.json automatically. Use its native plugin-root variable and add
+    # visible status messages; do not rely on prose-only substitutes for lifecycle enforcement.
+    hooks_path = PLUGIN / "hooks/hooks.json"
+    hooks = json.loads((upstream_plugin / "hooks/hooks.json").read_text())
+    hook_status = {
+        "session-start.py": "Restoring Senzing Bootcamp context",
+        "feedback-capture.py": "Checking bootcamp controls",
+        "checkpoint-tick.py": "Preserving bootcamp progress",
+        "write-gate.py": "Checking bootcamp write safety",
+        "stop-nudge.py": "Checking for the next bootcamp question",
+        "precompact-recap.py": "Preserving the bootcamp recap",
+        "session-end.py": "Preserving the bootcamp session",
+    }
+    for groups in hooks.get("hooks", {}).values():
+        for group in groups:
+            for handler in group.get("hooks", []):
+                command = handler.get("command", "")
+                handler["command"] = command.replace("${CLAUDE_PLUGIN_ROOT}", "${PLUGIN_ROOT}")
+                for script_name, status_message in hook_status.items():
+                    if script_name in command:
+                        handler["statusMessage"] = status_message
+                        break
+    controller = {
+        "type": "command",
+        "command": 'python3 "${PLUGIN_ROOT}/scripts/socratic-controller.py"',
+        "statusMessage": "Continuing the Senzing Bootcamp",
+        "additionalContextLimit": 4000,
+    }
+    prompt_groups = hooks.setdefault("hooks", {}).setdefault("UserPromptSubmit", [])
+    if prompt_groups:
+        prompt_groups[0].setdefault("hooks", []).insert(0, controller)
+    else:
+        prompt_groups.append({"hooks": [controller]})
+    hooks_path.write_text(json.dumps(hooks, indent=2) + "\n")
+    hooks_readme = PLUGIN / "hooks/README.md"
+    hooks_text = hooks_readme.read_text()
+    hooks_text = hooks_text.replace(
+        "| `UserPromptSubmit` | `scripts/feedback-capture.py`",
+        "| `UserPromptSubmit` | `scripts/socratic-controller.py` | to restore the active module "
+        "on every answer and keep automatic work moving until the next Socratic question. |\n"
+        "| `UserPromptSubmit` | `scripts/feedback-capture.py`",
+    )
+    hooks_text = hooks_text.replace(
+        "Environment-variable substitution (`<plugin-root>`) is performed by Claude\n"
+        "Code identically on all three platforms.",
+        "Codex substitutes `${PLUGIN_ROOT}` in each hook command on all three platforms.",
+    )
+    hooks_text = hooks_text.replace(
+        "- **Hooks ship with the plugin.** There is no hook-install step (this replaces the\n"
+        "  Kiro `install_hooks.py` / `.kiro/hooks/` workflow).",
+        "- **Hooks ship with the plugin.** Codex discovers `hooks/hooks.json` automatically; there "
+        "is no hook-install step. Because bundled hooks are non-managed, the bootcamper must "
+        "review and trust the current definitions before Codex runs them.",
+    )
+    hooks_text = hooks_text.replace(
+        "Detection scans the whole\n  current turn and biases toward silence if the turn's text is "
+        "not yet on disk, and the\n  block reason tells the model to repeat nothing it has already "
+        "asked — so a false block\n  can never surface as a duplicate question.",
+        "Detection uses Codex's stable `last_assistant_message` Stop-hook field, and the block "
+        "reason tells the model to repeat nothing it has already asked.",
+    )
+    hooks_text = hooks_text.replace(
+        "question, and it biases toward silence when the transcript cannot be read\n"
+        "decisively — a missed nudge is far cheaper than a duplicated question.",
+        "question. It reads Codex's stable `last_assistant_message` field rather than parsing the "
+        "unstable transcript format.",
+    )
+    hooks_text = re.sub(
+        r"A `claude-code-guide` investigation.*?finding is recorded here so it is not re-investigated\.",
+        "The Codex interface controls tool-result rendering. The plugin cannot suppress that "
+        "host-owned UI, so it minimizes administrative write frequency and uses concise commentary "
+        "to keep the bootcamper informed.",
+        hooks_text,
+        flags=re.S,
+    )
+    hooks_readme.write_text(hooks_text)
 
     ground_rules = PLUGIN / "skills/bootcamp-onboarding/ground-rules.md"
     ground_text = ground_rules.read_text()
@@ -161,7 +237,8 @@ response, perform that document's turn-close audit.
     )
     ground_text = ground_text.replace(
         "the plugin ships\n  skills, hooks and commands, none of which reach their interface.",
-        "the plugin ships skills, scripts, and an MCP configuration, none of which reach their interface.",
+        "the plugin ships skills, lifecycle hooks, scripts, and an MCP configuration, none of "
+        "which reach their interface.",
     )
     ground_rules.write_text(ground_text)
     replace_section(
@@ -217,8 +294,8 @@ observed, say so rather than guessing.""",
     )
     text = re.sub(
         r"\(The Kiro Power installed Agent Hooks here.*?no hook-install step\.\)",
-        "Codex does not load the upstream Claude lifecycle hooks. The active skills perform "
-        "checkpoint, resume, and safety checks explicitly; see `../../docs/codex-port.md`.",
+        "Codex discovers the bundled lifecycle hooks in `hooks/hooks.json`; the bootcamper must "
+        "review and trust them when enabling the plugin. See `../../docs/codex-port.md`.",
         text,
         count=1,
         flags=re.S,
@@ -229,9 +306,10 @@ observed, say so rather than guessing.""",
     phase3_text = phase3.read_text()
     phase3_text = re.sub(
         r"(?ms)## Hooks\n\nIn the Codex plugin, bootcamp hooks ship.*?(?=^## |\Z)",
-        "## Lifecycle checks\n\nCodex does not load the upstream Claude hooks. Perform the "
-        "closing-question, checkpoint, and write-safety checks explicitly according to the "
-        "bootcamp ground rules.\n\n",
+        "## Lifecycle checks\n\nCodex discovers the bundled bootcamp hooks after the "
+        "bootcamper reviews and trusts them. The skill still performs closing-question, "
+        "checkpoint, and write-safety checks explicitly according to the bootcamp ground rules; "
+        "the hooks are the mechanical safety net.\n\n",
         phase3_text,
         count=1,
     )

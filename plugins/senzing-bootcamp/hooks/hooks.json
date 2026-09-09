@@ -1,0 +1,82 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/session-start.py\"",
+            "statusMessage": "Restoring Senzing Bootcamp context"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/socratic-controller.py\"",
+            "statusMessage": "Continuing the Senzing Bootcamp",
+            "additionalContextLimit": 4000
+          },
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/feedback-capture.py\"",
+            "statusMessage": "Checking bootcamp controls"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/checkpoint-tick.py\"",
+            "statusMessage": "Preserving bootcamp progress"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/write-gate.py\"",
+            "statusMessage": "Checking bootcamp write safety"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/stop-nudge.py\"",
+            "statusMessage": "Checking for the next bootcamp question"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/precompact-recap.py\"",
+            "statusMessage": "Preserving the bootcamp recap"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/session-end.py\"",
+            "statusMessage": "Preserving the bootcamp session"
+          }
+        ]
+      }
+    ]
+  }
+}
