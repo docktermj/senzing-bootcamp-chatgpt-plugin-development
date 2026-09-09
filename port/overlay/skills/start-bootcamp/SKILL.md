@@ -5,5 +5,7 @@ description: Start or resume the guided Senzing entity-resolution bootcamp in Co
 
 # Start or resume the Senzing Bootcamp
 
-Read and follow `../bootcamp-onboarding/SKILL.md`. Whether this is a fresh start or a resume is
-decided by the contents of `config/bootcamp_progress.json`, not merely by its existence.
+Read and follow `../../docs/codex-interaction-contract.md`, then
+`../bootcamp-onboarding/SKILL.md`. Whether this is a fresh start or a resume is decided by the
+contents of `config/bootcamp_progress.json`, not merely by its existence. Intermediate commentary
+never ends a bootcamp turn; continue until the active shipped skill supplies the next `👉` question.

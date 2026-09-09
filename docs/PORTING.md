@@ -2,8 +2,8 @@
 
 ## Version contract
 
-`scripts/sync_upstream.py` discovers the highest stable SemVer tag in the
-`docktermj/senzing-bootcamp-claude-plugin-development` repository,
+`scripts/sync_upstream.py` discovers the highest stable SemVer tag in the production
+`Senzing/senzing-bootcamp-claude-plugin` repository,
 checks out that tag, verifies that its plugin manifest contains the same version, and generates the
 Codex plugin. Prereleases and the head of `main` are intentionally ignored. `UPSTREAM_VERSION`,
 `UPSTREAM_COMMIT`, and the Codex manifest provide source provenance.

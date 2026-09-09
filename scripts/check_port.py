@@ -28,10 +28,31 @@ required = [
     PLUGIN / "skills/package-bootcamp/SKILL.md",
     PLUGIN / "skills/bootcamp-onboarding/SKILL.md",
     PLUGIN / "skills/graduation/SKILL.md",
+    PLUGIN / "docs/codex-interaction-contract.md",
 ]
 for path in required:
     if not path.is_file():
         errors.append(f"missing required file: {path.relative_to(ROOT)}")
+
+ground_rules = (PLUGIN / "skills/bootcamp-onboarding/ground-rules.md").read_text()
+for required_contract_text in (
+    "## Codex turn execution (mandatory)",
+    "../../docs/codex-interaction-contract.md",
+    "continue in the same turn until the next skill-defined `👉` question",
+):
+    if required_contract_text not in ground_rules:
+        errors.append(f"ground rules missing Codex interaction contract: {required_contract_text}")
+
+interaction_contract_path = PLUGIN / "docs/codex-interaction-contract.md"
+if interaction_contract_path.is_file():
+    interaction_contract = interaction_contract_path.read_text()
+    for required_contract_text in (
+        "Commentary is a progress update, never a bootcamp turn boundary",
+        "A final response containing only status is a contract violation",
+        "exactly one `👉` question",
+    ):
+        if required_contract_text not in interaction_contract:
+            errors.append(f"Codex interaction contract missing invariant: {required_contract_text}")
 
 for path in PLUGIN.rglob("*"):
     if not path.is_file() or path.suffix not in {".md", ".json", ".py"}:

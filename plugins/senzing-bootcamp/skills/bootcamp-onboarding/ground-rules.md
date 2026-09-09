@@ -7,6 +7,13 @@ skill should read and follow this file. (In the Kiro Power these were the always
 `agent-instructions` / `agent-behavior-rules` / `file-placement` / `mcp-usage-reference`
 steering files.)
 
+## Codex turn execution (mandatory)
+
+Read and follow `../../docs/codex-interaction-contract.md` before executing a bootcamp step. Codex
+commentary is intermediate progress, not a turn boundary. After status-only or other non-yielding
+work, continue in the same turn until the next skill-defined `👉` question. Before every final
+response, perform that document's turn-close audit.
+
 ## Session start
 
 - Check `config/bootcamp_progress.json`. If present, resume; if not, run onboarding.

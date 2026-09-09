@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "senzing-bootcamp"
 OVERLAY = ROOT / "port" / "overlay"
-UPSTREAM_URL = "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development.git"
+UPSTREAM_URL = "https://github.com/Senzing/senzing-bootcamp-claude-plugin.git"
 SEMVER = re.compile(r"^(?:v)?(\d+)\.(\d+)\.(\d+)$")
 
 
@@ -137,7 +137,22 @@ def build(source: Path, expected_tag: str | None) -> str:
             port_text(path)
 
     ground_rules = PLUGIN / "skills/bootcamp-onboarding/ground-rules.md"
-    ground_text = ground_rules.read_text().replace(
+    ground_text = ground_rules.read_text()
+    contract_heading = "## Codex turn execution (mandatory)"
+    if contract_heading not in ground_text:
+        first_heading = ground_text.find("\n## ")
+        if first_heading == -1:
+            raise SystemExit(f"Expected a section heading in {ground_rules}")
+        contract = """
+## Codex turn execution (mandatory)
+
+Read and follow `../../docs/codex-interaction-contract.md` before executing a bootcamp step. Codex
+commentary is intermediate progress, not a turn boundary. After status-only or other non-yielding
+work, continue in the same turn until the next skill-defined `👉` question. Before every final
+response, perform that document's turn-close audit.
+"""
+        ground_text = ground_text[:first_heading] + contract + ground_text[first_heading:]
+    ground_text = ground_text.replace(
         "**Model/effort tuning.** Model/effort is a session-level choice the bootcamper controls with\n"
         "  `/model` and `/effort` (it persists for the session; per-skill frontmatter would not — see\n"
         "  `../../docs/model-selection.md`).",

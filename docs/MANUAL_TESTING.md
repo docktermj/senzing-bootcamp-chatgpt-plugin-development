@@ -11,7 +11,10 @@ Manual testing happens before a release tag is published.
    its details page, and always start a new task.
 5. Test a fresh start, an empty progress file, resume with a recorded module, note capture, feedback
    capture without external submission, MCP-unavailable behavior, module transition/checkpointing,
-   and graduation artifact generation.
+   and graduation artifact generation. In particular, exercise Module 1's generated-scenario path
+   and Module 2's existing-install and configuration-seeding paths. Confirm that intermediate
+   commentary may report automatic work, but the same turn continues and its final response ends
+   on exactly one skill-defined `👉` question rather than a status-only message.
 6. Run `python3 scripts/local_version.py --restore`. Confirm the manifest and `UPSTREAM_VERSION`
    exactly equal `X.Y.Z`, then run `python3 scripts/package_release.py`.
 
