@@ -66,6 +66,9 @@ recap PDF you can keep and share, and a production starter. See
         allow_local_binding = true
         ```
 
+1. Select model and effort.
+    1. In the lower-right, choose `GPT-5.6 Terra` and `Medium`.
+
 1. Create a new project.
     1. In Codex's left-hand navigation bar, to the right of "Projects", click on the plus sign, "**+**".
     1. In the **Create project** dialog:
