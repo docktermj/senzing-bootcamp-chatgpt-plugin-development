@@ -69,8 +69,6 @@ recap PDF you can keep and share, and a production starter. See
 1. Create a new project.
     1. In Codex's left-hand navigation bar, to the right of "Projects", click on the plus sign, "**+**".
     1. In the **Create project** dialog:
-        1. Select Project type: "Local".
-        1. Click "next" button.
         1. Project name: "Senzing Bootcamp"
         1. Source folders:  [Choose an empty folder]
         1. Click "Create project" button
