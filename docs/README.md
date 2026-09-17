@@ -27,3 +27,26 @@ See `docs/PORTING.md` for the synchronization and ownership model and
 
 The Codex desktop app is sufficient for manual testing. The optional `codex` terminal program is
 only needed by maintainers who prefer a command-line installation workflow.
+
+## Publish a tagged release
+
+Use the repository-local `$propagate-to-public` skill in Codex or run the command below. It reads
+only the specified development release tag; it does not copy the current working tree. The public
+checkout must be clean, on `main`, and have `Senzing/senzing-bootcamp-chatgpt-plugin` as `origin`.
+
+```bash
+scripts/propagate-to-public --tag 0.5.3 --public-repo /path/to/senzing-bootcamp-chatgpt-plugin
+scripts/propagate-to-public --tag 0.5.3 --public-repo /path/to/senzing-bootcamp-chatgpt-plugin --apply
+```
+
+The first command is a read-only preview. The second stages a reviewable public diff without
+committing or pushing. After reviewing that diff and explicitly deciding to publish the same tag:
+
+```bash
+scripts/propagate-to-public --tag 0.5.3 --public-repo /path/to/senzing-bootcamp-chatgpt-plugin --publish --confirm-tag 0.5.3
+```
+
+Publication creates a matching public commit and tag, then atomically pushes both. The command
+mirrors only the plugin payload, marketplace manifest, and bootcamper README; public governance
+files and development-only files remain untouched. A bare repository-shared `/propagate-to-public`
+slash command is not available in Codex. Use `$propagate-to-public` or the `/skills` selector.
