@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish only a versioned, validated bootcamper payload to the public repo."""
+"""Stage or push a tagged bootcamper payload on a public review branch."""
 
 from __future__ import annotations
 
@@ -142,13 +142,16 @@ def validate_payload(payload: dict[str, bytes]) -> None:
         raise ValueError("README has an incomplete URL or obsolete chatgpt command")
 
 
-def destination(repo: Path, allow_staged: bool) -> None:
+def destination(repo: Path, branch: str, allow_staged: bool) -> None:
     if not (repo / ".git").exists() or repo.resolve() == SOURCE:
         raise ValueError("--public-repo must be a separate public Git checkout")
     if remote_slug(git(repo, "remote", "get-url", "origin").decode().strip()) != PUBLIC_SLUG:
         raise ValueError(f"destination origin must be {PUBLIC_SLUG}")
-    if git(repo, "branch", "--show-current").decode().strip() != "main":
-        raise ValueError("public checkout must be on main")
+    if branch in {"main", "master"}:
+        raise ValueError("propagation requires a review branch, never main or master")
+    git(repo, "check-ref-format", "--branch", branch)
+    if git(repo, "branch", "--show-current").decode().strip() != branch:
+        raise ValueError(f"public checkout must be on review branch {branch}")
     status = git(repo, "status", "--porcelain", "-z")
     if status and not allow_staged:
         raise ValueError("public checkout must be clean")
@@ -184,18 +187,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tag", required=True, help="exact development release tag")
     parser.add_argument("--public-repo", type=Path, required=True, help="existing public checkout")
+    parser.add_argument("--branch", required=True, help="checked-out public review branch; main is forbidden")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--apply", action="store_true", help="mirror into public working tree without committing")
-    mode.add_argument("--publish", action="store_true", help="commit, tag, and atomically push")
-    parser.add_argument("--confirm-tag", help="required to publish; must equal --tag")
+    mode.add_argument("--push-branch", action="store_true", help="commit and push only the review branch")
+    parser.add_argument("--confirm-tag", help="required to push; must equal --tag")
     args = parser.parse_args()
     try:
-        if args.publish and args.confirm_tag != args.tag:
-            raise ValueError("--publish requires --confirm-tag equal to --tag")
+        if args.push_branch and args.confirm_tag != args.tag:
+            raise ValueError("--push-branch requires --confirm-tag equal to --tag")
         repo = args.public_repo.resolve()
-        destination(repo, args.publish)
+        destination(repo, args.branch, args.push_branch)
         payload, commit = tagged_payload(args.tag)
-        if args.publish:
+        if args.push_branch:
             source_origin = git(SOURCE, "remote", "get-url", "origin").decode().strip()
             if remote_slug(source_origin) != DEVELOPMENT_SLUG:
                 raise ValueError(f"source origin must be {DEVELOPMENT_SLUG}")
@@ -207,24 +211,23 @@ def main() -> int:
                 raise ValueError(f"public tag {args.tag} already exists")
             if git(repo, "ls-remote", "--tags", "origin", f"refs/tags/{args.tag}").strip():
                 raise ValueError(f"remote public tag {args.tag} already exists")
-            remote_head = git(repo, "ls-remote", "--heads", "origin", "main").decode().split()
+            remote_head = git(repo, "ls-remote", "--heads", "origin", args.branch).decode().split()
             if not remote_head:
-                raise ValueError("public origin has no main branch")
-            remote_main = remote_head[0]
-            if remote_main != git(repo, "rev-parse", "HEAD").decode().strip():
-                raise ValueError("public main has moved; update the checkout before publishing")
+                raise ValueError(f"public origin has no review branch {args.branch}")
+            if remote_head[0] != git(repo, "rev-parse", "HEAD").decode().strip():
+                raise ValueError("public review branch has moved; update the checkout before pushing")
         changed, deleted = changes(repo, payload)
-        print(f"source tag: {args.tag}\nsource commit: {commit}\npublic checkout: {repo}")
+        print(f"source tag: {args.tag}\nsource commit: {commit}\npublic checkout: {repo}\nreview branch: {args.branch}")
         print(f"payload: {len(payload)} files; changes: {len(changed)}; scoped deletions: {len(deleted)}")
         for name in changed:
             print(f"  update {name}")
         for name in deleted:
             print(f"  delete {name}")
-        if not (args.apply or args.publish):
+        if not (args.apply or args.push_branch):
             print("Preview only; public checkout unchanged.")
             return 0
         if not changed and not deleted and not git(repo, "diff", "--cached", "--name-only"):
-            raise ValueError("no payload changes to publish; inspect the existing public release")
+            raise ValueError("no payload changes to stage or push; inspect the existing public branch")
         for name in deleted:
             (repo / name).unlink()
         for name in changed:
@@ -233,13 +236,12 @@ def main() -> int:
             path.write_bytes(payload[name])
         git(repo, "add", "-A", "--", PLUGIN.removesuffix("/"), MARKETPLACE, "README.md")
         print(git(repo, "status", "--short").decode(), end="")
-        if not args.publish:
+        if not args.push_branch:
             print("Staged for review; nothing committed or pushed.")
             return 0
         git(repo, "commit", "-m", f"Release Senzing Bootcamp ChatGPT plugin {args.tag}")
-        git(repo, "tag", args.tag)
-        git(repo, "push", "--atomic", "origin", "main", f"refs/tags/{args.tag}")
-        print(f"Published public commit {git(repo, 'rev-parse', 'HEAD').decode().strip()} and tag {args.tag}")
+        git(repo, "push", "origin", f"HEAD:refs/heads/{args.branch}")
+        print(f"Pushed review commit {git(repo, 'rev-parse', 'HEAD').decode().strip()} to {args.branch}; main and tags unchanged")
         return 0
     except ValueError as exc:
         print(f"error: {exc}", file=sys.stderr)

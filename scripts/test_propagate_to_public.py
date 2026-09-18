@@ -2,6 +2,7 @@
 """Focused release-payload guard tests; run with python3 -m unittest scripts.test_propagate_to_public."""
 
 import unittest
+import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -56,6 +57,18 @@ class PropagationTests(unittest.TestCase):
             _, deleted = release.changes(root, {"README.md": b"public"})
             self.assertEqual(deleted, ["plugins/senzing-bootcamp/obsolete.md"])
             self.assertTrue((root / ".github/workflow.yml").exists())
+
+    def test_destination_requires_named_checked_out_review_branch(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "-C", str(root), "init", "-b", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(root), "remote", "add", "origin",
+                            "git@github.com:Senzing/senzing-bootcamp-chatgpt-plugin.git"],
+                           check=True, capture_output=True)
+            with self.assertRaisesRegex(ValueError, "never main"):
+                release.destination(root, "main", False)
+            with self.assertRaisesRegex(ValueError, "review branch 3-docktermj-1"):
+                release.destination(root, "3-docktermj-1", False)
 
 
 if __name__ == "__main__":
