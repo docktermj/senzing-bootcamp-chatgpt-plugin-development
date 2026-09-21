@@ -20,6 +20,16 @@ def tree_bytes(root: Path) -> dict[str, bytes]:
 
 
 class TransformationContractTests(unittest.TestCase):
+    def test_parent_child_governance_skills_keep_cross_repo_writes_scoped(self):
+        root = Path(sync.__file__).resolve().parents[1]
+        parity = (root / "maintainer-skills/parity-check/SKILL.md").read_text()
+        escalation = (root / "maintainer-skills/escalate-to-parent/SKILL.md").read_text()
+        feedback = (root / "maintainer-skills/feedback-to-issues/SKILL.md").read_text()
+        self.assertIn("UPSTREAM_VERSION", parity)
+        self.assertIn("tagged", parity)
+        self.assertIn("only workflow authorized", escalation)
+        self.assertIn("never writes to another repository", feedback)
+
     def test_reconciliation_reports_an_overlay_conflict(self):
         report = sync.reconciliation_report(
             {"files": {"hooks/hooks.json": {"generated": "old", "output": "old"}}},

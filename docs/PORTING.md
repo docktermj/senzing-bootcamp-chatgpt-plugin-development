@@ -64,5 +64,12 @@ The contract uses JSON syntax, which is valid YAML 1.2, so the updater remains d
 The scheduled GitHub workflow detects a newer upstream release by producing a failing diff. It does
 not publish or merge generated changes automatically; translation changes require human review.
 
+## Parent/child governance
+
+Use `/parity-check` as the only parent-to-child propagation path: it compares the pinned
+provenance with a **tagged** parent release and files local parity work. Use
+`/escalate-to-parent` as the only cross-repository issue path for canonical curriculum problems;
+the child and parent issues must cross-reference each other. Port behavior remains local.
+
 The sync and release paths use one converter. “Initial creation” is simply the first sync into an
 empty repository; maintaining separate creation and update skills would duplicate policy and drift.
