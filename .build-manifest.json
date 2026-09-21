@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "upstream_version": "0.5.3",
+  "upstream_commit": "7e2d484f6cfe9af864762e0a0c95119d483cbb08",
+  "files": {
+    ".codex-plugin/plugin.json": {
+      "generated": "3737329709a736adee87764aeb4a4605a9a5a776a8b64adf730202cb4ec4aeaf",
+      "output": "3737329709a736adee87764aeb4a4605a9a5a776a8b64adf730202cb4ec4aeaf"
+    },
+    ".mcp.json": {
+      "generated": "05f6b5112f9fcf29cc72f52dd60cbde565220dcba82352726f79337dd6c4972a",
+      "output": "05f6b5112f9fcf29cc72f52dd60cbde565220dcba82352726f79337dd6c4972a"
+    },
+    "docs/codex-interaction-contract.md": {
+      "generated": null,
+      "output": "2fa70df48ed872cdef60ccc343fd4e0ac88f8b65832b3e675e15f5ee9b1712cb"
+    },
+    "docs/codex-port.md": {
+      "generated": null,
+      "output": "b7a15a056693092c7dc35a6a95daa352068e9969f143f6f7a4ebb0f40985ad9b"
+    },
+    "docs/examples/bootcamp_recap.example.md": {
+      "generated": "4ea2b9fc86549157b1799bc4a8e7ce78077f06ce7615eb2baa7f9e6edb93a1f6",
+      "output": "4ea2b9fc86549157b1799bc4a8e7ce78077f06ce7615eb2baa7f9e6edb93a1f6"
+    },
+    "docs/examples/bootcamp_recap.example.pdf": {
+      "generated": "0c40b2c418e717b60ebd7feda620ada032b572467bbb6bf3df77b75cba8e14f8",
+      "output": "0c40b2c418e717b60ebd7feda620ada032b572467bbb6bf3df77b75cba8e14f8"
+    },
+    "docs/examples/bootcamp_recap.example.truthset.png": {
+      "generated": "7a463c77b3fe933a15019302be8daaff040eb751df86f6596023b4e3c8715cec",
+      "output": "7a463c77b3fe933a15019302be8daaff040eb751df86f6596023b4e3c8715cec"
+    },
+    "docs/examples/visualizations/data_quality_assessment.png": {
+      "generated": "2172de441c2d09e2202b192d9fde972f920eeba8b68c0a525cc91148e59b6348",
+      "output": "2172de441c2d09e2202b192d9fde972f920eeba8b68c0a525cc91148e59b6348"
+    },
+    "docs/examples/visualizations/results_visualization-cross-source.png": {
+      "generated": "e27bcc5156a3600145c81fb083f4d4c65d4d4174770be88f819fd9ccb321ac27",
+      "output": "e27bcc5156a3600145c81fb083f4d4c65d4d4174770be88f819fd9ccb321ac27"
+    },
+    "docs/examples/visualizations/results_visualization-entity-graph.png": {
+      "generated": "31c99bdc1a0468a4a3a9e108e7a8ef3a4514555d50871ff9c383efc9562c4acc",
+      "output": "31c99bdc1a0468a4a3a9e108e7a8ef3a4514555d50871ff9c383efc9562c4acc"
+    },
+    "docs/examples/visualizations/results_visualization-feature-scores.png": {
+      "generated": "b3fa084e9e6b674187ad840f930d5b8a64c55f52d7b3946694819600a04aa67d",
+      "output": "b3fa084e9e6b674187ad840f930d5b8a64c55f52d7b3946694819600a04aa67d"
+    },
+    "docs/examples/visualizations/results_visualization-match-keys.png": {
+      "generated": "e64b7a9598240d942d28fca90ecae48cdb84393960199ff3aeecc98eb25925d6",
+      "output": "e64b7a9598240d942d28fca90ecae48cdb84393960199ff3aeecc98eb25925d6"
+    },
+    "docs/examples/visualizations/results_visualization-merge-statistics.png": {
+      "generated": "d8a4d6b96d9968fde14271cc555d12452f1d4ab440742aa3503433c620fa3348",
+      "output": "d8a4d6b96d9968fde14271cc555d12452f1d4ab440742aa3503433c620fa3348"
+    },
+    "docs/examples/visualizations/results_visualization-search-probe.png": {
+      "generated": "aadfd8cd8b04ceabfba77cf9d9ef43eb8701ce32670aeb4869b25c032986aadb",
+      "output": "aadfd8cd8b04ceabfba77cf9d9ef43eb8701ce32670aeb4869b25c032986aadb"
+    },
+    "docs/examples/visualizations/truthset_verification-cross-source.png": {
+      "generated": "72626b910d6dbcbb427fca167a687cbf6eca144f3aa2e06e98a687e67565cfc5",
+      "output": "72626b910d6dbcbb427fca167a687cbf6eca144f3aa2e06e98a687e67565cfc5"
+    },
+    "docs/examples/visualizations/truthset_verification-entity-graph.png": {
+      "generated": "5fc096e03f5db8a1d2acc210f22770b11b59202afaf367b7d68fb3fcc4454217",
+      "output": "5fc096e03f5db8a1d2acc210f22770b11b59202afaf367b7d68fb3fcc4454217"
+    },
+    "docs/examples/visualizations/truthset_verification-feature-scores.png": {
+      "generated": "1fe23ca863615374027e292e91168fc4e0299e80c115b55614c1e157e8361868",
+      "output": "1fe23ca863615374027e292e91168fc4e0299e80c115b55614c1e157e8361868"
+    },
+    "docs/examples/visualizations/truthset_verification-match-keys.png": {
+      "generated": "556da8b7d61112314aa7bc83d40850dcfc0290ff88df37ee1dfd51e2afdd8998",
+      "output": "556da8b7d61112314aa7bc83d40850dcfc0290ff88df37ee1dfd51e2afdd8998"
+    },
+    "docs/examples/visualizations/truthset_verification-merge-statistics.png": {
+      "generated": "c51754f10b14884700997a4e212b26741dc26effc69fd59dd884c550d3be1c37",
+      "output": "c51754f10b14884700997a4e212b26741dc26effc69fd59dd884c550d3be1c37"
+    },
+    "docs/examples/visualizations/truthset_verification-search-probe.png": {
+      "generated": "e790a09ba586b6a697e78efb733b75bd957511453410b6b7af1bf26a63a06037",
+      "output": "e790a09ba586b6a697e78efb733b75bd957511453410b6b7af1bf26a63a06037"
+    },
+    "docs/model-selection.md": {
+      "generated": "d5a4e9c554cf42de0e137b3a77c5a52685036c7edd96c3026ec6ca83e5bc60c6",
+      "output": "c36991db03e1f9840f81cd2cb6dc05c6cad0bc5e98c54c58fa9dd04367d01452"
+    },
+    "hooks/README.md": {
+      "generated": "cf766d624648abed9491fba7c04fbadeb2613fd6bae8a7f03846bdba4d0b1a16",
+      "output": "cf766d624648abed9491fba7c04fbadeb2613fd6bae8a7f03846bdba4d0b1a16"
+    },
+    "hooks/hooks.json": {
+      "generated": "f8ca08b9c7bf4ed6ad0641efb0351825998512ff0853fa08bc58cedc34401132",
+      "output": "f8ca08b9c7bf4ed6ad0641efb0351825998512ff0853fa08bc58cedc34401132"
+    },
+    "scripts/brand_tokens.py": {
+      "generated": "a2063c02472ff00dcb6d706768305d5292a4de27a629c3072d73ab378250b122",
+      "output": "a2063c02472ff00dcb6d706768305d5292a4de27a629c3072d73ab378250b122"
+    },
+    "scripts/capture_screenshots.py": {
+      "generated": "52038f00fe5a54bf4dcd260bb0796ee892f660c64f2b59a53152c55555bf01bc",
+      "output": "52038f00fe5a54bf4dcd260bb0796ee892f660c64f2b59a53152c55555bf01bc"
+    },
+    "scripts/checkpoint-tick.py": {
+      "generated": "59f95855b67a51dc167045002ec248042932581a7ead20bde3fee386fd0fa1d7",
+      "output": "59f95855b67a51dc167045002ec248042932581a7ead20bde3fee386fd0fa1d7"
+    },
+    "scripts/docker_lifecycle.py": {
+      "generated": "6183bcd458641fad5da2e3c284175f16a15c3aa99883b22e93f71b81ae793945",
+      "output": "6183bcd458641fad5da2e3c284175f16a15c3aa99883b22e93f71b81ae793945"
+    },
+    "scripts/feedback-capture.py": {
+      "generated": "9842e7bb01c1f6420c640f3e02485cc51e2be5d98065fb3871edcf1fc916c99a",
+      "output": "9842e7bb01c1f6420c640f3e02485cc51e2be5d98065fb3871edcf1fc916c99a"
+    },
+    "scripts/generate_discoveries_pdf.py": {
+      "generated": "900a65b2956425e449fe9f8a4c0def9d88087c321e29478aa4ff87f498ff7360",
+      "output": "900a65b2956425e449fe9f8a4c0def9d88087c321e29478aa4ff87f498ff7360"
+    },
+    "scripts/generate_document_pdf.py": {
+      "generated": "9e3d2807dea1191d49c91623448fb6da12e20b71da6064c6dd3b5533f53b7744",
+      "output": "9e3d2807dea1191d49c91623448fb6da12e20b71da6064c6dd3b5533f53b7744"
+    },
+    "scripts/generate_recap_pdf.py": {
+      "generated": "05bc304d5033f9873ccc1d94be83e432ad6aff3740db1bd9b15c0ee1e5087684",
+      "output": "05bc304d5033f9873ccc1d94be83e432ad6aff3740db1bd9b15c0ee1e5087684"
+    },
+    "scripts/normalize_docs_markdown.py": {
+      "generated": "270fe1b5e8ea3743ae2088cfac24f64565fe4ee8197af373eafd1b3135ef0b87",
+      "output": "270fe1b5e8ea3743ae2088cfac24f64565fe4ee8197af373eafd1b3135ef0b87"
+    },
+    "scripts/package_bootcamp.py": {
+      "generated": "08e27ab18f8b1d202848d9cc045e319460ceacfb0523bb53cf0773988a7f535c",
+      "output": "08e27ab18f8b1d202848d9cc045e319460ceacfb0523bb53cf0773988a7f535c"
+    },
+    "scripts/precompact-recap.py": {
+      "generated": "98a235ffb8c86402e404513587150595465ebb0f861990fb5e4ef86fcfcc62db",
+      "output": "98a235ffb8c86402e404513587150595465ebb0f861990fb5e4ef86fcfcc62db"
+    },
+    "scripts/recap_checkpoint.py": {
+      "generated": "c7ab038d77782defe77147e23cee2315b2ca4d77abca5c28f3d37503ec4322dc",
+      "output": "c7ab038d77782defe77147e23cee2315b2ca4d77abca5c28f3d37503ec4322dc"
+    },
+    "scripts/secret_patterns.py": {
+      "generated": "082c1b2505d9c7c268958c6b32d5d3d91d24a2e65fbca03649377f9d7c800ffc",
+      "output": "082c1b2505d9c7c268958c6b32d5d3d91d24a2e65fbca03649377f9d7c800ffc"
+    },
+    "scripts/senzing_logo_light.png": {
+      "generated": "b98d7261b58f6b14eb99f08271f1c9ac133d97c8617021ab701a176b1559c9de",
+      "output": "b98d7261b58f6b14eb99f08271f1c9ac133d97c8617021ab701a176b1559c9de"
+    },
+    "scripts/senzing_viz_server.py": {
+      "generated": "a318484caeca0e703cd5e811f8cd66e066eda5bcba80adacbd0753507c580896",
+      "output": "a318484caeca0e703cd5e811f8cd66e066eda5bcba80adacbd0753507c580896"
+    },
+    "scripts/session-end.py": {
+      "generated": "27510daa8c0231336d4226f78eb6b1dfdaa7bb94aa2021d03e144b1010f577f0",
+      "output": "27510daa8c0231336d4226f78eb6b1dfdaa7bb94aa2021d03e144b1010f577f0"
+    },
+    "scripts/session-start.py": {
+      "generated": "1a01e0c369ffe458af3a150e7272323452d378924c503b91206ab9a9541ecd6e",
+      "output": "1a01e0c369ffe458af3a150e7272323452d378924c503b91206ab9a9541ecd6e"
+    },
+    "scripts/socratic-controller.py": {
+      "generated": null,
+      "output": "78b4912d7dedebbfe847e837770790747326a5c451330be60a4810541cf2fb03"
+    },
+    "scripts/stop-nudge.py": {
+      "generated": "fc4412708ff8e23713cb5272f85654b71da8ab6b2def2b601012dae1c42da38d",
+      "output": "0124dafacedd0c8284736e34dfc4e70f1510528baf271fad489ec8afdc6700a7"
+    },
+    "scripts/vendor/d3.v7.min.js": {
+      "generated": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539",
+      "output": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+    },
+    "scripts/write-gate.py": {
+      "generated": "645850e58e6ede76f9860f3d0b8a4ac8fd03675275a2d1504d8f9216f8525765",
+      "output": "645850e58e6ede76f9860f3d0b8a4ac8fd03675275a2d1504d8f9216f8525765"
+    },
+    "skills/bootcamp-feedback/SKILL.md": {
+      "generated": null,
+      "output": "f89b3693a47fc01d4b5f6a39941456df31cfe1f509736426cfe44199fd30beed"
+    },
+    "skills/bootcamp-note/SKILL.md": {
+      "generated": null,
+      "output": "28444a16332ca28e7d0d5c832b4625643411dec2deeec79e3affbb67dcbdb52d"
+    },
+    "skills/bootcamp-onboarding/SKILL.md": {
+      "generated": "e655b737b234984507efbea601e42db57b8ef15c96b435b88e902b01d2639aba",
+      "output": "e655b737b234984507efbea601e42db57b8ef15c96b435b88e902b01d2639aba"
+    },
+    "skills/bootcamp-onboarding/feedback.md": {
+      "generated": "adf7b90b39098c1926c8f34a82ec0d15b35c597f8fbdf8ec6eff089b948383e6",
+      "output": "adf7b90b39098c1926c8f34a82ec0d15b35c597f8fbdf8ec6eff089b948383e6"
+    },
+    "skills/bootcamp-onboarding/ground-rules.md": {
+      "generated": "63d392ca1307362a756081ec8f73e85f85917022c6e17ebdbd6a07a60092d8a8",
+      "output": "63d392ca1307362a756081ec8f73e85f85917022c6e17ebdbd6a07a60092d8a8"
+    },
+    "skills/bootcamp-onboarding/module-completion.md": {
+      "generated": "e62116016b7731806ff863351b09a065048b3b81a87900dd3df8f6f815648955",
+      "output": "e62116016b7731806ff863351b09a065048b3b81a87900dd3df8f6f815648955"
+    },
+    "skills/bootcamp-onboarding/notes.md": {
+      "generated": "08c0246a753877e29a28217234dd991467d1bc31186322efa9acdb3745a25485",
+      "output": "08c0246a753877e29a28217234dd991467d1bc31186322efa9acdb3745a25485"
+    },
+    "skills/bootcamp-onboarding/onboarding-flow.md": {
+      "generated": "47284985c1c522f85c14bb0b8163b6c639abdf44b73ca46bacf39cef6b69abd4",
+      "output": "47284985c1c522f85c14bb0b8163b6c639abdf44b73ca46bacf39cef6b69abd4"
+    },
+    "skills/bootcamp-onboarding/packaging.md": {
+      "generated": "08217c3d82a3209cecc1bafadcf81e8fbef72676127573eb09a7ac3f4a722a88",
+      "output": "08217c3d82a3209cecc1bafadcf81e8fbef72676127573eb09a7ac3f4a722a88"
+    },
+    "skills/bootcamp-preparation/SKILL.md": {
+      "generated": "73feac680548a8cc7083899869c44229614fc7fee413273db88b09bb46367dc1",
+      "output": "73feac680548a8cc7083899869c44229614fc7fee413273db88b09bb46367dc1"
+    },
+    "skills/graduate/SKILL.md": {
+      "generated": null,
+      "output": "10d5ba4596dd438be12d1617468ddfb42d272bf645b6b6879c1379a0c3b2d463"
+    },
+    "skills/graduation/SKILL.md": {
+      "generated": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03",
+      "output": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03"
+    },
+    "skills/graduation/database-backup.md": {
+      "generated": "9e98ee4b3ad71e3d5028a35fe4706cb504e4681aeb6d71512379b02087cf51c6",
+      "output": "9e98ee4b3ad71e3d5028a35fe4706cb504e4681aeb6d71512379b02087cf51c6"
+    },
+    "skills/module-00-entity-resolution-concepts/SKILL.md": {
+      "generated": "252a8283ccff7d8acf984b8bfe4d1938cfb4e9b75330a70798f8d6c8f09ec2e4",
+      "output": "252a8283ccff7d8acf984b8bfe4d1938cfb4e9b75330a70798f8d6c8f09ec2e4"
+    },
+    "skills/module-00-entity-resolution-concepts/concepts.md": {
+      "generated": "6fd60db893b855ca17a4d2fc908819751362037587ddb464a7c98b1b8325687a",
+      "output": "6fd60db893b855ca17a4d2fc908819751362037587ddb464a7c98b1b8325687a"
+    },
+    "skills/module-01-business-problem/SKILL.md": {
+      "generated": "fd1232aac54a98cca61c684df37839bd211c2275b0c8a59a683fcb94e63a3158",
+      "output": "fd1232aac54a98cca61c684df37839bd211c2275b0c8a59a683fcb94e63a3158"
+    },
+    "skills/module-01-business-problem/phase1-discovery.md": {
+      "generated": "6b27e99381b0833aeb3237bd8dc51bab019909c921d6dd637cb0b438b589f624",
+      "output": "6b27e99381b0833aeb3237bd8dc51bab019909c921d6dd637cb0b438b589f624"
+    },
+    "skills/module-01-business-problem/phase2-document-confirm.md": {
+      "generated": "ff149bcbcab782efb284344b0fd19bdad1c831e6a351b5240f1f37a4584bb7c1",
+      "output": "ff149bcbcab782efb284344b0fd19bdad1c831e6a351b5240f1f37a4584bb7c1"
+    },
+    "skills/module-02-sdk-setup/SKILL.md": {
+      "generated": "b4ff0228ca5cf0679ae95bac49c82cf527f3c63f03931a81bab2746db5c9e87f",
+      "output": "b4ff0228ca5cf0679ae95bac49c82cf527f3c63f03931a81bab2746db5c9e87f"
+    },
+    "skills/module-03-system-verification/SKILL.md": {
+      "generated": "39302adadbcb15c529d7ef4dd854c4e6519b5f44b702d8da0db9013d7844e4a2",
+      "output": "39302adadbcb15c529d7ef4dd854c4e6519b5f44b702d8da0db9013d7844e4a2"
+    },
+    "skills/module-03-system-verification/phase1-verification.md": {
+      "generated": "3b53f5331b34fba86dd166eec81c8f82ba1b248895499cfcf4dcc04dbaf5f5f1",
+      "output": "3b53f5331b34fba86dd166eec81c8f82ba1b248895499cfcf4dcc04dbaf5f5f1"
+    },
+    "skills/module-03-system-verification/phase2-report-close.md": {
+      "generated": "652d1759516dc868cdeb00c236d83f6fe3f1242b2c9d23808c5c3667246ae494",
+      "output": "652d1759516dc868cdeb00c236d83f6fe3f1242b2c9d23808c5c3667246ae494"
+    },
+    "skills/module-03b-truthset-visualization/SKILL.md": {
+      "generated": "f86496a446c86beaf35bb758a4e61282f6b28b15ac7c931c5a3dc8b56288d039",
+      "output": "f86496a446c86beaf35bb758a4e61282f6b28b15ac7c931c5a3dc8b56288d039"
+    },
+    "skills/module-03b-truthset-visualization/phase1-visualization.md": {
+      "generated": "4028bd60697352ddef1818b04477cd12034d58d443aed5f719b75fd261e40bae",
+      "output": "4028bd60697352ddef1818b04477cd12034d58d443aed5f719b75fd261e40bae"
+    },
+    "skills/module-03b-truthset-visualization/phase2-close.md": {
+      "generated": "c336b230f8800ecefdc5d2eb3883c1495238f9474d6b6b22d11216295937bd75",
+      "output": "c336b230f8800ecefdc5d2eb3883c1495238f9474d6b6b22d11216295937bd75"
+    },
+    "skills/module-03b-truthset-visualization/visualization-api-reference.md": {
+      "generated": "547cc8176b371d5318e21869878d7e4656fd48899cd4a63b680a9403e03e9604",
+      "output": "547cc8176b371d5318e21869878d7e4656fd48899cd4a63b680a9403e03e9604"
+    },
+    "skills/module-04-data-collection/SKILL.md": {
+      "generated": "78d10ca6e3b22d5f50cc31f02f464844ddba43da84ddf195672a0bd4e8cc3f78",
+      "output": "78d10ca6e3b22d5f50cc31f02f464844ddba43da84ddf195672a0bd4e8cc3f78"
+    },
+    "skills/module-05-data-quality-mapping/SKILL.md": {
+      "generated": "bcaac34bb6d875f9a417b83d365626f2b34327b51dc837b4455f86d460b36634",
+      "output": "bcaac34bb6d875f9a417b83d365626f2b34327b51dc837b4455f86d460b36634"
+    },
+    "skills/module-05-data-quality-mapping/phase1-quality-assessment.md": {
+      "generated": "0b0b9e5b8fde9bcc829e51babf5bcc5b584785bcffb0301d3e651b562c8c908b",
+      "output": "0b0b9e5b8fde9bcc829e51babf5bcc5b584785bcffb0301d3e651b562c8c908b"
+    },
+    "skills/module-05-data-quality-mapping/phase2-data-mapping.md": {
+      "generated": "5771776da344170d8ea8eb5bd271f4b64c9c1bd9b6a17e8287f7ea70d846d53c",
+      "output": "5771776da344170d8ea8eb5bd271f4b64c9c1bd9b6a17e8287f7ea70d846d53c"
+    },
+    "skills/module-05-data-quality-mapping/phase3-test-load.md": {
+      "generated": "4a6d07178b684fa9a6457b313995af370727111ede0efe7886cc905e97155a19",
+      "output": "4a6d07178b684fa9a6457b313995af370727111ede0efe7886cc905e97155a19"
+    },
+    "skills/module-06-data-processing/SKILL.md": {
+      "generated": "e8642f0954e0674b598df2aa324a9caa19064cd530ff9664cd31f495f4a56124",
+      "output": "e8642f0954e0674b598df2aa324a9caa19064cd530ff9664cd31f495f4a56124"
+    },
+    "skills/module-06-data-processing/phaseA-build-loading.md": {
+      "generated": "b2bc4bdcbbe1cd3350c9e16291e3365d5da5bd41bf1e318c1a56559694c53869",
+      "output": "b2bc4bdcbbe1cd3350c9e16291e3365d5da5bd41bf1e318c1a56559694c53869"
+    },
+    "skills/module-06-data-processing/phaseB-load-first-source.md": {
+      "generated": "5fe8386b0224a5d4be3486f27128b0a4f4f9e9b600e81d59ebe0a69c173240f1",
+      "output": "5fe8386b0224a5d4be3486f27128b0a4f4f9e9b600e81d59ebe0a69c173240f1"
+    },
+    "skills/module-06-data-processing/phaseC-multi-source.md": {
+      "generated": "556e541128a2fcb04e7eef7068f4e2816f9ad5c2f3568bb8e0da81950c5b3cb7",
+      "output": "556e541128a2fcb04e7eef7068f4e2816f9ad5c2f3568bb8e0da81950c5b3cb7"
+    },
+    "skills/module-06-data-processing/phaseD-validation.md": {
+      "generated": "28cf002682fc8c8dce1ff83e93ecb7bdd77aa431e33014dfdae6545e2ad66779",
+      "output": "28cf002682fc8c8dce1ff83e93ecb7bdd77aa431e33014dfdae6545e2ad66779"
+    },
+    "skills/module-07-query-visualize-discover/SKILL.md": {
+      "generated": "60a96c40b87f4c1ad1eb07e606933ff4a178dbe0c4a2ddf9835fd2525961b1c7",
+      "output": "60a96c40b87f4c1ad1eb07e606933ff4a178dbe0c4a2ddf9835fd2525961b1c7"
+    },
+    "skills/module-07-query-visualize-discover/phase1-query-visualize.md": {
+      "generated": "859086268722d2f2406df0826c8f308a4aa0d05a6c0f99c49e7a1c999b6cafa6",
+      "output": "859086268722d2f2406df0826c8f308a4aa0d05a6c0f99c49e7a1c999b6cafa6"
+    },
+    "skills/module-07-query-visualize-discover/phase2-discover.md": {
+      "generated": "6aa37bff49ffbdd217756bcc2398f782f3b74189ab23be13a82383a29ff9bcb9",
+      "output": "6aa37bff49ffbdd217756bcc2398f782f3b74189ab23be13a82383a29ff9bcb9"
+    },
+    "skills/module-07-query-visualize-discover/phase2b-discover.md": {
+      "generated": "5577c61e00a53604d3574e3fa53141fe0a70bcdeed552bbe18ac5097da046241",
+      "output": "5577c61e00a53604d3574e3fa53141fe0a70bcdeed552bbe18ac5097da046241"
+    },
+    "skills/package-bootcamp/SKILL.md": {
+      "generated": null,
+      "output": "74c921deded9dbb252a2f733c65fdd0934f01b45aeac1d89509692b7f3fae3f9"
+    },
+    "skills/start-bootcamp/SKILL.md": {
+      "generated": null,
+      "output": "28dcb33f3d429011cb0aafbb2ea34ad791bb344ec4667907a9e2097457f34eb8"
+    }
+  }
+}

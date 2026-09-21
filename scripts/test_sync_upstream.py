@@ -20,6 +20,15 @@ def tree_bytes(root: Path) -> dict[str, bytes]:
 
 
 class TransformationContractTests(unittest.TestCase):
+    def test_reconciliation_reports_an_overlay_conflict(self):
+        report = sync.reconciliation_report(
+            {"files": {"hooks/hooks.json": {"generated": "old", "output": "old"}}},
+            {"hooks/hooks.json": "old"},
+            {"hooks/hooks.json": "new"},
+            {"hooks/hooks.json"},
+        )
+        self.assertEqual(report, [("conflict", "hooks/hooks.json")])
+
     def test_new_upstream_version_requires_invariant_register_review(self):
         contract = {"invariant_disposition_register": {"source_version": "1.2.3"}}
         sync.validate_invariant_register("1.2.3", contract)

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import fnmatch
 import json
 import re
@@ -16,6 +17,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "tools" / "bootcamp-transform" / "contract.yaml"
+BUILD_MANIFEST = ROOT / ".build-manifest.json"
 SEMVER = re.compile(r"^(?:v)?(\d+)\.(\d+)\.(\d+)$")
 
 
@@ -289,6 +291,63 @@ def execute_contract(
         shutil.copytree(source, target, dirs_exist_ok=True)
 
 
+def file_hashes(root: Path) -> dict[str, str]:
+    return {
+        path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(root.rglob("*")) if path.is_file()
+    }
+
+
+def read_build_manifest(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {"files": {}}
+    try:
+        value = json.loads(path.read_text())
+    except json.JSONDecodeError as error:
+        raise ContractError(f"E_INVALID_BUILD_MANIFEST: {path}: {error}") from error
+    if not isinstance(value.get("files"), dict):
+        raise ContractError(f"E_INVALID_BUILD_MANIFEST: {path}: missing files")
+    return value
+
+
+def reconciliation_report(previous: dict[str, Any], current: dict[str, str], transformed: dict[str, str], overlays: set[str]) -> list[tuple[str, str]]:
+    """Compare previous generated hashes, current output, and newly transformed upstream."""
+    old_files = previous.get("files", {})
+    report: list[tuple[str, str]] = []
+    for name in sorted(set(old_files) | set(current) | set(transformed)):
+        old = old_files.get(name, {})
+        old_generated = old.get("generated")
+        old_output = old.get("output")
+        new_generated = transformed.get(name)
+        current_output = current.get(name)
+        upstream_changed = old_generated is not None and new_generated != old_generated
+        downstream_changed = old_output is not None and current_output != old_output
+        overlay_owned = name in overlays
+        if upstream_changed and (overlay_owned or downstream_changed):
+            state = "conflict"
+        elif name not in old_files and new_generated is not None:
+            state = "added"
+        elif new_generated is None and old_generated is not None:
+            state = "removed"
+        elif overlay_owned or downstream_changed:
+            state = "preserved"
+        elif upstream_changed:
+            state = "modified"
+        else:
+            continue
+        report.append((state, name))
+    return report
+
+
+def overlay_files(repository_root: Path, contract: dict[str, Any]) -> set[str]:
+    names: set[str] = set()
+    for overlay in contract.get("overlays", []):
+        source = repository_root / overlay["source"]
+        prefix = Path(overlay.get("destination", "."))
+        names.update((prefix / path.relative_to(source)).as_posix() for path in source.rglob("*") if path.is_file())
+    return names
+
+
 def _source_commit(source: Path) -> str:
     try:
         return run("git", "rev-parse", "HEAD", cwd=source).strip()
@@ -313,13 +372,37 @@ def build(
     variables = {"UPSTREAM_VERSION": version, "UPSTREAM_COMMIT": commit}
     target = repository_root / contract["output_root"]
     target.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path = repository_root / BUILD_MANIFEST.name
+    previous = read_build_manifest(manifest_path)
+    current = file_hashes(target) if target.exists() else {}
 
     with tempfile.TemporaryDirectory(prefix="codex-port-", dir=target.parent) as temp:
+        transformed = Path(temp) / "transformed"
         staged = Path(temp) / "plugin"
+        transform_only = {**contract, "overlays": []}
+        execute_contract(upstream_plugin, transformed, repository_root, transform_only, plan, variables)
         execute_contract(upstream_plugin, staged, repository_root, contract, plan, variables)
+        report = reconciliation_report(
+            previous, current, file_hashes(transformed), overlay_files(repository_root, contract)
+        )
+        print("Reconciliation report (before write):")
+        for state, name in report:
+            print(f"- {state}: {name}")
+        if not report:
+            print("- unchanged")
         if target.exists():
             shutil.rmtree(target)
         shutil.copytree(staged, target)
+        generated = file_hashes(transformed)
+
+    output = file_hashes(target)
+    manifest_path.write_text(json.dumps({
+        "schema_version": 1,
+        "upstream_version": version,
+        "upstream_commit": commit,
+        "files": {name: {"generated": generated.get(name), "output": output.get(name)}
+                  for name in sorted(set(generated) | set(output))},
+    }, indent=2) + "\n")
 
     for artifact in contract.get("provenance_artifacts", []):
         path = repository_root / artifact["path"]
