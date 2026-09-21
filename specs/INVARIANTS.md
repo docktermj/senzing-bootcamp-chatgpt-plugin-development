@@ -32,6 +32,7 @@ Every upstream update review MUST evaluate both sets:
 - **Socratic runtime:** CINV-008, CINV-009, CINV-010, CINV-011, CINV-012, CINV-013, CINV-014
 - **Codex host behavior:** CINV-015, CINV-016, CINV-017, CINV-018, CINV-019
 - **Validation and release:** CINV-020, CINV-021, CINV-022, CINV-023
+- **Public propagation:** CINV-024, CINV-025, CINV-026, CINV-027, CINV-028
 
 ## Release source and provenance
 
@@ -115,3 +116,16 @@ Every upstream update review MUST evaluate both sets:
 - **CINV-023** — The packaged archive MUST exclude transient Python caches and local-development
   state while including all generated skills, scripts, documentation, MCP configuration, manifest,
   and trusted-hook definitions required at runtime.
+
+## Public propagation
+
+- **CINV-024** — Public propagation MUST read an exact versioned development release tag and MUST
+  NOT read `main`, `HEAD`, or the development working tree as its payload source.
+- **CINV-025** — Public propagation MUST include all bootcamper runtime files and the public
+  marketplace/README while excluding maintainer-only files and preserving public governance files.
+- **CINV-026** — Public propagation MUST reject a payload that retains a reference to this
+  development repository or uses British rather than American English.
+- **CINV-027** — Public propagation MUST verify the public checkout identity and version, support
+  review before publication, and require an explicit matching tag confirmation before pushing.
+- **CINV-028** — Public propagation MUST target an explicitly named, checked-out review branch;
+  it MUST NOT stage, commit, tag, push, or merge directly on public `main`.
