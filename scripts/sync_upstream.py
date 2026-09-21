@@ -100,6 +100,16 @@ def version_for(source: Path, contract: dict[str, Any]) -> str:
     return version
 
 
+def validate_invariant_register(version: str, contract: dict[str, Any]) -> None:
+    """A new upstream release cannot inherit invariant judgments without review."""
+    register = contract.get("invariant_disposition_register", {})
+    if register.get("source_version") != version:
+        raise ContractError(
+            "E_INVARIANT_REVIEW: upstream version changed; re-review every INV-NNN disposition "
+            "and update invariant_disposition_register"
+        )
+
+
 def _regex_flags(names: str) -> re.RegexFlag:
     flags = re.RegexFlag(0)
     for name in names:
@@ -292,6 +302,7 @@ def build(
 ) -> str:
     contract = load_contract(contract_path)
     version = version_for(source, contract)
+    validate_invariant_register(version, contract)
     normalized_tag = expected_tag.removeprefix("v") if expected_tag else None
     if normalized_tag and normalized_tag != version:
         raise SystemExit(f"Tag {expected_tag} contains manifest version {version}")

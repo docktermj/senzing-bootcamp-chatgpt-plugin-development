@@ -15,6 +15,24 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins/senzing-bootcamp"
 errors: list[str] = []
 
+contract_path = ROOT / "tools/bootcamp-transform/contract.yaml"
+try:
+    contract_source = "\n".join(line for line in contract_path.read_text().splitlines() if not line.lstrip().startswith("#"))
+    register = json.loads(contract_source)["invariant_disposition_register"]
+except (KeyError, OSError, ValueError) as error:
+    errors.append(f"missing or invalid invariant disposition register: {error}")
+else:
+    if register.get("honored") != "all upstream INV-NNN identifiers except entries explicitly preserved_restated or discounted":
+        errors.append("invariant register must explicitly dispose every upstream invariant")
+    for entry in register.get("preserved_restated", []):
+        if not entry.get("id") or not entry.get("mechanism"):
+            errors.append("preserved-restated invariant lacks an id or mechanism")
+    for entry in register.get("discounted", []):
+        if not entry.get("id") or not entry.get("conflictsWith") or not entry.get("resolution"):
+            errors.append("discounted invariant lacks id, conflictsWith, or resolution")
+    if any(entry.get("id") == "INV-052" for entry in register.get("discounted", [])):
+        errors.append("INV-052 must never be discounted")
+
 invariants_path = ROOT / "specs/INVARIANTS.md"
 if not invariants_path.is_file():
     errors.append("missing Codex invariants ledger: specs/INVARIANTS.md")

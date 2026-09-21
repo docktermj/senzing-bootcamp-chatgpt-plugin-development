@@ -4,6 +4,12 @@ Every update MUST preserve the Codex implementation guarantees in
 [`../specs/INVARIANTS.md`](../specs/INVARIANTS.md) as well as the applicable upstream curriculum
 invariants. A failed `CINV-NNN` is a release blocker.
 
+`tools/bootcamp-transform/contract.yaml` contains the invariant-disposition register. Every
+upstream `INV-NNN` is honored unless it has an explicit `preserved_restated` Codex mechanism or a
+justified `discounted` disposition (`conflictsWith` plus `resolution`). A newer upstream version
+fails the build with `E_INVARIANT_REVIEW` until a maintainer re-reviews the register; security,
+portability, and correctness guarantees such as `INV-052` must never be discounted.
+
 ## Version contract
 
 `scripts/sync_upstream.py` discovers the highest stable SemVer tag in the production
