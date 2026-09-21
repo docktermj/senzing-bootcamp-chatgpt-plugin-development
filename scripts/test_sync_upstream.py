@@ -20,6 +20,12 @@ def tree_bytes(root: Path) -> dict[str, bytes]:
 
 
 class TransformationContractTests(unittest.TestCase):
+    def test_new_upstream_version_requires_invariant_register_review(self):
+        contract = {"invariant_disposition_register": {"source_version": "1.2.3"}}
+        sync.validate_invariant_register("1.2.3", contract)
+        with self.assertRaisesRegex(sync.ContractError, "E_INVARIANT_REVIEW"):
+            sync.validate_invariant_register("1.2.4", contract)
+
     def test_repository_contract_is_the_only_home_for_transform_rules(self):
         contract = sync.load_contract()
         updater = Path(sync.__file__).read_text()

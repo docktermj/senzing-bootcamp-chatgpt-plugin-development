@@ -10,6 +10,16 @@
     "source_root": "plugins/senzing-bootcamp",
     "version_file": ".claude-plugin/plugin.json"
   },
+  "invariant_disposition_register": {
+    "source_version": "0.5.3",
+    "source_commit": "7e2d484f6cfe9af864762e0a0c95119d483cbb08",
+    "honored": "all upstream INV-NNN identifiers except entries explicitly preserved_restated or discounted",
+    "preserved_restated": [
+      {"id": "INV-052", "mechanism": "Codex hook commands resolve bundled scripts through install-time `${PLUGIN_ROOT}` absolute paths and invoke only quoted `python3` script paths; CINV-017 and check_port.py enforce it."},
+      {"id": "INV-158", "mechanism": "Codex-native terminology and visible host controls replace Claude-specific interface names and commands; CINV-019 and the ground-rules transformation enforce it."}
+    ],
+    "discounted": []
+  },
   "output_root": "plugins/senzing-bootcamp",
   "rules": [
     {"id": "copy-mcp-config", "kind": "copy", "match": [".mcp.json"], "reason": "The Codex plugin uses the version-matched upstream MCP configuration."},
