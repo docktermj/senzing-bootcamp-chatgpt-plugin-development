@@ -51,7 +51,8 @@ The contract uses JSON syntax, which is valid YAML 1.2, so the updater remains d
    `python3 scripts/check_port.py`, `python3 -m unittest scripts.test_sync_upstream`, and the
    upstream-derived script tests that are safe locally.
 4. Install the repo marketplace and plugin locally; use a cache-busted build version for iteration.
-5. Start a new Codex task and execute the manual scenarios in `docs/MANUAL_TESTING.md`.
+5. Start a new Codex task, execute the host-behavior checklist in `docs/test-checklist.md`, and
+   commit its per-version outcome record from `docs/test-records/` with the release evidence.
 6. Restore the exact upstream version, rebuild, validate, package, tag, and publish.
 
 The scheduled GitHub workflow detects a newer upstream release by producing a failing diff. It does
