@@ -4,6 +4,9 @@ Every update MUST preserve the Codex implementation guarantees in
 [`../specs/INVARIANTS.md`](../specs/INVARIANTS.md) as well as the applicable upstream curriculum
 invariants. A failed `CINV-NNN` is a release blocker.
 
+[`UNIFORM_PORTING_FRAMEWORK.md`](UNIFORM_PORTING_FRAMEWORK.md) maps the shared Claude-to-host
+framework and its Codex release gates. It is the maintainer entry point for evaluating an update.
+
 `tools/bootcamp-transform/contract.yaml` contains the invariant-disposition register. Every
 upstream `INV-NNN` is honored unless it has an explicit `preserved_restated` Codex mechanism or a
 justified `discounted` disposition (`conflictsWith` plus `resolution`). A newer upstream version
