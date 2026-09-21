@@ -30,6 +30,14 @@ class TransformationContractTests(unittest.TestCase):
         self.assertIn("only workflow authorized", escalation)
         self.assertIn("never writes to another repository", feedback)
 
+    def test_uniform_framework_covers_all_nine_components(self):
+        root = Path(sync.__file__).resolve().parents[1]
+        framework = (root / "docs/UNIFORM_PORTING_FRAMEWORK.md").read_text()
+        for component in ("A. Tagged provenance", "B. Declarative contract", "C. Invariant dispositions",
+                          "D. Host-native invariants", "E. Mechanical checks", "F. Reconciliation",
+                          "G. Recorded host tests", "H. Determinism", "I. Cross-repo governance"):
+            self.assertIn(component, framework)
+
     def test_reconciliation_reports_an_overlay_conflict(self):
         report = sync.reconciliation_report(
             {"files": {"hooks/hooks.json": {"generated": "old", "output": "old"}}},
