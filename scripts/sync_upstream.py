@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
-"""Build the Codex plugin from a versioned Senzing Claude-plugin tag."""
+"""Build the Codex plugin by executing its declarative transformation contract."""
 
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import json
 import re
 import shutil
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLUGIN = ROOT / "plugins" / "senzing-bootcamp"
-OVERLAY = ROOT / "port" / "overlay"
-UPSTREAM_URL = "https://github.com/Senzing/senzing-bootcamp-claude-plugin.git"
+CONTRACT_PATH = ROOT / "tools" / "bootcamp-transform" / "contract.yaml"
 SEMVER = re.compile(r"^(?:v)?(\d+)\.(\d+)\.(\d+)$")
+
+
+class ContractError(ValueError):
+    """A deterministic contract or source-tree violation."""
 
 
 def run(*args: str, cwd: Path | None = None) -> str:
@@ -24,8 +28,30 @@ def run(*args: str, cwd: Path | None = None) -> str:
     return result.stdout
 
 
-def latest_tag() -> str:
-    output = run("git", "ls-remote", "--tags", "--refs", UPSTREAM_URL)
+def load_contract(path: Path = CONTRACT_PATH) -> dict[str, Any]:
+    """Load the dependency-free JSON form of the repository's YAML 1.2 contract."""
+    source = "\n".join(
+        line for line in path.read_text().splitlines() if not line.lstrip().startswith("#")
+    )
+    try:
+        contract = json.loads(source)
+    except json.JSONDecodeError as error:
+        raise ContractError(f"E_INVALID_CONTRACT: {path}: {error}") from error
+    if contract.get("contract_version") != 1:
+        raise ContractError("E_INVALID_CONTRACT: contract_version must be 1")
+    if not contract.get("rules"):
+        raise ContractError("E_INVALID_CONTRACT: at least one file rule is required")
+    for rule in contract["rules"]:
+        if rule.get("kind") not in {"copy", "ignore"}:
+            raise ContractError(f"E_INVALID_CONTRACT: unsupported file rule {rule.get('kind')!r}")
+        if not rule.get("reason"):
+            raise ContractError(f"E_INVALID_CONTRACT: file rule {rule.get('id')!r} needs a reason")
+    return contract
+
+
+def latest_tag(contract: dict[str, Any]) -> str:
+    upstream_url = str(contract["upstream"]["repository"])
+    output = run("git", "ls-remote", "--tags", "--refs", upstream_url)
     tags: list[tuple[tuple[int, int, int], str]] = []
     for line in output.splitlines():
         tag = line.rsplit("refs/tags/", 1)[-1]
@@ -37,320 +63,257 @@ def latest_tag() -> str:
     return max(tags)[1]
 
 
-def clone_tag(tag: str, destination: Path) -> Path:
-    run("git", "clone", "--depth", "1", "--branch", tag, UPSTREAM_URL, str(destination))
+def clone_tag(contract: dict[str, Any], tag: str, destination: Path) -> Path:
+    upstream_url = str(contract["upstream"]["repository"])
+    run("git", "clone", "--depth", "1", "--branch", tag, upstream_url, str(destination))
     return destination
 
 
-def version_for(source: Path) -> str:
-    manifest = source / "plugins/senzing-bootcamp/.claude-plugin/plugin.json"
+def _matches(path: str, patterns: str | list[str]) -> bool:
+    if isinstance(patterns, str):
+        patterns = [patterns]
+    return any(fnmatch.fnmatchcase(path, pattern) for pattern in patterns)
+
+
+def plan_upstream(upstream_plugin: Path, contract: dict[str, Any]) -> list[tuple[Path, dict[str, Any]]]:
+    """Classify every upstream file exactly once before any output is written."""
+    plan: list[tuple[Path, dict[str, Any]]] = []
+    for source_path in sorted(path for path in upstream_plugin.rglob("*") if path.is_file()):
+        relative = source_path.relative_to(upstream_plugin)
+        relative_name = relative.as_posix()
+        matches = [rule for rule in contract["rules"] if _matches(relative_name, rule["match"])]
+        if not matches:
+            raise ContractError(f"E_UNMATCHED_FILE: {relative_name}")
+        if len(matches) != 1:
+            identifiers = ", ".join(str(rule.get("id", "<unnamed>")) for rule in matches)
+            raise ContractError(f"E_AMBIGUOUS_FILE: {relative_name}: {identifiers}")
+        plan.append((relative, matches[0]))
+    return plan
+
+
+def version_for(source: Path, contract: dict[str, Any]) -> str:
+    upstream = contract["upstream"]
+    manifest = source / upstream["source_root"] / upstream["version_file"]
     version = str(json.loads(manifest.read_text())["version"])
     if not SEMVER.fullmatch(version):
         raise SystemExit(f"Upstream manifest version is not stable SemVer: {version}")
     return version
 
 
-REPLACEMENTS = (
-    ("${CLAUDE_PLUGIN_ROOT}", "<plugin-root>"),
-    ("CLAUDE_PLUGIN_ROOT", "plugin-root path"),
-    (".claude-plugin", ".codex-plugin"),
-    ("Claude Code CLI", "Codex CLI"),
-    ("Claude Desktop", "Codex desktop app"),
-    ("the Claude web app", "Codex cloud"),
-    ("a Claude IDE extension", "the Codex IDE"),
-    ("your Claude IDE extension", "the Codex IDE"),
-    ("Claude Code", "Codex"),
-    ("Claude interface", "Codex interface"),
-    ("Claude plugin", "Codex plugin"),
-    ("Claude session", "Codex task"),
-    ("Claude-interface", "Codex-interface"),
-    ("Claude app", "Codex app"),
-    ("Claude IDE extension", "Codex IDE"),
-    ("Opus 5", "a high-capability Codex model"),
-    ("Sonnet 5", "a balanced Codex model"),
-    ("Haiku 4.5", "a fast Codex model"),
-    ("Fable 5", "the highest-capability available Codex model"),
-    ("`/model opus` + `/effort high`", "a high-capability Codex model at high reasoning effort"),
-    ("`/model sonnet` + `/effort medium`", "a balanced Codex model at medium reasoning effort"),
-    ("`/model sonnet` + `/effort high`", "a balanced Codex model at high reasoning effort"),
-    ("`/model opus`", "the model control"),
-    ("`/model sonnet`", "the model control"),
-    ("the bootcamper's Claude", "the bootcamper's Codex"),
-    ("This is the Claude-plugin port", "This is the Codex-plugin port"),
-    ('e.g. "claude-opus-5[1m] / high"', 'e.g. "configured Codex model / high"'),
-)
+def _regex_flags(names: str) -> re.RegexFlag:
+    flags = re.RegexFlag(0)
+    for name in names:
+        try:
+            flags |= {"i": re.I, "m": re.M, "s": re.S, "x": re.X}[name]
+        except KeyError as error:
+            raise ContractError(f"E_INVALID_CONTRACT: unsupported regex flag {name!r}") from error
+    return flags
 
 
-def port_text(path: Path) -> None:
-    original = path.read_text()
-    text = original
-    for old, new in REPLACEMENTS:
-        text = text.replace(old, new)
-    if text != original:
-        notice = "Adapted for Codex from the version-matched Senzing upstream release."
-        if path.suffix == ".md":
-            if text.startswith("---\n"):
-                marker = text.find("\n---\n", 4)
-                if marker != -1:
-                    marker += len("\n---\n")
-                    text = text[:marker] + f"\n<!-- {notice} -->\n" + text[marker:]
-            else:
-                text = f"<!-- {notice} -->\n\n" + text
-        elif path.suffix == ".py":
-            lines = text.splitlines(keepends=True)
-            insertion = 1 if lines and lines[0].startswith("#!") else 0
-            lines.insert(insertion, f"# {notice}\n")
-            text = "".join(lines)
-    path.write_text(text)
+def _add_notice(path: Path, text: str, notice: str) -> str:
+    if path.suffix == ".md":
+        if text.startswith("---\n"):
+            marker = text.find("\n---\n", 4)
+            if marker != -1:
+                marker += len("\n---\n")
+                return text[:marker] + f"\n<!-- {notice} -->\n" + text[marker:]
+        return f"<!-- {notice} -->\n\n" + text
+    if path.suffix == ".py":
+        lines = text.splitlines(keepends=True)
+        insertion = 1 if lines and lines[0].startswith("#!") else 0
+        lines.insert(insertion, f"# {notice}\n")
+        return "".join(lines)
+    return text
 
 
-def replace_section(path: Path, start: str, end: str, replacement: str) -> None:
-    text = path.read_text()
-    pattern = re.compile(rf"(?ms)^{re.escape(start)}\n.*?(?=^{re.escape(end)}\n)")
-    updated, count = pattern.subn(replacement.rstrip() + "\n\n", text, count=1)
-    if count != 1:
-        raise SystemExit(f"Expected one section from {start!r} to {end!r} in {path}")
-    path.write_text(updated)
+def _apply_text_operation(path: Path, text: str, operation: dict[str, Any]) -> str:
+    kind = operation["kind"]
+    if kind == "literal":
+        return text.replace(operation["old"], operation["new"])
+    if kind == "regex":
+        return re.sub(
+            operation["pattern"], operation["replacement"], text,
+            count=int(operation.get("count", 0)), flags=_regex_flags(operation.get("flags", "")),
+        )
+    if kind == "section":
+        pattern = re.compile(
+            rf"(?ms)^{re.escape(operation['start'])}\n.*?(?=^{re.escape(operation['end'])}\n)"
+        )
+        updated, count = pattern.subn(operation["replacement"].rstrip() + "\n\n", text, count=1)
+        if count != 1:
+            raise ContractError(
+                f"E_TRANSFORM_MISMATCH: {path}: expected section {operation['start']!r}"
+            )
+        return updated
+    if kind == "insert-before-first-heading":
+        if operation["unless_contains"] in text:
+            return text
+        marker = text.find("\n## ")
+        if marker == -1:
+            raise ContractError(f"E_TRANSFORM_MISMATCH: {path}: expected a section heading")
+        return text[:marker] + operation["value"] + text[marker:]
+    raise ContractError(f"E_INVALID_CONTRACT: unsupported text operation {kind!r}")
 
 
-def copy_tree(source: Path, destination: Path) -> None:
-    if destination.exists():
-        shutil.rmtree(destination)
-    shutil.copytree(source, destination)
+def apply_text_transforms(destination: Path, contract: dict[str, Any]) -> None:
+    for transform in contract.get("text_transforms", []):
+        for path in sorted(file for file in destination.rglob("*") if file.is_file()):
+            relative_name = path.relative_to(destination).as_posix()
+            if not _matches(relative_name, transform["match"]):
+                continue
+            original = path.read_text()
+            text = original
+            for operation in transform.get("operations", []):
+                text = _apply_text_operation(path, text, operation)
+            if text != original and transform.get("notice_on_change"):
+                text = _add_notice(path, text, transform["notice_on_change"])
+            path.write_text(text)
 
 
-def build(source: Path, expected_tag: str | None) -> str:
-    version = version_for(source)
+def _replace_strings(value: Any, old: str, new: str) -> Any:
+    if isinstance(value, str):
+        return value.replace(old, new)
+    if isinstance(value, list):
+        return [_replace_strings(item, old, new) for item in value]
+    if isinstance(value, dict):
+        return {key: _replace_strings(item, old, new) for key, item in value.items()}
+    return value
+
+
+def _nodes_at_path(value: Any, parts: list[str]) -> list[Any]:
+    nodes = [value]
+    for part in parts:
+        selected: list[Any] = []
+        for node in nodes:
+            if part == "*":
+                if isinstance(node, dict):
+                    selected.extend(node.values())
+                elif isinstance(node, list):
+                    selected.extend(node)
+            elif isinstance(node, dict) and part in node:
+                selected.append(node[part])
+            elif isinstance(node, list) and part.isdigit() and int(part) < len(node):
+                selected.append(node[int(part)])
+        nodes = selected
+    return nodes
+
+
+def _apply_json_operation(value: Any, operation: dict[str, Any]) -> Any:
+    kind = operation["kind"]
+    if kind == "replace-strings":
+        return _replace_strings(value, operation["old"], operation["new"])
+    nodes = _nodes_at_path(value, operation["path"])
+    if not nodes:
+        raise ContractError(f"E_TRANSFORM_MISMATCH: JSON path {operation['path']!r} matched nothing")
+    if kind == "set-field-by-substring":
+        for node in nodes:
+            if not isinstance(node, dict):
+                continue
+            source = str(node.get(operation["source_field"], ""))
+            for needle, replacement in operation["mapping"].items():
+                if needle in source:
+                    node[operation["target_field"]] = replacement
+                    break
+        return value
+    if kind == "prepend":
+        for node in nodes:
+            if not isinstance(node, list):
+                raise ContractError("E_TRANSFORM_MISMATCH: JSON prepend target is not a list")
+            node.insert(0, operation["value"])
+        return value
+    raise ContractError(f"E_INVALID_CONTRACT: unsupported JSON operation {kind!r}")
+
+
+def apply_json_transforms(destination: Path, contract: dict[str, Any]) -> None:
+    for transform in contract.get("json_transforms", []):
+        path = destination / transform["match"]
+        if not path.is_file():
+            raise ContractError(f"E_TRANSFORM_MISMATCH: missing JSON transform target {transform['match']}")
+        value: Any = json.loads(path.read_text())
+        for operation in transform.get("operations", []):
+            value = _apply_json_operation(value, operation)
+        path.write_text(json.dumps(value, indent=2) + "\n")
+
+
+def _expand(value: Any, variables: dict[str, str]) -> Any:
+    if isinstance(value, str):
+        for name, replacement in variables.items():
+            value = value.replace(f"${{{name}}}", replacement)
+        return value
+    if isinstance(value, list):
+        return [_expand(item, variables) for item in value]
+    if isinstance(value, dict):
+        return {key: _expand(item, variables) for key, item in value.items()}
+    return value
+
+
+def execute_contract(
+    upstream_plugin: Path, destination: Path, repository_root: Path,
+    contract: dict[str, Any], plan: list[tuple[Path, dict[str, Any]]], variables: dict[str, str],
+) -> None:
+    """Execute a preflighted contract into an empty destination."""
+    destination.mkdir(parents=True)
+    for relative, rule in plan:
+        if rule["kind"] == "ignore":
+            continue
+        if rule["kind"] != "copy":
+            raise ContractError(f"E_INVALID_CONTRACT: unsupported file rule {rule['kind']!r}")
+        target = destination / rule.get("destination", relative.as_posix())
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(upstream_plugin / relative, target)
+
+    apply_text_transforms(destination, contract)
+    apply_json_transforms(destination, contract)
+
+    for artifact in contract.get("generated_artifacts", []):
+        target = destination / artifact["path"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        value = _expand(artifact["value"], variables)
+        if artifact["format"] != "json":
+            raise ContractError(f"E_INVALID_CONTRACT: unsupported artifact format {artifact['format']!r}")
+        target.write_text(json.dumps(value, indent=2) + "\n")
+
+    for overlay in contract.get("overlays", []):
+        source = repository_root / overlay["source"]
+        target = destination / overlay.get("destination", ".")
+        shutil.copytree(source, target, dirs_exist_ok=True)
+
+
+def _source_commit(source: Path) -> str:
+    try:
+        return run("git", "rev-parse", "HEAD", cwd=source).strip()
+    except subprocess.CalledProcessError:
+        return "unknown"
+
+
+def build(
+    source: Path, expected_tag: str | None, *, repository_root: Path = ROOT,
+    contract_path: Path = CONTRACT_PATH,
+) -> str:
+    contract = load_contract(contract_path)
+    version = version_for(source, contract)
     normalized_tag = expected_tag.removeprefix("v") if expected_tag else None
     if normalized_tag and normalized_tag != version:
         raise SystemExit(f"Tag {expected_tag} contains manifest version {version}")
 
-    upstream_plugin = source / "plugins/senzing-bootcamp"
-    PLUGIN.mkdir(parents=True, exist_ok=True)
-    for name in ("skills", "scripts", "docs", "hooks"):
-        copy_tree(upstream_plugin / name, PLUGIN / name)
-    shutil.copy2(upstream_plugin / ".mcp.json", PLUGIN / ".mcp.json")
+    upstream_plugin = source / contract["upstream"]["source_root"]
+    plan = plan_upstream(upstream_plugin, contract)
+    commit = _source_commit(source)
+    variables = {"UPSTREAM_VERSION": version, "UPSTREAM_COMMIT": commit}
+    target = repository_root / contract["output_root"]
+    target.parent.mkdir(parents=True, exist_ok=True)
 
-    for path in PLUGIN.rglob("*"):
-        if path.is_file() and path.suffix in {".md", ".py", ".json"}:
-            port_text(path)
+    with tempfile.TemporaryDirectory(prefix="codex-port-", dir=target.parent) as temp:
+        staged = Path(temp) / "plugin"
+        execute_contract(upstream_plugin, staged, repository_root, contract, plan, variables)
+        if target.exists():
+            shutil.rmtree(target)
+        shutil.copytree(staged, target)
 
-    # Codex discovers hooks/hooks.json automatically. Use its native plugin-root variable and add
-    # visible status messages; do not rely on prose-only substitutes for lifecycle enforcement.
-    hooks_path = PLUGIN / "hooks/hooks.json"
-    hooks = json.loads((upstream_plugin / "hooks/hooks.json").read_text())
-    hook_status = {
-        "session-start.py": "Restoring Senzing Bootcamp context",
-        "feedback-capture.py": "Checking bootcamp controls",
-        "checkpoint-tick.py": "Preserving bootcamp progress",
-        "write-gate.py": "Checking bootcamp write safety",
-        "stop-nudge.py": "Checking for the next bootcamp question",
-        "precompact-recap.py": "Preserving the bootcamp recap",
-        "session-end.py": "Preserving the bootcamp session",
-    }
-    for groups in hooks.get("hooks", {}).values():
-        for group in groups:
-            for handler in group.get("hooks", []):
-                command = handler.get("command", "")
-                handler["command"] = command.replace("${CLAUDE_PLUGIN_ROOT}", "${PLUGIN_ROOT}")
-                for script_name, status_message in hook_status.items():
-                    if script_name in command:
-                        handler["statusMessage"] = status_message
-                        break
-    controller = {
-        "type": "command",
-        "command": 'python3 "${PLUGIN_ROOT}/scripts/socratic-controller.py"',
-        "statusMessage": "Continuing the Senzing Bootcamp",
-        "additionalContextLimit": 4000,
-    }
-    prompt_groups = hooks.setdefault("hooks", {}).setdefault("UserPromptSubmit", [])
-    if prompt_groups:
-        prompt_groups[0].setdefault("hooks", []).insert(0, controller)
-    else:
-        prompt_groups.append({"hooks": [controller]})
-    hooks_path.write_text(json.dumps(hooks, indent=2) + "\n")
-    hooks_readme = PLUGIN / "hooks/README.md"
-    hooks_text = hooks_readme.read_text()
-    hooks_text = hooks_text.replace(
-        "| `UserPromptSubmit` | `scripts/feedback-capture.py`",
-        "| `UserPromptSubmit` | `scripts/socratic-controller.py` | to restore the active module "
-        "on every answer and keep automatic work moving until the next Socratic question. |\n"
-        "| `UserPromptSubmit` | `scripts/feedback-capture.py`",
-    )
-    hooks_text = hooks_text.replace(
-        "Environment-variable substitution (`<plugin-root>`) is performed by Claude\n"
-        "Code identically on all three platforms.",
-        "Codex substitutes `${PLUGIN_ROOT}` in each hook command on all three platforms.",
-    )
-    hooks_text = hooks_text.replace(
-        "- **Hooks ship with the plugin.** There is no hook-install step (this replaces the\n"
-        "  Kiro `install_hooks.py` / `.kiro/hooks/` workflow).",
-        "- **Hooks ship with the plugin.** Codex discovers `hooks/hooks.json` automatically; there "
-        "is no hook-install step. Because bundled hooks are non-managed, the bootcamper must "
-        "review and trust the current definitions before Codex runs them.",
-    )
-    hooks_text = hooks_text.replace(
-        "Detection scans the whole\n  current turn and biases toward silence if the turn's text is "
-        "not yet on disk, and the\n  block reason tells the model to repeat nothing it has already "
-        "asked — so a false block\n  can never surface as a duplicate question.",
-        "Detection uses Codex's stable `last_assistant_message` Stop-hook field, and the block "
-        "reason tells the model to repeat nothing it has already asked.",
-    )
-    hooks_text = hooks_text.replace(
-        "question, and it biases toward silence when the transcript cannot be read\n"
-        "decisively — a missed nudge is far cheaper than a duplicated question.",
-        "question. It reads Codex's stable `last_assistant_message` field rather than parsing the "
-        "unstable transcript format.",
-    )
-    hooks_text = re.sub(
-        r"A `claude-code-guide` investigation.*?finding is recorded here so it is not re-investigated\.",
-        "The Codex interface controls tool-result rendering. The plugin cannot suppress that "
-        "host-owned UI, so it minimizes administrative write frequency and uses concise commentary "
-        "to keep the bootcamper informed.",
-        hooks_text,
-        flags=re.S,
-    )
-    hooks_readme.write_text(hooks_text)
-
-    ground_rules = PLUGIN / "skills/bootcamp-onboarding/ground-rules.md"
-    ground_text = ground_rules.read_text()
-    contract_heading = "## Codex turn execution (mandatory)"
-    if contract_heading not in ground_text:
-        first_heading = ground_text.find("\n## ")
-        if first_heading == -1:
-            raise SystemExit(f"Expected a section heading in {ground_rules}")
-        contract = """
-## Codex turn execution (mandatory)
-
-Read and follow `../../docs/codex-interaction-contract.md` before executing a bootcamp step. Codex
-commentary is intermediate progress, not a turn boundary. After status-only or other non-yielding
-work, continue in the same turn until the next skill-defined `👉` question. Before every final
-response, perform that document's turn-close audit.
-"""
-        ground_text = ground_text[:first_heading] + contract + ground_text[first_heading:]
-    ground_text = ground_text.replace(
-        "**Model/effort tuning.** Model/effort is a session-level choice the bootcamper controls with\n"
-        "  `/model` and `/effort` (it persists for the session; per-skill frontmatter would not — see\n"
-        "  `../../docs/model-selection.md`).",
-        "**Model/effort tuning.** Model and reasoning effort are host-level choices the bootcamper "
-        "controls with the visible Codex controls (see `../../docs/model-selection.md`).",
-    )
-    ground_text = ground_text.replace(
-        "the plugin ships\n  skills, hooks and commands, none of which reach their interface.",
-        "the plugin ships skills, lifecycle hooks, scripts, and an MCP configuration, none of "
-        "which reach their interface.",
-    )
-    ground_rules.write_text(ground_text)
-    replace_section(
-        ground_rules,
-        "## Naming the Codex interface (INV-158)",
-        "## Visual deliverables (Senzing brand)",
-        """## Naming the Codex interface (INV-158)
-
-Call the desktop application the **Codex desktop app**, its coding workspace the **Codex IDE**,
-and the terminal client the **Codex CLI**. When the exact host is unknown, say **your Codex
-interface**. Do not invent interface-specific commands or controls.""",
-    )
-    replace_section(
-        ground_rules,
-        "## Module start banners and transitions",
-        "## Closing questions",
-        """## Module start banners and transitions
-
-At each selected module boundary, show its banner, journey map, before/after framing, numbered step
-overview, and estimated time before doing module work. Read `../../docs/model-selection.md` before
-giving model guidance. A model change is optional and controlled by the bootcamper; never claim to
-have changed it. Use the visible Codex model and reasoning controls when available, and do not
-invent Codex CLI slash commands.
-
-Ask at most one 👉 question in a turn. If a model-change question is warranted, it consumes that
-turn's question; resume the module after the bootcamper answers. Checkpoint only work actually
-completed, using the progress rules above. Skip unselected optional modules and preserve the module
-order recorded in the bootcamp preferences.""",
-    )
-    graduation = PLUGIN / "skills/graduation/SKILL.md"
-    replace_section(
-        graduation,
-        "## Best-value model/effort prompt",
-        "## Pre-checks",
-        """## Best-value model/effort prompt
-
-Graduation is a long, correctness-sensitive stage. Read `../../docs/model-selection.md` and, when
-helpful, offer a capable Codex model at high reasoning effort using the host's visible controls.
-The switch is optional, the plugin cannot perform it, and the question consumes the turn's single
-👉 question. If the bootcamper declines, continue without pressure. If current settings cannot be
-observed, say so rather than guessing.""",
-    )
-
-    onboarding = PLUGIN / "skills/bootcamp-onboarding/onboarding-flow.md"
-    text = onboarding.read_text()
-    text = re.sub(
-        r"(?ms)\*\*Resolve the manifest in this order.*?Every other step needing the plugin version resolves it the same way.*?\n\n",
-        "**Resolve the manifest as `<this-skill-dir>/../../.codex-plugin/plugin.json`.** This "
-        "skill-relative path identifies the installed plugin deterministically. Never search the "
-        "filesystem for another manifest. Use `Unknown` if that exact file cannot be read.\n\n",
-        text,
-        count=1,
-    )
-    text = re.sub(
-        r"\(The Kiro Power installed Agent Hooks here.*?no hook-install step\.\)",
-        "Codex discovers the bundled lifecycle hooks in `hooks/hooks.json`; the bootcamper must "
-        "review and trust them when enabling the plugin. See `../../docs/codex-port.md`.",
-        text,
-        count=1,
-        flags=re.S,
-    )
-    onboarding.write_text(text)
-
-    phase3 = PLUGIN / "skills/module-05-data-quality-mapping/phase3-test-load.md"
-    phase3_text = phase3.read_text()
-    phase3_text = re.sub(
-        r"(?ms)## Hooks\n\nIn the Codex plugin, bootcamp hooks ship.*?(?=^## |\Z)",
-        "## Lifecycle checks\n\nCodex discovers the bundled bootcamp hooks after the "
-        "bootcamper reviews and trusts them. The skill still performs closing-question, "
-        "checkpoint, and write-safety checks explicitly according to the bootcamp ground rules; "
-        "the hooks are the mechanical safety net.\n\n",
-        phase3_text,
-        count=1,
-    )
-    phase3.write_text(phase3_text)
-
-    shutil.copytree(OVERLAY, PLUGIN, dirs_exist_ok=True)
-    manifest = {
-        "name": "senzing-bootcamp",
-        "version": version,
-        "description": "Guided bootcamp for learning Senzing entity resolution with Codex, from first demo to production deployment.",
-        "author": {"name": "Senzing", "url": "https://senzing.com"},
-        "homepage": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
-        "repository": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
-        "license": "Apache-2.0",
-        "keywords": ["senzing", "bootcamp", "entity-resolution", "tutorial", "guided-learning"],
-        "skills": "./skills/",
-        "mcpServers": "./.mcp.json",
-        "interface": {
-            "displayName": "Senzing Bootcamp",
-            "shortDescription": "Learn Senzing entity resolution in Codex.",
-            "longDescription": "A guided, hands-on Senzing entity-resolution bootcamp for the Codex IDE.",
-            "developerName": "Senzing",
-            "category": "Developer Tools",
-            "capabilities": ["Interactive", "Write"],
-            "websiteURL": "https://senzing.com",
-            "defaultPrompt": [
-                "Start the Senzing Bootcamp.",
-                "Resume my Senzing Bootcamp.",
-                "Check my bootcamp progress."
-            ]
-        }
-    }
-    manifest_path = PLUGIN / ".codex-plugin" / "plugin.json"
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
-    (ROOT / "UPSTREAM_VERSION").write_text(version + "\n")
-    try:
-        commit = run("git", "rev-parse", "HEAD", cwd=source).strip()
-    except subprocess.CalledProcessError:
-        commit = "unknown"
-    (ROOT / "UPSTREAM_COMMIT").write_text(commit + "\n")
+    for artifact in contract.get("provenance_artifacts", []):
+        path = repository_root / artifact["path"]
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(_expand(artifact["value"], variables))
     return version
 
 
@@ -359,16 +322,20 @@ def main() -> None:
     parser.add_argument("--tag", help="Stable SemVer tag; defaults to latest upstream tag")
     parser.add_argument("--source-dir", type=Path, help="Use an already checked-out upstream tree")
     args = parser.parse_args()
+    contract = load_contract()
 
-    if args.source_dir:
-        version = build(args.source_dir.resolve(), args.tag)
-    else:
-        tag = args.tag or latest_tag()
-        if not SEMVER.fullmatch(tag):
-            raise SystemExit("--tag must be a stable SemVer tag such as 0.5.2")
-        with tempfile.TemporaryDirectory(prefix="senzing-bootcamp-") as temp:
-            source = clone_tag(tag, Path(temp) / "upstream")
-            version = build(source, tag)
+    try:
+        if args.source_dir:
+            version = build(args.source_dir.resolve(), args.tag)
+        else:
+            tag = args.tag or latest_tag(contract)
+            if not SEMVER.fullmatch(tag):
+                raise SystemExit("--tag must be a stable SemVer tag such as 0.5.2")
+            with tempfile.TemporaryDirectory(prefix="senzing-bootcamp-") as temp:
+                source = clone_tag(contract, tag, Path(temp) / "upstream")
+                version = build(source, tag)
+    except ContractError as error:
+        raise SystemExit(str(error)) from error
     print(f"Built Senzing Bootcamp Codex plugin {version}")
 
 
