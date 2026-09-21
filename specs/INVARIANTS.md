@@ -52,9 +52,9 @@ Every upstream update review MUST evaluate both sets:
 - **CINV-005** — Upstream MUST remain the owner of curriculum skills, examples, helper scripts, and
   bootcamp outcomes; the Codex repository MUST transform the selected release rather than maintain
   an independent curriculum fork.
-- **CINV-006** — Codex-specific behavior MUST be authored in `port/overlay/` or encoded in
-  `scripts/sync_upstream.py`; direct edits made only inside `plugins/senzing-bootcamp/` MUST NOT be
-  relied upon because regeneration replaces them.
+- **CINV-006** — Codex-specific behavior MUST be authored in `port/overlay/`
+  or encoded in `scripts/sync_upstream.py`; direct edits made only inside
+  `plugins/senzing-bootcamp/` MUST NOT be relied upon because regeneration replaces them.
 - **CINV-007** — Downstream overlays MUST be applied after upstream copying and host-language
   transformation, and therefore MUST win deterministically when a downstream-owned path overlaps
   generated upstream content.

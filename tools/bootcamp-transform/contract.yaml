@@ -1,0 +1,174 @@
+# Transformation contract for the Claude-plugin -> Codex-plugin port.
+#
+# JSON is deliberately used as the concrete YAML 1.2 syntax so the updater can read the
+# contract with Python's standard library. Every copy, ignore, substitution, overlay, and
+# generated-artifact decision lives here; scripts/sync_upstream.py is only the executor.
+{
+  "contract_version": 1,
+  "upstream": {
+    "repository": "https://github.com/Senzing/senzing-bootcamp-claude-plugin.git",
+    "source_root": "plugins/senzing-bootcamp",
+    "version_file": ".claude-plugin/plugin.json"
+  },
+  "output_root": "plugins/senzing-bootcamp",
+  "rules": [
+    {"id": "copy-mcp-config", "kind": "copy", "match": [".mcp.json"], "reason": "The Codex plugin uses the version-matched upstream MCP configuration."},
+    {"id": "copy-docs", "kind": "copy", "match": ["docs/**"], "reason": "Upstream owns bootcamp runtime documentation."},
+    {"id": "copy-hooks", "kind": "copy", "match": ["hooks/**"], "reason": "Lifecycle hooks are ported from the version-matched upstream release."},
+    {"id": "copy-scripts", "kind": "copy", "match": ["scripts/**"], "reason": "Upstream owns bootcamp runtime helper scripts."},
+    {"id": "copy-skills", "kind": "copy", "match": ["skills/**"], "reason": "Upstream owns curriculum skills and outcomes."},
+    {
+      "id": "ignore-claude-manifest",
+      "kind": "ignore",
+      "match": [".claude-plugin/**"],
+      "reason": "Codex uses the generated .codex-plugin/plugin.json artifact below."
+    },
+    {
+      "id": "ignore-claude-commands",
+      "kind": "ignore",
+      "match": ["commands/**"],
+      "reason": "Claude command entry points are represented by Codex-native skills."
+    }
+  ],
+  "text_transforms": [
+    {
+      "id": "global-host-language",
+      "match": ["*.md", "*.py", "*.json"],
+      "notice_on_change": "Adapted for Codex from the version-matched Senzing upstream release.",
+      "operations": [
+        {"kind": "literal", "old": "${CLAUDE_PLUGIN_ROOT}", "new": "<plugin-root>"},
+        {"kind": "literal", "old": "CLAUDE_PLUGIN_ROOT", "new": "plugin-root path"},
+        {"kind": "literal", "old": ".claude-plugin", "new": ".codex-plugin"},
+        {"kind": "literal", "old": "Claude Code CLI", "new": "Codex CLI"},
+        {"kind": "literal", "old": "Claude Desktop", "new": "Codex desktop app"},
+        {"kind": "literal", "old": "the Claude web app", "new": "Codex cloud"},
+        {"kind": "literal", "old": "a Claude IDE extension", "new": "the Codex IDE"},
+        {"kind": "literal", "old": "your Claude IDE extension", "new": "the Codex IDE"},
+        {"kind": "literal", "old": "Claude Code", "new": "Codex"},
+        {"kind": "literal", "old": "Claude interface", "new": "Codex interface"},
+        {"kind": "literal", "old": "Claude plugin", "new": "Codex plugin"},
+        {"kind": "literal", "old": "Claude session", "new": "Codex task"},
+        {"kind": "literal", "old": "Claude-interface", "new": "Codex-interface"},
+        {"kind": "literal", "old": "Claude app", "new": "Codex app"},
+        {"kind": "literal", "old": "Claude IDE extension", "new": "Codex IDE"},
+        {"kind": "literal", "old": "Opus 5", "new": "a high-capability Codex model"},
+        {"kind": "literal", "old": "Sonnet 5", "new": "a balanced Codex model"},
+        {"kind": "literal", "old": "Haiku 4.5", "new": "a fast Codex model"},
+        {"kind": "literal", "old": "Fable 5", "new": "the highest-capability available Codex model"},
+        {"kind": "literal", "old": "`/model opus` + `/effort high`", "new": "a high-capability Codex model at high reasoning effort"},
+        {"kind": "literal", "old": "`/model sonnet` + `/effort medium`", "new": "a balanced Codex model at medium reasoning effort"},
+        {"kind": "literal", "old": "`/model sonnet` + `/effort high`", "new": "a balanced Codex model at high reasoning effort"},
+        {"kind": "literal", "old": "`/model opus`", "new": "the model control"},
+        {"kind": "literal", "old": "`/model sonnet`", "new": "the model control"},
+        {"kind": "literal", "old": "the bootcamper's Claude", "new": "the bootcamper's Codex"},
+        {"kind": "literal", "old": "This is the Claude-plugin port", "new": "This is the Codex-plugin port"},
+        {"kind": "literal", "old": "e.g. \"claude-opus-5[1m] / high\"", "new": "e.g. \"configured Codex model / high\""}
+      ]
+    },
+    {
+      "id": "hooks-readme",
+      "match": ["hooks/README.md"],
+      "operations": [
+        {"kind": "literal", "old": "| `UserPromptSubmit` | `scripts/feedback-capture.py`", "new": "| `UserPromptSubmit` | `scripts/socratic-controller.py` | to restore the active module on every answer and keep automatic work moving until the next Socratic question. |\n| `UserPromptSubmit` | `scripts/feedback-capture.py`"},
+        {"kind": "literal", "old": "Environment-variable substitution (`<plugin-root>`) is performed by Claude\nCode identically on all three platforms.", "new": "Codex substitutes `${PLUGIN_ROOT}` in each hook command on all three platforms."},
+        {"kind": "literal", "old": "- **Hooks ship with the plugin.** There is no hook-install step (this replaces the\n  Kiro `install_hooks.py` / `.kiro/hooks/` workflow).", "new": "- **Hooks ship with the plugin.** Codex discovers `hooks/hooks.json` automatically; there is no hook-install step. Because bundled hooks are non-managed, the bootcamper must review and trust the current definitions before Codex runs them."},
+        {"kind": "literal", "old": "Detection scans the whole\n  current turn and biases toward silence if the turn's text is not yet on disk, and the\n  block reason tells the model to repeat nothing it has already asked — so a false block\n  can never surface as a duplicate question.", "new": "Detection uses Codex's stable `last_assistant_message` Stop-hook field, and the block reason tells the model to repeat nothing it has already asked."},
+        {"kind": "literal", "old": "question, and it biases toward silence when the transcript cannot be read\ndecisively — a missed nudge is far cheaper than a duplicated question.", "new": "question. It reads Codex's stable `last_assistant_message` field rather than parsing the unstable transcript format."},
+        {"kind": "regex", "pattern": "A `claude-code-guide` investigation.*?finding is recorded here so it is not re-investigated\\.", "replacement": "The Codex interface controls tool-result rendering. The plugin cannot suppress that host-owned UI, so it minimizes administrative write frequency and uses concise commentary to keep the bootcamper informed.", "flags": "s"}
+      ]
+    },
+    {
+      "id": "ground-rules",
+      "match": ["skills/bootcamp-onboarding/ground-rules.md"],
+      "operations": [
+        {"kind": "insert-before-first-heading", "unless_contains": "## Codex turn execution (mandatory)", "value": "\n## Codex turn execution (mandatory)\n\nRead and follow `../../docs/codex-interaction-contract.md` before executing a bootcamp step. Codex\ncommentary is intermediate progress, not a turn boundary. After status-only or other non-yielding\nwork, continue in the same turn until the next skill-defined `👉` question. Before every final\nresponse, perform that document's turn-close audit.\n"},
+        {"kind": "literal", "old": "**Model/effort tuning.** Model/effort is a session-level choice the bootcamper controls with\n  `/model` and `/effort` (it persists for the session; per-skill frontmatter would not — see\n  `../../docs/model-selection.md`).", "new": "**Model/effort tuning.** Model and reasoning effort are host-level choices the bootcamper controls with the visible Codex controls (see `../../docs/model-selection.md`)."},
+        {"kind": "literal", "old": "the plugin ships\n  skills, hooks and commands, none of which reach their interface.", "new": "the plugin ships skills, lifecycle hooks, scripts, and an MCP configuration, none of which reach their interface."},
+        {"kind": "section", "start": "## Naming the Codex interface (INV-158)", "end": "## Visual deliverables (Senzing brand)", "replacement": "## Naming the Codex interface (INV-158)\n\nCall the desktop application the **Codex desktop app**, its coding workspace the **Codex IDE**,\nand the terminal client the **Codex CLI**. When the exact host is unknown, say **your Codex\ninterface**. Do not invent interface-specific commands or controls."},
+        {"kind": "section", "start": "## Module start banners and transitions", "end": "## Closing questions", "replacement": "## Module start banners and transitions\n\nAt each selected module boundary, show its banner, journey map, before/after framing, numbered step\noverview, and estimated time before doing module work. Read `../../docs/model-selection.md` before\ngiving model guidance. A model change is optional and controlled by the bootcamper; never claim to\nhave changed it. Use the visible Codex model and reasoning controls when available, and do not\ninvent Codex CLI slash commands.\n\nAsk at most one 👉 question in a turn. If a model-change question is warranted, it consumes that\nturn's question; resume the module after the bootcamper answers. Checkpoint only work actually\ncompleted, using the progress rules above. Skip unselected optional modules and preserve the module\norder recorded in the bootcamp preferences."}
+      ]
+    },
+    {
+      "id": "graduation",
+      "match": ["skills/graduation/SKILL.md"],
+      "operations": [
+        {"kind": "section", "start": "## Best-value model/effort prompt", "end": "## Pre-checks", "replacement": "## Best-value model/effort prompt\n\nGraduation is a long, correctness-sensitive stage. Read `../../docs/model-selection.md` and, when\nhelpful, offer a capable Codex model at high reasoning effort using the host's visible controls.\nThe switch is optional, the plugin cannot perform it, and the question consumes the turn's single\n👉 question. If the bootcamper declines, continue without pressure. If current settings cannot be\nobserved, say so rather than guessing."}
+      ]
+    },
+    {
+      "id": "onboarding-flow",
+      "match": ["skills/bootcamp-onboarding/onboarding-flow.md"],
+      "operations": [
+        {"kind": "regex", "pattern": "\\*\\*Resolve the manifest in this order.*?Every other step needing the plugin version resolves it the same way.*?\\n\\n", "replacement": "**Resolve the manifest as `<this-skill-dir>/../../.codex-plugin/plugin.json`.** This skill-relative path identifies the installed plugin deterministically. Never search the filesystem for another manifest. Use `Unknown` if that exact file cannot be read.\n\n", "flags": "ms", "count": 1},
+        {"kind": "regex", "pattern": "\\(The Kiro Power installed Agent Hooks here.*?no hook-install step\\.\\)", "replacement": "Codex discovers the bundled lifecycle hooks in `hooks/hooks.json`; the bootcamper must review and trust them when enabling the plugin. See `../../docs/codex-port.md`.", "flags": "s", "count": 1}
+      ]
+    },
+    {
+      "id": "phase3-lifecycle",
+      "match": ["skills/module-05-data-quality-mapping/phase3-test-load.md"],
+      "operations": [
+        {"kind": "regex", "pattern": "^## Hooks\\n\\nIn the Codex plugin, bootcamp hooks ship.*?(?=^## |\\Z)", "replacement": "## Lifecycle checks\n\nCodex discovers the bundled bootcamp hooks after the bootcamper reviews and trusts them. The skill still performs closing-question, checkpoint, and write-safety checks explicitly according to the bootcamp ground rules; the hooks are the mechanical safety net.\n\n", "flags": "ms", "count": 1}
+      ]
+    }
+  ],
+  "json_transforms": [
+    {
+      "id": "codex-hooks",
+      "match": "hooks/hooks.json",
+      "operations": [
+        {"kind": "replace-strings", "old": "<plugin-root>", "new": "${PLUGIN_ROOT}"},
+        {
+          "kind": "set-field-by-substring",
+          "path": ["hooks", "*", "*", "hooks", "*"],
+          "source_field": "command",
+          "target_field": "statusMessage",
+          "mapping": {
+            "session-start.py": "Restoring Senzing Bootcamp context",
+            "feedback-capture.py": "Checking bootcamp controls",
+            "checkpoint-tick.py": "Preserving bootcamp progress",
+            "write-gate.py": "Checking bootcamp write safety",
+            "stop-nudge.py": "Checking for the next bootcamp question",
+            "precompact-recap.py": "Preserving the bootcamp recap",
+            "session-end.py": "Preserving the bootcamp session"
+          }
+        },
+        {"kind": "prepend", "path": ["hooks", "UserPromptSubmit", "0", "hooks"], "value": {"type": "command", "command": "python3 \"${PLUGIN_ROOT}/scripts/socratic-controller.py\"", "statusMessage": "Continuing the Senzing Bootcamp", "additionalContextLimit": 4000}}
+      ]
+    }
+  ],
+  "generated_artifacts": [
+    {
+      "path": ".codex-plugin/plugin.json",
+      "format": "json",
+      "value": {
+        "name": "senzing-bootcamp",
+        "version": "${UPSTREAM_VERSION}",
+        "description": "Guided bootcamp for learning Senzing entity resolution with Codex, from first demo to production deployment.",
+        "author": {"name": "Senzing", "url": "https://senzing.com"},
+        "homepage": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
+        "repository": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
+        "license": "Apache-2.0",
+        "keywords": ["senzing", "bootcamp", "entity-resolution", "tutorial", "guided-learning"],
+        "skills": "./skills/",
+        "mcpServers": "./.mcp.json",
+        "interface": {
+          "displayName": "Senzing Bootcamp",
+          "shortDescription": "Learn Senzing entity resolution in Codex.",
+          "longDescription": "A guided, hands-on Senzing entity-resolution bootcamp for the Codex IDE.",
+          "developerName": "Senzing",
+          "category": "Developer Tools",
+          "capabilities": ["Interactive", "Write"],
+          "websiteURL": "https://senzing.com",
+          "defaultPrompt": ["Start the Senzing Bootcamp.", "Resume my Senzing Bootcamp.", "Check my bootcamp progress."]
+        }
+      }
+    }
+  ],
+  "overlays": [
+    {"source": "port/overlay", "destination": ".", "reason": "Downstream-owned Codex content wins after transformation and generation (CINV-007)."}
+  ],
+  "provenance_artifacts": [
+    {"path": "UPSTREAM_VERSION", "value": "${UPSTREAM_VERSION}\n"},
+    {"path": "UPSTREAM_COMMIT", "value": "${UPSTREAM_COMMIT}\n"}
+  ]
+}
