@@ -23,7 +23,8 @@ python3 /home/senzing/.codex/skills/.system/plugin-creator/scripts/validate_plug
 
 See `docs/PORTING.md` for the synchronization and ownership model and
 `specs/INVARIANTS.md` for permanent Codex implementation guarantees, and
-`docs/MANUAL_TESTING.md` for the pre-release test gate.
+`docs/MANUAL_TESTING.md` for the pre-release test gate, and `docs/test-checklist.md` plus
+`docs/test-records/` for the recorded host-behavior evidence.
 
 The Codex desktop app is sufficient for manual testing. The optional `codex` terminal program is
 only needed by maintainers who prefer a command-line installation workflow.
