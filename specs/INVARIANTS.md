@@ -32,7 +32,7 @@ Every upstream update review MUST evaluate both sets:
 - **Socratic runtime:** CINV-008, CINV-009, CINV-010, CINV-011, CINV-012, CINV-013, CINV-014
 - **Codex host behavior:** CINV-015, CINV-016, CINV-017, CINV-018, CINV-019
 - **Validation and release:** CINV-020, CINV-021, CINV-022, CINV-023
-- **Public propagation:** CINV-024, CINV-025, CINV-026, CINV-027, CINV-028
+- **Public propagation:** CINV-024, CINV-025, CINV-026, CINV-027, CINV-028, CINV-029
 
 ## Release source and provenance
 
@@ -127,5 +127,11 @@ Every upstream update review MUST evaluate both sets:
   development repository or uses British rather than American English.
 - **CINV-027** — Public propagation MUST verify the public checkout identity and version, support
   review before publication, and require an explicit matching tag confirmation before pushing.
+  - **Superseded by:** CINV-029 — propagation stops at the public working tree; publication is manual
 - **CINV-028** — Public propagation MUST target an explicitly named, checked-out review branch;
   it MUST NOT stage, commit, tag, push, or merge directly on public `main`.
+- **CINV-029** — Public propagation MUST verify the public checkout identity and tagged source
+  version, support read-only preview and allowlisted working-tree apply on an existing review
+  branch, and leave the Git index, commits, branches, tags, and remotes unchanged; staging,
+  commits, pushes, branch creation or switching, PRs, tags, and releases are manual operations.
+  - **Supersedes:** CINV-027

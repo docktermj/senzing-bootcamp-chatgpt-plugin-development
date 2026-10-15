@@ -98,6 +98,16 @@ a parity PR, run `parity-check` again to finish the escalation loop.
 The sync and release paths use one converter. “Initial creation” is simply the first sync into an
 empty repository; maintaining separate creation and update skills would duplicate policy and drift.
 
+## Public propagation boundary
+
+`propagate-to-public` reads an exact tagged development release and requires a clean public
+checkout already on the maintainer's named review branch. Its default preview is read-only;
+`--apply` updates only the allowlisted public working-tree files. Both modes leave the Git index,
+commit history, branches, tags, and remotes unchanged. Propagation never stages, commits, pushes,
+creates or switches branches, opens PRs, or creates releases. The maintainer reviews and tests the
+diff before performing those publication steps manually. A checkout with an existing diff must be
+handled manually before propagation can run again.
+
 ## Implement a tracked issue
 
 Use the repository-local `implement-github-issue` operation with an explicitly selected issue:

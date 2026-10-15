@@ -59,6 +59,14 @@ else:
         errors.append("porting workflow does not require review of the Codex invariants ledger")
 
 manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
+propagation = subprocess.run(
+    ["python3", "-m", "unittest",
+     "scripts.test_propagate_to_public.PropagationTests.test_preview_leaves_working_tree_index_and_refs_unchanged",
+     "scripts.test_propagate_to_public.PropagationTests.test_apply_updates_only_payload_and_never_stages_commits_or_contacts_remote"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if propagation.returncode != 0:
+    errors.append(f"CINV-029 working-tree propagation checks failed: {propagation.stderr.strip()}")
 version = (ROOT / "PARENT_VERSION").read_text().strip()
 if manifest.get("version") != version:
     errors.append("plugin manifest version does not match PARENT_VERSION")
