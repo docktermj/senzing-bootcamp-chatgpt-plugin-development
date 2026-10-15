@@ -17,7 +17,9 @@ never write to the parent or compare against `main` or `HEAD`.
    rather than filing a duplicate.
 5. File local issues for actionable deltas, naming the parent tag/commit, affected behavior, Codex
    adaptation, and any parent issue URL. This skill writes only to this child repository.
-6. `/implement-github-issue` advances provenance only after implemented parity issues close.
+6. `/implement-github-issue` includes the verified parent provenance update in the parity PR.
+   The fix and provenance land together when a human merges that PR and the local issue closes;
+   this comparison alone never advances provenance or closes an issue awaiting the fix.
 
 Senzing-fact reductions are reasoned about only in the parent and arrive through this workflow;
 children must not create a `delegate-to-mcp-server` workflow.

@@ -15,7 +15,7 @@ terminology and mechanisms.
 | F. Reconciliation | `.build-manifest.json` and `sync_parent.py` | A pre-write three-way report names added, modified, removed, preserved, and conflict paths. |
 | G. Recorded host tests | `docs/test-checklist.md`, `docs/test-records/` | Every critical manual host-behavior result is recorded per release. |
 | H. Determinism | `.github/workflows/check-parent.yaml` | Rebuild leaves no diff in generated output, provenance, or the build manifest. |
-| I. Cross-repo governance | `commands/`, `maintainer-skills/` | `/parity-check` pulls tagged parent changes into local issues; `/escalate-to-parent` is the sole child-to-parent write path. |
+| I. Cross-repo governance | `commands/`, `maintainer-skills/` | `/parity-check` files tagged parent deltas; `/implement-github-issue` implements a selected local issue through two approval gates to an open PR; `/escalate-to-parent` is the sole child-to-parent write path. |
 
 `PARENT_VERSION` records the exact stable SemVer parent tag, and `PARENT_COMMIT` records its full
 commit SHA. The family uses parent/child terminology for plugin provenance because "upstream"
