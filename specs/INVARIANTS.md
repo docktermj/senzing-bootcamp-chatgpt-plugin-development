@@ -42,7 +42,7 @@ Every upstream update review MUST evaluate both sets:
 - **CINV-002** — The Codex plugin release version MUST exactly match the selected Claude plugin
   manifest version. A temporary local cache-buster MAY extend that version only during manual
   testing and MUST be removed before packaging.
-- **CINV-003** — `UPSTREAM_VERSION`, `UPSTREAM_COMMIT`, and the generated Codex manifest MUST record
+- **CINV-003** — `PARENT_VERSION`, `PARENT_COMMIT`, and the generated Codex manifest MUST record
   reproducible source provenance, including the full commit for the selected production tag.
 - **CINV-004** — Rebuilding from the same upstream tag and downstream source tree MUST produce the
   same plugin contents and deterministic release archive.
@@ -53,7 +53,7 @@ Every upstream update review MUST evaluate both sets:
   bootcamp outcomes; the Codex repository MUST transform the selected release rather than maintain
   an independent curriculum fork.
 - **CINV-006** — Codex-specific behavior MUST be authored in `port/overlay/`
-  or encoded in `scripts/sync_upstream.py`; direct edits made only inside
+  or encoded in `scripts/sync_parent.py`; direct edits made only inside
   `plugins/senzing-bootcamp/` MUST NOT be relied upon because regeneration replaces them.
 - **CINV-007** — Downstream overlays MUST be applied after upstream copying and host-language
   transformation, and therefore MUST win deterministically when a downstream-owned path overlaps

@@ -15,7 +15,7 @@ SemVer upstream tag used to build it; `main` is never used as an implicit source
 ## Maintainer quick start
 
 ```bash
-python3 scripts/sync_upstream.py
+python3 scripts/sync_parent.py
 python3 scripts/check_port.py
 python3 /home/senzing/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py \
   plugins/senzing-bootcamp

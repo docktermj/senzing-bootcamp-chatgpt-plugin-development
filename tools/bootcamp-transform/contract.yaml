@@ -2,7 +2,7 @@
 #
 # JSON is deliberately used as the concrete YAML 1.2 syntax so the updater can read the
 # contract with Python's standard library. Every copy, ignore, substitution, overlay, and
-# generated-artifact decision lives here; scripts/sync_upstream.py is only the executor.
+# generated-artifact decision lives here; scripts/sync_parent.py is only the executor.
 {
   "contract_version": 1,
   "upstream": {
@@ -152,7 +152,7 @@
       "format": "json",
       "value": {
         "name": "senzing-bootcamp",
-        "version": "${UPSTREAM_VERSION}",
+        "version": "${PARENT_VERSION}",
         "description": "Guided bootcamp for learning Senzing entity resolution with Codex, from first demo to production deployment.",
         "author": {"name": "Senzing", "url": "https://senzing.com"},
         "homepage": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
@@ -178,7 +178,7 @@
     {"source": "port/overlay", "destination": ".", "reason": "Downstream-owned Codex content wins after transformation and generation (CINV-007)."}
   ],
   "provenance_artifacts": [
-    {"path": "UPSTREAM_VERSION", "value": "${UPSTREAM_VERSION}\n"},
-    {"path": "UPSTREAM_COMMIT", "value": "${UPSTREAM_COMMIT}\n"}
+    {"path": "PARENT_VERSION", "value": "${PARENT_VERSION}\n"},
+    {"path": "PARENT_COMMIT", "value": "${PARENT_COMMIT}\n"}
   ]
 }

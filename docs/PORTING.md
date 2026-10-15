@@ -15,11 +15,11 @@ portability, and correctness guarantees such as `INV-052` must never be discount
 
 ## Version contract
 
-`scripts/sync_upstream.py` discovers the highest stable SemVer tag in the production
+`scripts/sync_parent.py` discovers the highest stable SemVer tag in the production
 `Senzing/senzing-bootcamp-claude-plugin` repository,
 checks out that tag, verifies that its plugin manifest contains the same version, and generates the
-Codex plugin. Prereleases and the head of `main` are intentionally ignored. `UPSTREAM_VERSION`,
-`UPSTREAM_COMMIT`, and the Codex manifest provide source provenance.
+Codex plugin. Prereleases and the head of `main` are intentionally ignored. `PARENT_VERSION`,
+`PARENT_COMMIT`, and the Codex manifest provide source provenance.
 
 Use `--tag X.Y.Z` to reproduce a specific release. Use `--source-dir` for offline tests against an
 already checked-out tag.
@@ -29,7 +29,7 @@ already checked-out tag.
 [`../tools/bootcamp-transform/contract.yaml`](../tools/bootcamp-transform/contract.yaml) is the
 single source of truth for upstream file handling and Codex adaptation. It declares every copy and
 ignore rule, literal and regular-expression substitution, structured JSON edit, generated artifact,
-and downstream overlay. `scripts/sync_upstream.py` is a host-neutral executor for those operations;
+and downstream overlay. `scripts/sync_parent.py` is a host-neutral executor for those operations;
 it does not carry a parallel list of porting decisions.
 
 Before writing generated output, the updater classifies every upstream plugin file. Each file MUST
@@ -53,11 +53,11 @@ The contract uses JSON syntax, which is valid YAML 1.2, so the updater remains d
 
 ## Update workflow
 
-1. Run `python3 scripts/sync_upstream.py`.
+1. Run `python3 scripts/sync_parent.py`.
 2. Review the generated diff and the compatibility audit. If the build reports
    `E_UNMATCHED_FILE`, add one reviewed contract rule with an inline reason where appropriate.
 3. Review every affected `CINV-NNN` in `specs/INVARIANTS.md`, then run
-   `python3 scripts/check_port.py`, `python3 -m unittest scripts.test_sync_upstream`, and the
+   `python3 scripts/check_port.py`, `python3 -m unittest scripts.test_sync_parent`, and the
    upstream-derived script tests that are safe locally.
 4. Install the repo marketplace and plugin locally; use a cache-busted build version for iteration.
 5. Start a new Codex task, execute the host-behavior checklist in `docs/test-checklist.md`, and

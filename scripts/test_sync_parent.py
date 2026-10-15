@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Contract-engine tests; run with python3 -m unittest scripts.test_sync_upstream."""
+"""Contract-engine tests; run with python3 -m unittest scripts.test_sync_parent."""
 
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from scripts import sync_upstream as sync
+from scripts import sync_parent as sync
 
 
 def tree_bytes(root: Path) -> dict[str, bytes]:
@@ -20,12 +22,32 @@ def tree_bytes(root: Path) -> dict[str, bytes]:
 
 
 class TransformationContractTests(unittest.TestCase):
+    def test_non_tag_references_are_rejected_before_reading_or_writing(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            for tag in ("main", "HEAD", "0.5.3-rc.1"):
+                with self.subTest(tag=tag):
+                    with self.assertRaisesRegex(SystemExit, "stable SemVer tag"):
+                        sync.build(root / "missing-source", tag, repository_root=root / "output")
+                    self.assertFalse((root / "output").exists())
+
+    def test_cli_rejects_non_tag_references(self):
+        for tag in ("main", "HEAD"):
+            for source_args in ([], ["--source-dir", "missing-source"]):
+                with self.subTest(tag=tag, source_args=source_args):
+                    result = subprocess.run(
+                        [sys.executable, sync.__file__, "--tag", tag, *source_args],
+                        capture_output=True, text=True, check=False,
+                    )
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn("stable SemVer tag", result.stderr)
+
     def test_parent_child_governance_skills_keep_cross_repo_writes_scoped(self):
         root = Path(sync.__file__).resolve().parents[1]
         parity = (root / "maintainer-skills/parity-check/SKILL.md").read_text()
         escalation = (root / "maintainer-skills/escalate-to-parent/SKILL.md").read_text()
         feedback = (root / "maintainer-skills/feedback-to-issues/SKILL.md").read_text()
-        self.assertIn("UPSTREAM_VERSION", parity)
+        self.assertIn("PARENT_VERSION", parity)
         self.assertIn("tagged", parity)
         self.assertIn("only workflow authorized", escalation)
         self.assertIn("never writes to another repository", feedback)
@@ -81,8 +103,8 @@ class TransformationContractTests(unittest.TestCase):
                 sync.build(source, "0.5.3", repository_root=root / "repository")
 
             self.assertEqual(sentinel.read_text(), "unchanged")
-            self.assertFalse((root / "repository/UPSTREAM_VERSION").exists())
-            self.assertFalse((root / "repository/UPSTREAM_COMMIT").exists())
+            self.assertFalse((root / "repository/PARENT_VERSION").exists())
+            self.assertFalse((root / "repository/PARENT_COMMIT").exists())
 
     def test_execution_is_deterministic_and_overlay_wins(self):
         contract = {
@@ -101,11 +123,11 @@ class TransformationContractTests(unittest.TestCase):
                 }
             ],
             "generated_artifacts": [
-                {"path": "generated.json", "format": "json", "value": {"version": "${UPSTREAM_VERSION}"}}
+                {"path": "generated.json", "format": "json", "value": {"version": "${PARENT_VERSION}"}}
             ],
             "overlays": [{"source": "overlay", "destination": "."}],
         }
-        variables = {"UPSTREAM_VERSION": "1.2.3", "UPSTREAM_COMMIT": "a" * 40}
+        variables = {"PARENT_VERSION": "1.2.3", "PARENT_COMMIT": "a" * 40}
         with TemporaryDirectory() as directory:
             root = Path(directory)
             upstream = root / "upstream"

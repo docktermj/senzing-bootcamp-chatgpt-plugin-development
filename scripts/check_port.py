@@ -59,14 +59,14 @@ else:
         errors.append("porting workflow does not require review of the Codex invariants ledger")
 
 manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
-version = (ROOT / "UPSTREAM_VERSION").read_text().strip()
+version = (ROOT / "PARENT_VERSION").read_text().strip()
 if manifest.get("version") != version:
-    errors.append("plugin manifest version does not match UPSTREAM_VERSION")
+    errors.append("plugin manifest version does not match PARENT_VERSION")
 if not re.fullmatch(r"\d+\.\d+\.\d+", version):
     errors.append("release version must be stable SemVer without a cachebuster")
-commit = (ROOT / "UPSTREAM_COMMIT").read_text().strip()
+commit = (ROOT / "PARENT_COMMIT").read_text().strip()
 if not re.fullmatch(r"[0-9a-f]{40}", commit):
-    errors.append("UPSTREAM_COMMIT must contain the full source commit")
+    errors.append("PARENT_COMMIT must contain the full source commit")
 
 required = [
     PLUGIN / ".mcp.json",

@@ -1,4 +1,4 @@
-name: check upstream release
+name: check parent release
 
 on:
   workflow_dispatch:
@@ -16,6 +16,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python3 scripts/sync_upstream.py
+      - run: python3 scripts/sync_parent.py
       - name: Require a reviewed update when generated content changes
-        run: git diff --exit-code -- UPSTREAM_VERSION UPSTREAM_COMMIT .build-manifest.json plugins/senzing-bootcamp
+        run: git diff --exit-code -- PARENT_VERSION PARENT_COMMIT .build-manifest.json plugins/senzing-bootcamp

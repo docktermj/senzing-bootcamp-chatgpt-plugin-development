@@ -359,6 +359,8 @@ def build(
     source: Path, expected_tag: str | None, *, repository_root: Path = ROOT,
     contract_path: Path = CONTRACT_PATH,
 ) -> str:
+    if expected_tag is not None and not SEMVER.fullmatch(expected_tag):
+        raise SystemExit("--tag must be a stable SemVer tag such as 0.5.2")
     contract = load_contract(contract_path)
     version = version_for(source, contract)
     validate_invariant_register(version, contract)
@@ -369,7 +371,7 @@ def build(
     upstream_plugin = source / contract["upstream"]["source_root"]
     plan = plan_upstream(upstream_plugin, contract)
     commit = _source_commit(source)
-    variables = {"UPSTREAM_VERSION": version, "UPSTREAM_COMMIT": commit}
+    variables = {"PARENT_VERSION": version, "PARENT_COMMIT": commit}
     target = repository_root / contract["output_root"]
     target.parent.mkdir(parents=True, exist_ok=True)
     manifest_path = repository_root / BUILD_MANIFEST.name

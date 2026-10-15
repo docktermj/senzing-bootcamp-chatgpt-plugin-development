@@ -17,7 +17,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--restore", action="store_true", help="restore the exact upstream version")
     args = parser.parse_args()
-    base = (ROOT / "UPSTREAM_VERSION").read_text().strip()
+    base = (ROOT / "PARENT_VERSION").read_text().strip()
     data = json.loads(MANIFEST.read_text())
     if args.restore:
         data["version"] = base

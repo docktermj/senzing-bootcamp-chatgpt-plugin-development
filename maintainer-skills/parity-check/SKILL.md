@@ -8,10 +8,10 @@ description: Compare this Codex child port against a tagged Claude parent releas
 The parent is `docktermj/senzing-bootcamp-claude-plugin-development`. This is a pull-only child:
 never write to the parent or compare against `main` or `HEAD`.
 
-1. Read `UPSTREAM_VERSION` and `UPSTREAM_COMMIT`. Resolve the requested parent release tag; if none
+1. Read `PARENT_VERSION` and `PARENT_COMMIT`. Resolve the requested parent release tag; if none
    is supplied, select the latest stable SemVer tag. Reject branches, `HEAD`, prereleases, and
    untagged commits.
-2. If the tag equals `UPSTREAM_VERSION`, report that the child is current and file nothing.
+2. If the tag equals `PARENT_VERSION`, report that the child is current and file nothing.
 3. Compare the tagged parent release with pinned provenance. Do not modify this checkout.
 4. Search local open parity issues and parent escalations. Link/close an existing matching issue
    rather than filing a duplicate.

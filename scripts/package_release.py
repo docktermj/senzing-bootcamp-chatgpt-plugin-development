@@ -14,7 +14,7 @@ PLUGIN = ROOT / "plugins/senzing-bootcamp"
 
 def main() -> None:
     subprocess.run(["python3", str(ROOT / "scripts/check_port.py")], check=True)
-    version = (ROOT / "UPSTREAM_VERSION").read_text().strip()
+    version = (ROOT / "PARENT_VERSION").read_text().strip()
     output_dir = ROOT / "dist"
     output_dir.mkdir(exist_ok=True)
     output = output_dir / f"senzing-bootcamp-codex-plugin-{version}.zip"
