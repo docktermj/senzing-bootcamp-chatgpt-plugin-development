@@ -74,6 +74,13 @@ provenance with a **tagged** parent release and files local parity work. Use
 `/escalate-to-parent` as the only cross-repository issue path for canonical curriculum problems;
 the child and parent issues must cross-reference each other. Port behavior remains local.
 
+Escalated local issues carry the durable `awaiting-parity` label. `parity-check` verifies a
+completed parent's closing commit is contained in the checked stable tag and that the matching
+production provenance has landed in local `origin/main` before commenting with the tag and
+closing the issue. It processes this queue even when no new release delta exists. A declined
+parent fix or unverifiable evidence leaves the local issue open for human review. After merging
+a parity PR, run `parity-check` again to finish the escalation loop.
+
 The sync and release paths use one converter. “Initial creation” is simply the first sync into an
 empty repository; maintaining separate creation and update skills would duplicate policy and drift.
 
