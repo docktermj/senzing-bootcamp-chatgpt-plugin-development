@@ -76,3 +76,17 @@ the child and parent issues must cross-reference each other. Port behavior remai
 
 The sync and release paths use one converter. “Initial creation” is simply the first sync into an
 empty repository; maintaining separate creation and update skills would duplicate policy and drift.
+
+## Implement a tracked issue
+
+Use the repository-local `implement-github-issue` operation with an explicitly selected issue:
+read [`../commands/implement-github-issue.md`](../commands/implement-github-issue.md) and follow
+[`../maintainer-skills/implement-github-issue/SKILL.md`](../maintainer-skills/implement-github-issue/SKILL.md).
+For example, ask Codex to follow that skill for issue 16. Repository-local command entries are
+maintained prompts; they are not automatically registered as bare Codex slash commands.
+
+The operation asks for an issue when omitted, requires explicit approval of readiness before
+editing, and requires a second approval of the diff and local CI results before pushing a branch
+and opening a PR. It records decisions on the issue and stops at an open PR for human review.
+Parity PRs include the verified `PARENT_VERSION` and `PARENT_COMMIT` update with the generated
+fix, so provenance advances when the fix lands and the issue closes.
