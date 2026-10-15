@@ -96,6 +96,15 @@ fix and `PARENT_VERSION` and closes the parity issue through `Closes #<number>`.
 stops with the PR open; it never closes a parity issue early or makes a follow-up commit to
 `main` after closure. If the fix cannot be associated with a verified tag, report the blocker.
 
+For related escalations labeled `awaiting-parity`, retain the label and link their parent issue,
+verified closing commit, and containing tag in the parity PR. Do not add automatic closing
+keywords for these tracking issues: `parity-check` must first confirm the fix and provenance in
+landed `origin/main`. If the selected issue itself carries `awaiting-parity`, use a plain issue
+reference instead of `Closes #<number>` in its PR, including in the handoff below. After the human
+merges, recommend running `parity-check` against the landed tag; it posts the tag confirmation,
+closes eligible tracking issues, and removes their label. Declined parent issues remain open for
+human decision. The primary parity work issue can close on merge through the usual PR keyword.
+
 ## Gate 2: publication approval
 
 Present the complete diff (including new files), scope, tests and local CI mirror results,
