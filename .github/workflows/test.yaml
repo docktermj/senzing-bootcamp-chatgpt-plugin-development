@@ -18,6 +18,8 @@ jobs:
           python-version: "3.12"
       - run: python3 -m unittest scripts.test_sync_parent
       - run: python3 -m unittest scripts.test_parity_status
+      - run: python3 -m unittest scripts.test_maintainer_commands
+      - run: python3 scripts/check_maintainer_commands.py
       - run: python3 scripts/check_port.py
       - run: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts
       - run: python3 scripts/package_release.py

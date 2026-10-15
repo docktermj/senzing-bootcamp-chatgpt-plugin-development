@@ -69,6 +69,20 @@ not publish or merge generated changes automatically; translation changes requir
 
 ## Parent/child governance
 
+Every maintainer command in `commands/` names an explicit repository-local skill path. The
+skill/command mapping must agree in both directions; CI runs
+`python3 scripts/check_maintainer_commands.py` to reject missing counterparts, incorrect targets,
+and duplicate skill names across the two intentional locations:
+
+- `maintainer-skills/` holds workflows invoked through explicit local file references.
+- `.agents/skills/` holds `propagate-to-public` for automatic repository skill discovery.
+
+Keeping propagation in `.agents/skills/` preserves its existing discoverability. The checker uses
+the union of both locations, so the split does not exempt any skill from having a command.
+The new feedback entry is `commands/feedback-to-issues.md`, targeting
+`maintainer-skills/feedback-to-issues/SKILL.md`. These entries are maintained prompts, not
+automatically registered bare slash commands.
+
 Use `/parity-check` as the only parent-to-child propagation path: it compares the pinned
 provenance with a **tagged** parent release and files local parity work. Use
 `/escalate-to-parent` as the only cross-repository issue path for canonical curriculum problems;

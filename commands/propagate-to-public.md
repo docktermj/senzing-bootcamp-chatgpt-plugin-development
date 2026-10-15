@@ -3,7 +3,7 @@ description: Preview, stage, or push a tagged Senzing Bootcamp plugin on a publi
 argument-hint: TAG=<version> PUBLIC_REPO=<absolute-path> BRANCH=<review-branch> ACTION=preview|apply|push-branch
 ---
 
-Use the repository-local `propagate-to-public` skill and its vetted
+Read and follow `.agents/skills/propagate-to-public/SKILL.md` and use its vetted
 `scripts/propagate-to-public` command for this maintainer request.
 
 Release tag: $TAG

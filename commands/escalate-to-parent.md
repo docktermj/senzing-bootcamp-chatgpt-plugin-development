@@ -3,4 +3,5 @@ description: Escalate a curriculum problem to the canonical Claude parent reposi
 argument-hint: CHILD_ISSUE=<number> TITLE=<summary>
 ---
 
-Use the repository-local `escalate-to-parent` skill. The local issue is `$CHILD_ISSUE` and the summary is `$TITLE`.
+Read and follow `maintainer-skills/escalate-to-parent/SKILL.md` from this repository.
+The local issue is `$CHILD_ISSUE` and the summary is `$TITLE`.
