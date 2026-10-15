@@ -3,4 +3,5 @@ description: Compare this child port to a tagged parent release and file local p
 argument-hint: TAG=<parent-release-tag>
 ---
 
-Use the repository-local `parity-check` skill. The parent release tag is `$TAG`.
+Read and follow `maintainer-skills/parity-check/SKILL.md` from this repository.
+The parent release tag is `$TAG`.

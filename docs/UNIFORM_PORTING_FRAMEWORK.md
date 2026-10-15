@@ -11,7 +11,7 @@ terminology and mechanisms.
 | B. Declarative contract | `tools/bootcamp-transform/contract.yaml` | Every upstream file is matched once or fails `E_UNMATCHED_FILE`. |
 | C. Invariant dispositions | `invariant_disposition_register` in the contract | Every upstream `INV-NNN` is honored, preserved/restated, or justified as discounted; re-review blocks a new source version. |
 | D. Host-native invariants | `specs/INVARIANTS.md` (`CINV-NNN`) | Both parent `INV-NNN` and Codex `CINV-NNN` are evaluated on every update. |
-| E. Mechanical checks | `scripts/check_port.py` | Ledger, provenance, files, residual-host references, and static hook behavior checks pass. |
+| E. Mechanical checks | `scripts/check_port.py`, `scripts/check_maintainer_commands.py` | Port checks pass; maintainer commands and skills agree in both directions across both documented skill locations. |
 | F. Reconciliation | `.build-manifest.json` and `sync_parent.py` | A pre-write three-way report names added, modified, removed, preserved, and conflict paths. |
 | G. Recorded host tests | `docs/test-checklist.md`, `docs/test-records/` | Every critical manual host-behavior result is recorded per release. |
 | H. Determinism | `.github/workflows/check-parent.yaml` | Rebuild leaves no diff in generated output, provenance, or the build manifest. |
