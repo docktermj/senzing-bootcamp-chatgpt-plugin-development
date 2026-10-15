@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage or push a tagged bootcamper payload on a public review branch."""
+"""Preview or mirror a tagged bootcamper payload into the public working tree."""
 
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ DEV_ONLY_NAMES = {".DS_Store", ".coverage"}
 
 def git(repo: Path, *args: str, input_data: bytes | None = None) -> bytes:
     result = subprocess.run(
-        ["git", "-C", str(repo), *args], input=input_data, capture_output=True
+        ["git", "--no-optional-locks", "-C", str(repo), *args], input=input_data, capture_output=True
     )
     if result.returncode:
         raise ValueError(result.stderr.decode(errors="replace").strip() or f"git {args[0]} failed")
@@ -142,7 +142,7 @@ def validate_payload(payload: dict[str, bytes]) -> None:
         raise ValueError("README has an incomplete URL or obsolete chatgpt command")
 
 
-def destination(repo: Path, branch: str, allow_staged: bool) -> None:
+def destination(repo: Path, branch: str) -> None:
     if not (repo / ".git").exists() or repo.resolve() == SOURCE:
         raise ValueError("--public-repo must be a separate public Git checkout")
     if remote_slug(git(repo, "remote", "get-url", "origin").decode().strip()) != PUBLIC_SLUG:
@@ -153,14 +153,8 @@ def destination(repo: Path, branch: str, allow_staged: bool) -> None:
     if git(repo, "branch", "--show-current").decode().strip() != branch:
         raise ValueError(f"public checkout must be on review branch {branch}")
     status = git(repo, "status", "--porcelain", "-z")
-    if status and not allow_staged:
+    if status:
         raise ValueError("public checkout must be clean")
-    if allow_staged and status:
-        if git(repo, "diff", "--name-only") or git(repo, "ls-files", "--others", "--exclude-standard"):
-            raise ValueError("public checkout has unstaged or untracked changes")
-        changed_paths = git(repo, "diff", "--cached", "--name-only", "-z").decode().split("\0")
-        if any(path and path not in {MARKETPLACE, "README.md"} and not path.startswith(PLUGIN) for path in changed_paths):
-            raise ValueError("public checkout has unrelated staged changes")
     for path in (repo / PLUGIN, repo / ".agents", repo / ".agents/plugins", repo / MARKETPLACE, repo / "README.md"):
         if path.is_symlink():
             raise ValueError(f"destination contains a symlink at {path}")
@@ -188,34 +182,12 @@ def main() -> int:
     parser.add_argument("--tag", required=True, help="exact development release tag")
     parser.add_argument("--public-repo", type=Path, required=True, help="existing public checkout")
     parser.add_argument("--branch", required=True, help="checked-out public review branch; main is forbidden")
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--apply", action="store_true", help="mirror into public working tree without committing")
-    mode.add_argument("--push-branch", action="store_true", help="commit and push only the review branch")
-    parser.add_argument("--confirm-tag", help="required to push; must equal --tag")
+    parser.add_argument("--apply", action="store_true", help="mirror into public working tree without staging")
     args = parser.parse_args()
     try:
-        if args.push_branch and args.confirm_tag != args.tag:
-            raise ValueError("--push-branch requires --confirm-tag equal to --tag")
         repo = args.public_repo.resolve()
-        destination(repo, args.branch, args.push_branch)
+        destination(repo, args.branch)
         payload, commit = tagged_payload(args.tag)
-        if args.push_branch:
-            source_origin = git(SOURCE, "remote", "get-url", "origin").decode().strip()
-            if remote_slug(source_origin) != DEVELOPMENT_SLUG:
-                raise ValueError(f"source origin must be {DEVELOPMENT_SLUG}")
-            remote_tag = git(SOURCE, "ls-remote", "--tags", "origin", f"refs/tags/{args.tag}").decode().split()
-            local_tag = git(SOURCE, "rev-parse", f"refs/tags/{args.tag}").decode().strip()
-            if not remote_tag or remote_tag[0] != local_tag:
-                raise ValueError("local development tag differs from the remote versioned release")
-            if git(repo, "tag", "--list", args.tag).strip():
-                raise ValueError(f"public tag {args.tag} already exists")
-            if git(repo, "ls-remote", "--tags", "origin", f"refs/tags/{args.tag}").strip():
-                raise ValueError(f"remote public tag {args.tag} already exists")
-            remote_head = git(repo, "ls-remote", "--heads", "origin", args.branch).decode().split()
-            if not remote_head:
-                raise ValueError(f"public origin has no review branch {args.branch}")
-            if remote_head[0] != git(repo, "rev-parse", "HEAD").decode().strip():
-                raise ValueError("public review branch has moved; update the checkout before pushing")
         changed, deleted = changes(repo, payload)
         print(f"source tag: {args.tag}\nsource commit: {commit}\npublic checkout: {repo}\nreview branch: {args.branch}")
         print(f"payload: {len(payload)} files; changes: {len(changed)}; scoped deletions: {len(deleted)}")
@@ -223,25 +195,19 @@ def main() -> int:
             print(f"  update {name}")
         for name in deleted:
             print(f"  delete {name}")
-        if not (args.apply or args.push_branch):
+        if not args.apply:
             print("Preview only; public checkout unchanged.")
             return 0
-        if not changed and not deleted and not git(repo, "diff", "--cached", "--name-only"):
-            raise ValueError("no payload changes to stage or push; inspect the existing public branch")
+        if not changed and not deleted:
+            raise ValueError("no payload changes to apply; inspect the existing public branch")
         for name in deleted:
             (repo / name).unlink()
         for name in changed:
             path = repo / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(payload[name])
-        git(repo, "add", "-A", "--", PLUGIN.removesuffix("/"), MARKETPLACE, "README.md")
         print(git(repo, "status", "--short").decode(), end="")
-        if not args.push_branch:
-            print("Staged for review; nothing committed or pushed.")
-            return 0
-        git(repo, "commit", "-m", f"Release Senzing Bootcamp ChatGPT plugin {args.tag}")
-        git(repo, "push", "origin", f"HEAD:refs/heads/{args.branch}")
-        print(f"Pushed review commit {git(repo, 'rev-parse', 'HEAD').decode().strip()} to {args.branch}; main and tags unchanged")
+        print("Working tree updated for review; index, commits, branches, tags, and remotes unchanged.")
         return 0
     except ValueError as exc:
         print(f"error: {exc}", file=sys.stderr)

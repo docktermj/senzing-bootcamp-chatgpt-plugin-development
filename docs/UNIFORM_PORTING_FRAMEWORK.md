@@ -25,3 +25,8 @@ The parent owns curriculum and all `INV-NNN` identifiers. A child never copies o
 If a host lacks a parent mechanism, preserve the guarantee with a host-native construction where
 possible; otherwise document the advisory degradation in the disposition register and release
 evidence. A failed gate is a release blocker, not advisory.
+
+Public propagation is a separate working-tree operation. It supports only preview and apply
+against a clean checkout on an existing, explicitly named review branch. Apply leaves the Git
+index unchanged and stops for manual review and testing. Commits, pushes, branches, PRs, tags,
+and releases are separate human publication steps, never actions of `propagate-to-public`.
