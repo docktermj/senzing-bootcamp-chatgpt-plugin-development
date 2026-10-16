@@ -151,6 +151,21 @@ conflicting edits or moved refs; resolve those manually rather than resetting or
 The release skill also requires the plugin/skill validators and manual checklist; automated
 tests cannot establish host-behavior results.
 
+## Live runtime dry run
+
+`commands/dry-run.md` delegates to `maintainer-skills/dry-run/SKILL.md`. Run live MCP contract
+probes first, then direct script execution and observed host hooks, then real bootcamp
+conversations and generated-artifact review. Failed prerequisites block later phases. Direct
+script tests never prove Codex hook invocation, and unavailable host checks are advisory
+degradations with explicit impact/follow-up, never passes.
+
+Use a dedicated workspace and retain actual tool, transcript, operator, and artifact evidence.
+The evidence helper validates phase order, source types, candidate hashes, and question-origin
+records; its synthetic unit tests do not establish runtime success. The Socratic turn cycle must
+be observed across real turns against the shipped interaction contract. Findings are deduplicated
+and routed locally or through parent escalation. This operation does not publish or waive the
+manual release checklist.
+
 ## Static production readiness audit
 
 `commands/production-readiness-audit.md` delegates to its repository-local maintainer skill.

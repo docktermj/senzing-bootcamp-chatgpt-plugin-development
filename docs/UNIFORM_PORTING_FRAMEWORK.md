@@ -48,3 +48,8 @@ the entire shipped plugin, overlays included. Its inventory/coverage helper make
 stale reviews visible; semantic conclusions require reading the instructions. Findings are
 deduplicated and routed locally or to the parent, and unexpressible inherited checks are recorded
 in the invariant-disposition register. Runtime evidence remains a separate gate.
+
+`dry-run` supplies that runtime review in ordered live MCP, mechanisms, and conversational phases.
+Evidence distinguishes direct scripts from actual host-triggered hooks and observed Socratic
+turns. Failed prerequisites block later phases; unavailable host checks remain advisory rather
+than passing. Record validation tests do not substitute for the live run or authorize a release.
