@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "renderer": "fpdf2==2.8.5; Pillow==10.2.0",
-  "generator_sha256": "35beabd2c5c9a70c635f18fbd8612ea68481e33939c9e01a45e73696fb5aa29e",
+  "generator_sha256": "8a7e731cc71ff13ef729b2d453f57f81980249fa629edbbd9b856e847e89f0ed",
   "creation_date": "2000-01-01T00:00:00+00:00",
-  "pdf_sha256": "23910c26aa3f90993305a1aa1b0c2173077d76e106acb41b04abb5a1319fd79c",
+  "pdf_sha256": "54e3539b19b42a1d22caedb62cbc3e6f56ad0ad72f4db61dc05c4c1129da4c7e",
   "inputs": {
-    "docs/examples/bootcamp_recap.example.md": "4ea2b9fc86549157b1799bc4a8e7ce78077f06ce7615eb2baa7f9e6edb93a1f6",
+    "docs/examples/bootcamp_recap.example.md": "d4389f68f83ad22061480b70de592093f158b2902b37001170cf2c4ed2fbc680",
     "docs/examples/visualizations/data_quality_assessment.png": "2172de441c2d09e2202b192d9fde972f920eeba8b68c0a525cc91148e59b6348",
     "docs/examples/visualizations/results_visualization-cross-source.png": "e27bcc5156a3600145c81fb083f4d4c65d4d4174770be88f819fd9ccb321ac27",
     "docs/examples/visualizations/results_visualization-entity-graph.png": "31c99bdc1a0468a4a3a9e108e7a8ef3a4514555d50871ff9c383efc9562c4acc",
@@ -20,7 +20,7 @@
     "docs/examples/visualizations/truthset_verification-merge-statistics.png": "c51754f10b14884700997a4e212b26741dc26effc69fd59dd884c550d3be1c37",
     "docs/examples/visualizations/truthset_verification-search-probe.png": "e790a09ba586b6a697e78efb733b75bd957511453410b6b7af1bf26a63a06037",
     "scripts/brand_tokens.py": "a2063c02472ff00dcb6d706768305d5292a4de27a629c3072d73ab378250b122",
-    "scripts/generate_recap_pdf.py": "05bc304d5033f9873ccc1d94be83e432ad6aff3740db1bd9b15c0ee1e5087684",
+    "scripts/generate_recap_pdf.py": "0578d06f4fd8e5e32134772618acba016588da79506f350ba47462684eb439a4",
     "scripts/senzing_logo_light.png": "b98d7261b58f6b14eb99f08271f1c9ac133d97c8617021ab701a176b1559c9de"
   }
 }

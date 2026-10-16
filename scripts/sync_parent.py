@@ -279,7 +279,7 @@ def execute_contract(
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(upstream_plugin / relative, target)
 
-    apply_text_transforms(destination, contract)
+    apply_text_transforms(destination, _expand(contract, variables))
     apply_json_transforms(destination, contract)
 
     for artifact in contract.get("generated_artifacts", []):

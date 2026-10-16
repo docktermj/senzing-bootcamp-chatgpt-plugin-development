@@ -85,13 +85,14 @@ class TransformationContractTests(unittest.TestCase):
         self.assertTrue(contract["generated_artifacts"])
 
     def test_unmatched_upstream_file_names_itself_and_writes_nothing(self):
+        version = sync.load_contract()["invariant_disposition_register"]["source_version"]
         with TemporaryDirectory() as directory:
             root = Path(directory)
             source = root / "source"
             plugin = source / "plugins/senzing-bootcamp"
             manifest = plugin / ".claude-plugin/plugin.json"
             manifest.parent.mkdir(parents=True)
-            manifest.write_text(json.dumps({"version": "0.5.3"}))
+            manifest.write_text(json.dumps({"version": version}))
             (plugin / "unexpected.txt").write_text("new upstream file")
 
             output = root / "repository/plugins/senzing-bootcamp"
@@ -100,7 +101,7 @@ class TransformationContractTests(unittest.TestCase):
             sentinel.write_text("unchanged")
 
             with self.assertRaisesRegex(sync.ContractError, "E_UNMATCHED_FILE: unexpected.txt"):
-                sync.build(source, "0.5.3", repository_root=root / "repository")
+                sync.build(source, version, repository_root=root / "repository")
 
             self.assertEqual(sentinel.read_text(), "unchanged")
             self.assertFalse((root / "repository/PARENT_VERSION").exists())

@@ -11,11 +11,19 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pdf: [present, absent]
+    env:
+      CODEX_PDF_MODE: ${{ matrix.pdf }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install declared optional renderer dependencies
+        if: matrix.pdf == 'present'
+        run: python3 -m pip install -r requirements-dev.txt
       - run: python3 -m unittest scripts.test_sync_parent
       - run: python3 -m unittest scripts.test_example_pdf
       - run: python3 -m unittest scripts.test_parity_status
@@ -29,6 +37,8 @@ jobs:
       - run: python3 -m unittest scripts.test_write_gate
       - run: python3 -m unittest scripts.test_bootcamp_state
       - run: python3 -m unittest scripts.test_model_guidance
+      - run: python3 -m unittest scripts.test_parent_061
+      - run: python3 scripts/check_optional_renderers.py
       - run: python3 scripts/check_maintainer_commands.py
       - run: python3 scripts/check_port.py
       - run: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts

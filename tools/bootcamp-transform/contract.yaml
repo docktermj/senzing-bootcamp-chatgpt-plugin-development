@@ -11,8 +11,10 @@
     "version_file": ".claude-plugin/plugin.json"
   },
   "invariant_disposition_register": {
-    "source_version": "0.5.3",
-    "source_commit": "7e2d484f6cfe9af864762e0a0c95119d483cbb08",
+    "source_version": "0.6.1",
+    "source_commit": "d3d99523f88957cd9dda2d29375892bf2c557663",
+    "review": "docs/parent-0.6.1-review.md",
+    "scope": "Honor runtime guarantees through the tagged plugin and explicit Codex restatements. Parent-development-only subjects retain their source scope; importing the participant plugin does not transplant the parent's unshipped maintainer environment or claim its private tests ran here.",
     "honored": "all upstream INV-NNN identifiers except entries explicitly preserved_restated or discounted",
     "preserved_restated": [
       {"id": "INV-052", "mechanism": "Codex hook commands resolve bundled scripts through install-time `${PLUGIN_ROOT}` absolute paths and invoke only quoted `python3` script paths; CINV-017 and check_port.py enforce it."},
@@ -52,6 +54,13 @@
   ],
   "text_transforms": [
     {
+      "id": "local-example-version",
+      "match": ["docs/examples/*.md"],
+      "operations": [
+        {"kind": "regex", "pattern": "^(\\*\\*Plugin version:\\*\\* )\\S+$", "replacement": "\\g<1>${RELEASE_VERSION}", "flags": "m"}
+      ]
+    },
+    {
       "id": "onboarding-completed-run",
       "match": ["skills/bootcamp-onboarding/SKILL.md"],
       "operations": [
@@ -86,10 +95,10 @@
         {"kind": "literal", "old": "Claude-interface", "new": "Codex-interface"},
         {"kind": "literal", "old": "Claude app", "new": "Codex app"},
         {"kind": "literal", "old": "Claude IDE extension", "new": "Codex IDE"},
-        {"kind": "literal", "old": "Opus 5", "new": "a high-capability Codex model"},
-        {"kind": "literal", "old": "Sonnet 5", "new": "a balanced Codex model"},
+        {"kind": "regex", "pattern": "\\bOpus 5(?:\\.\\d+)*\\b", "replacement": "a high-capability Codex model"},
+        {"kind": "regex", "pattern": "\\bSonnet 5(?:\\.\\d+)*\\b", "replacement": "a balanced Codex model"},
         {"kind": "literal", "old": "Haiku 4.5", "new": "a fast Codex model"},
-        {"kind": "literal", "old": "Fable 5", "new": "the highest-capability available Codex model"},
+        {"kind": "regex", "pattern": "\\bFable 5(?:\\.\\d+)*\\b", "replacement": "the highest-capability available Codex model"},
         {"kind": "literal", "old": "`/model opus` + `/effort high`", "new": "a high-capability Codex model at high reasoning effort"},
         {"kind": "literal", "old": "`/model sonnet` + `/effort medium`", "new": "a balanced Codex model at medium reasoning effort"},
         {"kind": "literal", "old": "`/model sonnet` + `/effort high`", "new": "a balanced Codex model at high reasoning effort"},
@@ -97,7 +106,7 @@
         {"kind": "literal", "old": "`/model sonnet`", "new": "the model control"},
         {"kind": "literal", "old": "the bootcamper's Claude", "new": "the bootcamper's Codex"},
         {"kind": "literal", "old": "This is the Claude-plugin port", "new": "This is the Codex-plugin port"},
-        {"kind": "literal", "old": "e.g. \"claude-opus-5[1m] / high\"", "new": "e.g. \"configured Codex model / high\""}
+        {"kind": "regex", "pattern": "e\\.g\\. \"claude-[^\"\\n]+ / high\"", "replacement": "e.g. \"configured Codex model / high\""}
       ]
     },
     {
