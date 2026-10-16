@@ -371,7 +371,11 @@ def build(
     upstream_plugin = source / contract["upstream"]["source_root"]
     plan = plan_upstream(upstream_plugin, contract)
     commit = _source_commit(source)
-    variables = {"PARENT_VERSION": version, "PARENT_COMMIT": commit}
+    release_path = repository_root / "RELEASE_VERSION"
+    release_version = release_path.read_text().strip() if release_path.exists() else version
+    if not re.fullmatch(r"(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)", release_version):
+        raise ContractError("RELEASE_VERSION must be an exact stable SemVer version")
+    variables = {"PARENT_VERSION": version, "PARENT_COMMIT": commit, "RELEASE_VERSION": release_version}
     target = repository_root / contract["output_root"]
     target.parent.mkdir(parents=True, exist_ok=True)
     manifest_path = repository_root / BUILD_MANIFEST.name
@@ -400,6 +404,7 @@ def build(
     output = file_hashes(target)
     manifest_path.write_text(json.dumps({
         "schema_version": 1,
+        "release_version": release_version,
         "upstream_version": version,
         "upstream_commit": commit,
         "files": {name: {"generated": generated.get(name), "output": output.get(name)}
@@ -410,7 +415,7 @@ def build(
         path = repository_root / artifact["path"]
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(_expand(artifact["value"], variables))
-    return version
+    return release_version
 
 
 def main() -> None:

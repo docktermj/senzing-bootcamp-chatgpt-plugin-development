@@ -9,8 +9,9 @@ The Codex port ships trusted lifecycle hooks as well as skills. The per-prompt c
 the active module on every answer, and the Stop hook keeps the Socratic workflow from yielding on a
 status-only response. Manual testing must include reviewing and trusting these hooks.
 
-The generated plugin is in `plugins/senzing-bootcamp`. Its version always matches the latest stable
-SemVer upstream tag used to build it; `main` is never used as an implicit source.
+The generated plugin is in `plugins/senzing-bootcamp`. Its local version is `RELEASE_VERSION`;
+`PARENT_VERSION` and `PARENT_COMMIT` record the stable parent tag used to build it. Local releases
+do not change that provenance, and `main` is never used as an implicit parent source.
 
 ## Maintainer quick start
 
@@ -30,6 +31,12 @@ The Codex desktop app is sufficient for manual testing. The optional `codex` ter
 only needed by maintainers who prefer a command-line installation workflow.
 
 ## Propagate a tagged release to the public working tree
+
+First create a local development release using `commands/release.md` and
+`maintainer-skills/release/SKILL.md`. The release operation requires a completed version-specific
+host-test record, previews its changes, and updates the release commit and tag atomically after
+approval. It leaves publication to the maintainer. See `docs/PORTING.md` for the release and
+recovery procedure.
 
 Use the repository-local `$propagate-to-public` skill in Codex or run the command below. It reads
 only the specified development release tag; it does not copy the current working tree. The public

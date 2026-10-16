@@ -18,8 +18,10 @@ static suite passed.
    observable evidence. `SKIP` and `NOT RUN` are not passing outcomes.
 3. Record the Codex version, platform, plugin version, build mode, and hook-trust result at the top
    of the record. This makes host assumptions auditable when Codex changes.
-4. Restore the non-cache-busted version, then repeat enough of the hook checks to establish that
-   the exact release build—not only the iteration build—was tested.
+4. Set the exact candidate with `python3 scripts/local_version.py --candidate X.Y.Z`, then repeat
+   TC-03, TC-05, TC-06, TC-07, and TC-08 to establish that the exact release build was tested.
+   Record `**Exact-version checks:** PASS X.Y.Z` followed by those IDs and observed results in the
+   record. Restore the current release version before committing the record and running release.
 
 ## Checks
 

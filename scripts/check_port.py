@@ -67,14 +67,32 @@ propagation = subprocess.run(
 )
 if propagation.returncode != 0:
     errors.append(f"CINV-029 working-tree propagation checks failed: {propagation.stderr.strip()}")
-version = (ROOT / "PARENT_VERSION").read_text().strip()
+release_checks = subprocess.run(
+    ["python3", "-m", "unittest",
+     "scripts.test_release.ReleaseTests.test_apply_commits_all_metadata_and_tag_together",
+     "scripts.test_release.ReleaseTests.test_missing_or_nonpassing_record_blocks_without_release",
+     "scripts.test_release.ReleaseTests.test_ref_lock_failure_rolls_back_both_refs",
+     "scripts.test_release.ReleaseTests.test_interrupted_materialization_can_be_recovered"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if release_checks.returncode != 0:
+    errors.append(f"CINV-032 atomic release checks failed: {release_checks.stderr.strip()}")
+version = (ROOT / "RELEASE_VERSION").read_text().strip()
 if manifest.get("version") != version:
-    errors.append("plugin manifest version does not match PARENT_VERSION")
+    errors.append("plugin manifest version does not match RELEASE_VERSION")
 if not re.fullmatch(r"\d+\.\d+\.\d+", version):
     errors.append("release version must be stable SemVer without a cachebuster")
 commit = (ROOT / "PARENT_COMMIT").read_text().strip()
 if not re.fullmatch(r"[0-9a-f]{40}", commit):
     errors.append("PARENT_COMMIT must contain the full source commit")
+parent_version = (ROOT / "PARENT_VERSION").read_text().strip()
+if not re.fullmatch(r"\d+\.\d+\.\d+", parent_version):
+    errors.append("PARENT_VERSION must remain an exact stable SemVer version")
+build_manifest = json.loads((ROOT / ".build-manifest.json").read_text())
+if (build_manifest.get("release_version") != version
+        or build_manifest.get("upstream_version") != parent_version
+        or build_manifest.get("upstream_commit") != commit):
+    errors.append("build manifest does not match release version and parent provenance")
 
 required = [
     PLUGIN / ".mcp.json",

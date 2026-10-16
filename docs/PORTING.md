@@ -19,7 +19,9 @@ portability, and correctness guarantees such as `INV-052` must never be discount
 `Senzing/senzing-bootcamp-claude-plugin` repository,
 checks out that tag, verifies that its plugin manifest contains the same version, and generates the
 Codex plugin. Prereleases and the head of `main` are intentionally ignored. `PARENT_VERSION`,
-`PARENT_COMMIT`, and the Codex manifest provide source provenance.
+`PARENT_COMMIT`, and the build manifest provide source provenance. `RELEASE_VERSION` independently
+sets the local Codex manifest version; a parent sync preserves it. A new checkout without that
+file bootstraps its initial local version from the selected parent version.
 
 Use `--tag X.Y.Z` to reproduce a specific release. Use `--source-dir` for offline tests against an
 already checked-out tag.
@@ -62,7 +64,8 @@ The contract uses JSON syntax, which is valid YAML 1.2, so the updater remains d
 4. Install the repo marketplace and plugin locally; use a cache-busted build version for iteration.
 5. Start a new Codex task, execute the host-behavior checklist in `docs/test-checklist.md`, and
    commit its per-version outcome record from `docs/test-records/` with the release evidence.
-6. Restore the exact upstream version, rebuild, validate, package, tag, and publish.
+6. Restore the local release version, rebuild, validate, and package. Use `release` to create the
+   next local release commit/tag after completing its test record, then review publication manually.
 
 The scheduled GitHub workflow detects a newer upstream release by producing a failing diff. It does
 not publish or merge generated changes automatically; translation changes require human review.
@@ -107,6 +110,34 @@ commit history, branches, tags, and remotes unchanged. Propagation never stages,
 creates or switches branches, opens PRs, or creates releases. The maintainer reviews and tests the
 diff before performing those publication steps manually. A checkout with an existing diff must be
 handled manually before propagation can run again.
+
+## Local release transaction
+
+`commands/release.md` delegates to `maintainer-skills/release/SKILL.md`. Select the next local
+SemVer, release notes, and an existing review branch in this development checkout. Complete and
+commit `docs/test-records/X.Y.Z.md` with genuine host observations before release. Missing,
+skipped, failed, incomplete, or duplicate critical results block the operation. The historical
+0.5.3 record is unverified and cannot authorize another release.
+
+```bash
+python3 scripts/release.py --version X.Y.Z --branch BRANCH --notes "Release notes"
+python3 scripts/release.py --version X.Y.Z --branch BRANCH --notes "Release notes" --apply
+```
+
+Preview is read-only. After explicit approval, apply updates `RELEASE_VERSION`, the generated
+manifest and its build hashes, the changelog, and any existing marketplace version assertion.
+The current marketplace uses a local source and resolves the plugin manifest without a separate
+version field. Release leaves parent provenance unchanged, runs local automated checks, prepares
+a commit, and atomically updates the branch and creates its tag using `git update-ref --stdin`.
+It does not push or write to the public checkout. Worktree Git layouts with external metadata are
+rejected to keep release writes inside this repository.
+
+An interruption after the ref transaction can leave the files/index behind the consistent
+release commit and tag. Keep `.git/release-transaction` and run
+`python3 scripts/release.py --branch BRANCH --recover` to finish materialization. Recovery refuses
+conflicting edits or moved refs; resolve those manually rather than resetting or moving tags.
+The release skill also requires the plugin/skill validators and manual checklist; automated
+tests cannot establish host-behavior results.
 
 ## Implement a tracked issue
 
