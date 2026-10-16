@@ -37,3 +37,8 @@ Public propagation is a separate working-tree operation. It supports only previe
 against a clean checkout on an existing, explicitly named review branch. Apply leaves the Git
 index unchanged and stops for manual review and testing. Commits, pushes, branches, PRs, tags,
 and releases are separate human publication steps, never actions of `propagate-to-public`.
+
+`retrofit-from-public` is the read-only inverse review: compare pinned public payload snapshots
+with the normalized development build, triage every divergence, and file deduplicated local
+issues. Parent-bound findings are handed to `escalate-to-parent`. It writes no checkout files;
+implementation and inverse self-reference conversion belong to the separate issue workflow.
