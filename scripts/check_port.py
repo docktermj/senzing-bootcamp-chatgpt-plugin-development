@@ -95,6 +95,12 @@ release_checks = subprocess.run(
 )
 if release_checks.returncode != 0:
     errors.append(f"CINV-032 atomic release checks failed: {release_checks.stderr.strip()}")
+example_pdf_checks = subprocess.run(
+    ["python3", "-m", "unittest", "scripts.test_example_pdf"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if example_pdf_checks.returncode != 0:
+    errors.append(f"Codex example PDF checks failed: {example_pdf_checks.stderr.strip()}")
 version = (ROOT / "RELEASE_VERSION").read_text().strip()
 if manifest.get("version") != version:
     errors.append("plugin manifest version does not match RELEASE_VERSION")

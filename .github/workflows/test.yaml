@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python3 -m unittest scripts.test_sync_parent
+      - run: python3 -m unittest scripts.test_example_pdf
       - run: python3 -m unittest scripts.test_parity_status
       - run: python3 -m unittest scripts.test_maintainer_commands
       - run: python3 -m unittest scripts.test_propagate_to_public
