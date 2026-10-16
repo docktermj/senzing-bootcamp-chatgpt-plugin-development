@@ -38,6 +38,12 @@ if not invariants_path.is_file():
     errors.append("missing Codex invariants ledger: specs/INVARIANTS.md")
 else:
     invariants_text = invariants_path.read_text()
+    invariant_checks = subprocess.run(
+        ["python3", str(ROOT / "scripts/check_invariants.py")],
+        cwd=ROOT, text=True, capture_output=True, check=False,
+    )
+    if invariant_checks.returncode != 0:
+        errors.append(invariant_checks.stdout.strip() or invariant_checks.stderr.strip())
     definitions = re.findall(r"(?m)^- \*\*CINV-(\d{3})\*\* — (.+)$", invariants_text)
     definition_ids = [int(identifier) for identifier, _ in definitions]
     if definition_ids != list(range(1, len(definition_ids) + 1)):

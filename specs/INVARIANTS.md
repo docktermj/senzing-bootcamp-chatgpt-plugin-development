@@ -15,8 +15,8 @@ Every upstream update review MUST evaluate both sets:
 
 ## Maintaining this file
 
-1. Never delete, reuse, or renumber an existing `CINV-NNN` identifier. Mark an obsolete invariant
-   as superseded and name its replacement.
+1. Never delete, reuse, or renumber an existing `CINV-NNN` identifier. Record supersession only
+   with the exact reciprocal metadata bullets below, each on its own line under its definition.
 2. Edit an existing invariant only to clarify its wording without changing its meaning. Record a
    changed guarantee as a new invariant.
 3. Add new invariants using the next unused, zero-padded identifier and add the identifier to
@@ -24,6 +24,31 @@ Every upstream update review MUST evaluate both sets:
 4. Phrase every invariant as one testable MUST or ALWAYS condition.
 5. Update `scripts/check_port.py` when a new invariant can be checked mechanically.
 6. Treat a failed invariant as a release blocker, not as advisory documentation.
+
+On the replaced definition:
+
+```markdown
+  - **Superseded by:** CINV-030 — local release versions are independent of parent provenance
+```
+
+On its successor:
+
+```markdown
+  - **Supersedes:** CINV-002
+```
+
+Use zero-padded, three-digit `CINV-NNN` identifiers. Both links are required, and every target
+must exist. A definition has status `superseded` only when it carries `Superseded by:`; otherwise
+it is `active`. There is no third state. Prose, a status field, or strikethrough does not establish
+supersession. A definition has at most one successor; a successor may have multiple separate
+`Supersedes:` bullets. Self-links and cycles are invalid. Run `python3 scripts/check_invariants.py`;
+`scripts/check_port.py` and CI enforce the same check.
+
+This mechanism applies only to this ledger's `CINV-NNN` namespace. The
+`invariant_disposition_register` in `tools/bootcamp-transform/contract.yaml` records how inherited
+parent `INV-NNN` guarantees are honored, preserved/restated, or discounted; it is not a
+supersession record and is outside this check. Parent supersessions arrive through tagged parity
+updates and are handled in that register, never through local `Supersedes:` links to `INV-NNN`.
 
 ## Index by subject
 
