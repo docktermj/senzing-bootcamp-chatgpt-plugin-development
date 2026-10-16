@@ -14,7 +14,7 @@
     },
     "docs/codex-interaction-contract.md": {
       "generated": null,
-      "output": "2fa70df48ed872cdef60ccc343fd4e0ac88f8b65832b3e675e15f5ee9b1712cb"
+      "output": "b5580bf89318b827dd3112fc6aedbad28d1595a44f1292d38ac63c2683e97a82"
     },
     "docs/codex-port.md": {
       "generated": null,
@@ -89,12 +89,16 @@
       "output": "c36991db03e1f9840f81cd2cb6dc05c6cad0bc5e98c54c58fa9dd04367d01452"
     },
     "hooks/README.md": {
-      "generated": "8c4ccb97c6ff833f170de842f4f2f1bb3eff8e5f4bbe240c4ff33d7ce8cedf3b",
-      "output": "8c4ccb97c6ff833f170de842f4f2f1bb3eff8e5f4bbe240c4ff33d7ce8cedf3b"
+      "generated": "75622c455a105cb0d085d44b525a6f52976060c00b9cd83cf1d44ceacb73106c",
+      "output": "75622c455a105cb0d085d44b525a6f52976060c00b9cd83cf1d44ceacb73106c"
     },
     "hooks/hooks.json": {
       "generated": "f8ca08b9c7bf4ed6ad0641efb0351825998512ff0853fa08bc58cedc34401132",
       "output": "f8ca08b9c7bf4ed6ad0641efb0351825998512ff0853fa08bc58cedc34401132"
+    },
+    "scripts/bootcamp_state.py": {
+      "generated": null,
+      "output": "a382c1fe05be96d295d17fb9eab77ba608b888618d3df4ce8a53a60ff46f1fe7"
     },
     "scripts/brand_tokens.py": {
       "generated": "a2063c02472ff00dcb6d706768305d5292a4de27a629c3072d73ab378250b122",
@@ -161,16 +165,16 @@
       "output": "27510daa8c0231336d4226f78eb6b1dfdaa7bb94aa2021d03e144b1010f577f0"
     },
     "scripts/session-start.py": {
-      "generated": "1a01e0c369ffe458af3a150e7272323452d378924c503b91206ab9a9541ecd6e",
-      "output": "1a01e0c369ffe458af3a150e7272323452d378924c503b91206ab9a9541ecd6e"
+      "generated": "1c9ece4cad7ed277e3cfd3784ab34f268db8161b40a794d354cfe6dd2a2abe9f",
+      "output": "1c9ece4cad7ed277e3cfd3784ab34f268db8161b40a794d354cfe6dd2a2abe9f"
     },
     "scripts/socratic-controller.py": {
       "generated": null,
-      "output": "78b4912d7dedebbfe847e837770790747326a5c451330be60a4810541cf2fb03"
+      "output": "64bd4afc7100c823cc6175f830d4dc0bb79ccfab3d7248f5f290b515d0508b89"
     },
     "scripts/stop-nudge.py": {
       "generated": "fc4412708ff8e23713cb5272f85654b71da8ab6b2def2b601012dae1c42da38d",
-      "output": "0124dafacedd0c8284736e34dfc4e70f1510528baf271fad489ec8afdc6700a7"
+      "output": "3bfec9ed7d19090f82f483566fbd484208294b5423cf37b605b7aa55d0eceba7"
     },
     "scripts/vendor/d3.v7.min.js": {
       "generated": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539",
@@ -189,8 +193,8 @@
       "output": "28444a16332ca28e7d0d5c832b4625643411dec2deeec79e3affbb67dcbdb52d"
     },
     "skills/bootcamp-onboarding/SKILL.md": {
-      "generated": "e655b737b234984507efbea601e42db57b8ef15c96b435b88e902b01d2639aba",
-      "output": "e655b737b234984507efbea601e42db57b8ef15c96b435b88e902b01d2639aba"
+      "generated": "bea302af7d8d7568218c074571a58947736074e681ff98798db39e0862c4461c",
+      "output": "bea302af7d8d7568218c074571a58947736074e681ff98798db39e0862c4461c"
     },
     "skills/bootcamp-onboarding/feedback.md": {
       "generated": "adf7b90b39098c1926c8f34a82ec0d15b35c597f8fbdf8ec6eff089b948383e6",
@@ -346,7 +350,7 @@
     },
     "skills/start-bootcamp/SKILL.md": {
       "generated": null,
-      "output": "28dcb33f3d429011cb0aafbb2ea34ad791bb344ec4667907a9e2097457f34eb8"
+      "output": "5edf78b44bccb0ca48b38aa4a9aa06cbd50d6e6b2ec481133815ef4e3551179b"
     }
   }
 }

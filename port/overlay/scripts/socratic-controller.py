@@ -9,6 +9,8 @@ import re
 import sys
 from pathlib import Path
 
+from bootcamp_state import active_progress
+
 
 MODULE_SKILLS = {
     "bootcamp_preparation": "bootcamp-preparation",
@@ -50,15 +52,9 @@ def active_skill(progress: dict[str, object]) -> str:
 
 
 def main() -> int:
-    progress_path = Path("config/bootcamp_progress.json")
-    if not progress_path.is_file():
+    progress = active_progress()
+    if progress is None:
         return 0
-    try:
-        progress = json.loads(progress_path.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        progress = {}
-    if not isinstance(progress, dict):
-        progress = {}
 
     root = plugin_root()
     skill_name = active_skill(progress)

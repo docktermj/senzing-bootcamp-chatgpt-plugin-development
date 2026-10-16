@@ -65,6 +65,12 @@ else:
         errors.append("porting workflow does not require review of the Codex invariants ledger")
 
 manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
+lifecycle_checks = subprocess.run(
+    ["python3", "-m", "unittest", "scripts.test_bootcamp_state"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if lifecycle_checks.returncode != 0:
+    errors.append(f"Automatic continuation lifecycle checks failed: {lifecycle_checks.stderr.strip()}")
 write_gate_checks = subprocess.run(
     ["python3", "-m", "unittest", "scripts.test_write_gate"],
     cwd=ROOT, text=True, capture_output=True, check=False,

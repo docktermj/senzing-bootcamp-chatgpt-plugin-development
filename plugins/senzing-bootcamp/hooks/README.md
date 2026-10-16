@@ -69,6 +69,10 @@ INV-090), so any machine that can run the bootcamp can run the hooks.
 Codex substitutes `${PLUGIN_ROOT}` in each hook command on all three platforms. Keep it quoted inside the `command` string:
 the expanded path can contain a space, and unquoted it would split into two arguments.
 
+## Automatic continuation scope
+
+The Codex controller, Stop hook, and automatic SessionStart resume share `scripts/bootcamp_state.py`: they require a valid progress object with a nonblank string `current_module` and stand down when the top-level `bootcamp_complete` preference is true. Missing, empty, malformed, non-object, and unrecorded progress do not invent an active module. The controller is still invoked on every prompt; invocation alone does not force bootcamp instructions into an inactive task. Explicit start/resume remains available through the `start-bootcamp` entry skill, with a fresh directory required for a separately requested new run after completion. These guards do not rewrite progress or preferences. Other hooks retain their documented write-safety, feedback, and recap-durability behavior.
+
 ## Design notes
 
 - **Deterministic gates, not model judgment.** The `Stop` and `PreToolUse` hooks

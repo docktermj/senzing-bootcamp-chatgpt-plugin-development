@@ -5,6 +5,19 @@ not change the bootcamp's question-and-answer rhythm.
 
 ## Continue through non-yielding work
 
+Automatic continuation requires a valid progress object recording a nonblank string
+`current_module` and no top-level `bootcamp_complete: true` preference. Controller invocation
+is not the same as injecting active-session instructions: the hook remains registered on every
+prompt, but controller, Stop, and automatic SessionStart resume stay silent for missing, empty,
+malformed, non-object, or unrecorded progress, and after completion. They never reset progress
+or clear the completion marker themselves.
+
+An explicit start/resume request still follows the `start-bootcamp` entry skill. Unrecorded
+state follows fresh onboarding, including all preparation questions; those skill instructions
+remain authoritative even before there is a recorded module for automatic hooks to enforce.
+Completed work is not automatically resumed or restarted. A separately requested new bootcamp
+uses a fresh project directory and preserves the completed project's artifacts.
+
 - On every bootcamper response, the `UserPromptSubmit` controller identifies the active skill from
   `config/bootcamp_progress.json`. Read that skill and process the answer before advancing.
 - Before automatic work, send concise commentary that says what Codex is working on. For long work,
