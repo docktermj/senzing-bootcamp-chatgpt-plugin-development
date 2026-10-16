@@ -165,6 +165,13 @@
   ],
   "generated_artifacts": [
     {
+      "path": "docs/examples/bootcamp_recap.example.pdf",
+      "format": "verified-binary",
+      "source": "port/artifacts/bootcamp_recap.example.pdf",
+      "verification": "port/artifacts/bootcamp_recap.example.json",
+      "reason": "The binary example must be rendered from adapted Codex Markdown; dependency-free builds verify all renderer/content/image inputs before copying the reviewed PDF."
+    },
+    {
       "path": ".codex-plugin/plugin.json",
       "format": "json",
       "value": {

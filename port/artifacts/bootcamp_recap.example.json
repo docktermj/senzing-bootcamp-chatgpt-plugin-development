@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "renderer": "fpdf2==2.8.5; Pillow==10.2.0",
+  "generator_sha256": "35beabd2c5c9a70c635f18fbd8612ea68481e33939c9e01a45e73696fb5aa29e",
+  "creation_date": "2000-01-01T00:00:00+00:00",
+  "pdf_sha256": "23910c26aa3f90993305a1aa1b0c2173077d76e106acb41b04abb5a1319fd79c",
+  "inputs": {
+    "docs/examples/bootcamp_recap.example.md": "4ea2b9fc86549157b1799bc4a8e7ce78077f06ce7615eb2baa7f9e6edb93a1f6",
+    "docs/examples/visualizations/data_quality_assessment.png": "2172de441c2d09e2202b192d9fde972f920eeba8b68c0a525cc91148e59b6348",
+    "docs/examples/visualizations/results_visualization-cross-source.png": "e27bcc5156a3600145c81fb083f4d4c65d4d4174770be88f819fd9ccb321ac27",
+    "docs/examples/visualizations/results_visualization-entity-graph.png": "31c99bdc1a0468a4a3a9e108e7a8ef3a4514555d50871ff9c383efc9562c4acc",
+    "docs/examples/visualizations/results_visualization-feature-scores.png": "b3fa084e9e6b674187ad840f930d5b8a64c55f52d7b3946694819600a04aa67d",
+    "docs/examples/visualizations/results_visualization-match-keys.png": "e64b7a9598240d942d28fca90ecae48cdb84393960199ff3aeecc98eb25925d6",
+    "docs/examples/visualizations/results_visualization-merge-statistics.png": "d8a4d6b96d9968fde14271cc555d12452f1d4ab440742aa3503433c620fa3348",
+    "docs/examples/visualizations/results_visualization-search-probe.png": "aadfd8cd8b04ceabfba77cf9d9ef43eb8701ce32670aeb4869b25c032986aadb",
+    "docs/examples/visualizations/truthset_verification-cross-source.png": "72626b910d6dbcbb427fca167a687cbf6eca144f3aa2e06e98a687e67565cfc5",
+    "docs/examples/visualizations/truthset_verification-entity-graph.png": "5fc096e03f5db8a1d2acc210f22770b11b59202afaf367b7d68fb3fcc4454217",
+    "docs/examples/visualizations/truthset_verification-feature-scores.png": "1fe23ca863615374027e292e91168fc4e0299e80c115b55614c1e157e8361868",
+    "docs/examples/visualizations/truthset_verification-match-keys.png": "556da8b7d61112314aa7bc83d40850dcfc0290ff88df37ee1dfd51e2afdd8998",
+    "docs/examples/visualizations/truthset_verification-merge-statistics.png": "c51754f10b14884700997a4e212b26741dc26effc69fd59dd884c550d3be1c37",
+    "docs/examples/visualizations/truthset_verification-search-probe.png": "e790a09ba586b6a697e78efb733b75bd957511453410b6b7af1bf26a63a06037",
+    "scripts/brand_tokens.py": "a2063c02472ff00dcb6d706768305d5292a4de27a629c3072d73ab378250b122",
+    "scripts/generate_recap_pdf.py": "05bc304d5033f9873ccc1d94be83e432ad6aff3740db1bd9b15c0ee1e5087684",
+    "scripts/senzing_logo_light.png": "b98d7261b58f6b14eb99f08271f1c9ac133d97c8617021ab701a176b1559c9de"
+  }
+}

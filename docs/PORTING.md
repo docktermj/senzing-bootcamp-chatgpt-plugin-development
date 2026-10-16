@@ -41,6 +41,23 @@ upstream addition a required review decision instead of silently passing it thro
 
 The contract uses JSON syntax, which is valid YAML 1.2, so the updater remains dependency-free.
 
+### Codex example PDF
+
+The contract's `verified-binary` artifact packages the reviewed Codex PDF from `port/artifacts/`,
+not the unchanged Claude binary. Its input record covers adapted Markdown, renderer, brand tokens,
+logo and every referenced screenshot; any mismatch fails the sync before replacing shipped output.
+Ordinary sync, tests and packaging require only the standard library, not fpdf2.
+
+To refresh after an intentional example/input change, install the optional
+`requirements-example-pdf.txt` into a maintainer environment and run
+`python3 scripts/example_pdf.py --refresh --source-dir <pinned-parent-checkout> --tag <PARENT_VERSION>`.
+The command verifies exact pinned source provenance and prepares the adapted source in a temporary
+tree with this artifact omitted, without changing the shipped plugin. Review that source/input diff.
+The renderer uses a fixed PDF creation timestamp and
+does not silently downgrade to the stdlib path, which would lose image fidelity. Regenerate twice
+and compare bytes; render and inspect every page before accepting the PDF/input-record diff.
+The example is a historical run, not evidence of a new host/SDK test. Keep its recorded facts.
+
 ## Ownership boundary
 
 - Upstream owns curriculum skills, examples, and bootcamp helper scripts.

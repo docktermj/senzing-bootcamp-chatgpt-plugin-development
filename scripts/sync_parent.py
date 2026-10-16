@@ -14,6 +14,11 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+if __package__:
+    from . import example_pdf
+else:
+    import example_pdf
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "tools" / "bootcamp-transform" / "contract.yaml"
@@ -280,6 +285,13 @@ def execute_contract(
     for artifact in contract.get("generated_artifacts", []):
         target = destination / artifact["path"]
         target.parent.mkdir(parents=True, exist_ok=True)
+        if artifact["format"] == "verified-binary":
+            try:
+                source = example_pdf.verify(destination, repository_root, artifact)
+            except (OSError, ValueError, KeyError) as error:
+                raise ContractError(f"E_STALE_BINARY_ARTIFACT: {artifact['path']}: {error}") from error
+            shutil.copy2(source, target)
+            continue
         value = _expand(artifact["value"], variables)
         if artifact["format"] != "json":
             raise ContractError(f"E_INVALID_CONTRACT: unsupported artifact format {artifact['format']!r}")
