@@ -25,6 +25,7 @@ jobs:
       - run: python3 -m unittest scripts.test_retrofit_from_public
       - run: python3 -m unittest scripts.test_audit_inventory
       - run: python3 -m unittest scripts.test_dry_run_evidence
+      - run: python3 -m unittest scripts.test_write_gate
       - run: python3 scripts/check_maintainer_commands.py
       - run: python3 scripts/check_port.py
       - run: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts

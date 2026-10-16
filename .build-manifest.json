@@ -89,8 +89,8 @@
       "output": "c36991db03e1f9840f81cd2cb6dc05c6cad0bc5e98c54c58fa9dd04367d01452"
     },
     "hooks/README.md": {
-      "generated": "cf766d624648abed9491fba7c04fbadeb2613fd6bae8a7f03846bdba4d0b1a16",
-      "output": "cf766d624648abed9491fba7c04fbadeb2613fd6bae8a7f03846bdba4d0b1a16"
+      "generated": "8c4ccb97c6ff833f170de842f4f2f1bb3eff8e5f4bbe240c4ff33d7ce8cedf3b",
+      "output": "8c4ccb97c6ff833f170de842f4f2f1bb3eff8e5f4bbe240c4ff33d7ce8cedf3b"
     },
     "hooks/hooks.json": {
       "generated": "f8ca08b9c7bf4ed6ad0641efb0351825998512ff0853fa08bc58cedc34401132",
@@ -178,7 +178,7 @@
     },
     "scripts/write-gate.py": {
       "generated": "645850e58e6ede76f9860f3d0b8a4ac8fd03675275a2d1504d8f9216f8525765",
-      "output": "645850e58e6ede76f9860f3d0b8a4ac8fd03675275a2d1504d8f9216f8525765"
+      "output": "d83b665e9d6048a4ab2b6698889a2e95b15416ca69966720d4c40e5a4ea522ee"
     },
     "skills/bootcamp-feedback/SKILL.md": {
       "generated": null,
