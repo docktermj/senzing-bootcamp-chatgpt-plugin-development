@@ -65,6 +65,12 @@ else:
         errors.append("porting workflow does not require review of the Codex invariants ledger")
 
 manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
+parent_import_checks = subprocess.run(
+    ["python3", "-m", "unittest", "scripts.test_parent_061"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if parent_import_checks.returncode != 0:
+    errors.append(f"Tagged parent import checks failed: {parent_import_checks.stderr.strip()}")
 model_guidance_checks = subprocess.run(
     ["python3", "-m", "unittest", "scripts.test_model_guidance"],
     cwd=ROOT, text=True, capture_output=True, check=False,

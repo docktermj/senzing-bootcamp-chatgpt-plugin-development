@@ -48,11 +48,22 @@ not the unchanged Claude binary. Its input record covers adapted Markdown, rende
 logo and every referenced screenshot; any mismatch fails the sync before replacing shipped output.
 Ordinary sync, tests and packaging require only the standard library, not fpdf2.
 
+The CI suite also runs with optional renderers present and genuinely absent. Install
+`requirements-dev.txt` to exercise rich PDF/video drawing, and use `CODEX_PDF_MODE=present`
+with `python3 scripts/check_optional_renderers.py`. In a clean stdlib-only environment set
+`CODEX_PDF_MODE=absent`; the runner verifies fpdf2 is unimportable and reports rich-path skips.
+These skips do not certify the unavailable renderer. The reviewed 0.6.1 scope is recorded in
+`parent-0.6.1-review.md`.
+
 To refresh after an intentional example/input change, install the optional
 `requirements-example-pdf.txt` into a maintainer environment and run
 `python3 scripts/example_pdf.py --refresh --source-dir <pinned-parent-checkout> --tag <PARENT_VERSION>`.
-The command verifies exact pinned source provenance and prepares the adapted source in a temporary
+The command verifies the exact tag, checked-out commit, manifest version and reviewed contract
+register, and prepares the adapted source in a temporary
 tree with this artifact omitted, without changing the shipped plugin. Review that source/input diff.
+During a reviewed parity import, refresh against the target register before running sync: this
+breaks the stale-PDF/provenance cycle without manually advancing the current parent pins. Sync
+still verifies the refreshed artifact before writing the generated output and provenance together.
 The renderer uses a fixed PDF creation timestamp and
 does not silently downgrade to the stdlib path, which would lose image fidelity. Regenerate twice
 and compare bytes; render and inspect every page before accepting the PDF/input-record diff.

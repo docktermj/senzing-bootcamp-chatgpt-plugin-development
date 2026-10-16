@@ -7,6 +7,7 @@ import hashlib
 import importlib.util
 import json
 import re
+import subprocess
 import sys
 import tempfile
 import zlib
@@ -126,6 +127,27 @@ def generate(repository, plugin=None):
         sys.path.pop(0)
 
 
+def refresh_source(source, tag, contract):
+    if __package__:
+        from . import sync_parent as sync
+    else:
+        import sync_parent as sync
+    if not sync.SEMVER.fullmatch(tag):
+        raise ValueError("refresh requires an exact stable parent tag")
+    version = tag.removeprefix("v")
+    if sync.version_for(source, contract) != version:
+        raise ValueError("refresh tag and source manifest version disagree")
+    sync.validate_invariant_register(version, contract)
+    commit = sync._source_commit(source)
+    tagged_commit = subprocess.check_output(
+        ["git", "-C", str(source), "rev-parse", "--verify", f"refs/tags/{tag}^{{commit}}"],
+        text=True,
+    ).strip()
+    if commit != tagged_commit or commit != contract["invariant_disposition_register"].get("source_commit"):
+        raise ValueError("refresh source must match the exact reviewed parent tag and commit")
+    return version, commit
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true")
@@ -142,14 +164,7 @@ def main():
             import sync_parent as sync
         contract = sync.load_contract(repository / "tools/bootcamp-transform/contract.yaml")
         source = arguments.source_dir.resolve()
-        version = (repository / "PARENT_VERSION").read_text().strip()
-        commit = (repository / "PARENT_COMMIT").read_text().strip()
-        if (not sync.SEMVER.fullmatch(arguments.tag)
-                or arguments.tag.removeprefix("v") != version
-                or sync.version_for(source, contract) != version
-                or sync._source_commit(source) != commit):
-            raise ValueError("refresh source must match exact pinned parent tag/version/commit")
-        sync.validate_invariant_register(version, contract)
+        version, commit = refresh_source(source, arguments.tag, contract)
         upstream = source / contract["upstream"]["source_root"]
         plan = sync.plan_upstream(upstream, contract)
         authoring = {**contract, "generated_artifacts": [item for item in contract["generated_artifacts"]
