@@ -65,6 +65,12 @@ else:
         errors.append("porting workflow does not require review of the Codex invariants ledger")
 
 manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
+model_guidance_checks = subprocess.run(
+    ["python3", "-m", "unittest", "scripts.test_model_guidance"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if model_guidance_checks.returncode != 0:
+    errors.append(f"Codex model-guidance checks failed: {model_guidance_checks.stderr.strip()}")
 lifecycle_checks = subprocess.run(
     ["python3", "-m", "unittest", "scripts.test_bootcamp_state"],
     cwd=ROOT, text=True, capture_output=True, check=False,

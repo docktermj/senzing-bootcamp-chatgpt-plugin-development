@@ -80,11 +80,22 @@ forward is the recap PDF and the `production/` project.
 
 ## Best-value model/effort prompt
 
-Graduation is a long, correctness-sensitive stage. Read `../../docs/model-selection.md` and, when
-helpful, offer a capable Codex model at high reasoning effort using the host's visible controls.
-The switch is optional, the plugin cannot perform it, and the question consumes the turn's single
-👉 question. If the bootcamper declines, continue without pressure. If current settings cannot be
-observed, say so rather than guessing.
+After the preface and before Pre-checks, follow the **Best-value model/effort prompt** in
+`../bootcamp-onboarding/ground-rules.md` in full. Use its **Bootcamp graduation** table row and
+substitute **graduation** for `{stage}` in its pinned question.
+`../../docs/model-selection.md` supplies only Codex controls and model-role resolution.
+
+Guidance is unconditional; switching remains optional. Do not read a `model_guidance` preference
+or offer it only "when helpful". Compare live model and effort separately, using the canonical
+per-dial fallback and above-table exemption. Query, Visualize and Discover shares this row:
+a user already there gets a statement, not a pointless offer.
+
+The switch is the turn's only question. On decline, continue into Pre-checks in the same turn.
+On acceptance, re-read actual setting evidence and follow the canonical three branches:
+not yet set/unobservable ends on its pinned done gate; already recommended or deliberately
+different continues without that gate. Only the bootcamper changes settings. After a needed
+confirmation, run Pre-checks and the first step, continuing to the next defined question or
+the terminal graduation banner under the interaction contract.
 
 ## Pre-checks
 

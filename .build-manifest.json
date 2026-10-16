@@ -86,7 +86,7 @@
     },
     "docs/model-selection.md": {
       "generated": "d5a4e9c554cf42de0e137b3a77c5a52685036c7edd96c3026ec6ca83e5bc60c6",
-      "output": "c36991db03e1f9840f81cd2cb6dc05c6cad0bc5e98c54c58fa9dd04367d01452"
+      "output": "006c132be8ae3b3c19280880f26e8d882b55a12ee7abb38ae338feacef4d40c6"
     },
     "hooks/README.md": {
       "generated": "75622c455a105cb0d085d44b525a6f52976060c00b9cd83cf1d44ceacb73106c",
@@ -201,8 +201,8 @@
       "output": "adf7b90b39098c1926c8f34a82ec0d15b35c597f8fbdf8ec6eff089b948383e6"
     },
     "skills/bootcamp-onboarding/ground-rules.md": {
-      "generated": "63d392ca1307362a756081ec8f73e85f85917022c6e17ebdbd6a07a60092d8a8",
-      "output": "63d392ca1307362a756081ec8f73e85f85917022c6e17ebdbd6a07a60092d8a8"
+      "generated": "6c98065718945fda6581c73f2d29a585b4b8756e5f526703eed45fa6c832ba71",
+      "output": "6c98065718945fda6581c73f2d29a585b4b8756e5f526703eed45fa6c832ba71"
     },
     "skills/bootcamp-onboarding/module-completion.md": {
       "generated": "e62116016b7731806ff863351b09a065048b3b81a87900dd3df8f6f815648955",
@@ -229,8 +229,8 @@
       "output": "10d5ba4596dd438be12d1617468ddfb42d272bf645b6b6879c1379a0c3b2d463"
     },
     "skills/graduation/SKILL.md": {
-      "generated": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03",
-      "output": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03"
+      "generated": "57c0c73681a226bf816baffa0bde19f91432588ead050cd9389185318c097bb5",
+      "output": "57c0c73681a226bf816baffa0bde19f91432588ead050cd9389185318c097bb5"
     },
     "skills/graduation/database-backup.md": {
       "generated": "9e98ee4b3ad71e3d5028a35fe4706cb504e4681aeb6d71512379b02087cf51c6",

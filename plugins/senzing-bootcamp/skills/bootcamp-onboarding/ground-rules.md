@@ -835,16 +835,148 @@ the 👉 protocol above).
 
 ## Module start banners and transitions
 
-At each selected module boundary, show its banner, journey map, before/after framing, numbered step
-overview, and estimated time before doing module work. Read `../../docs/model-selection.md` before
-giving model guidance. A model change is optional and controlled by the bootcamper; never claim to
-have changed it. Use the visible Codex model and reasoning controls when available, and do not
-invent Codex CLI slash commands.
+- **Never show a module number to the bootcamper (INV-079).** In *every* bootcamper-facing line — the module-start banner, the journey map, transition questions, and especially casual acknowledgments such as "Great, moving on to …" — refer to a module by its **name** ("Discover the Business Problem"), never its number ("Module 1"). Module numbers are internal only (skill directory names, prerequisites, section headings, `config/*` keys) and MUST NOT appear in anything the bootcamper reads. When acknowledging a transition, use the next module's **name** — the same name shown in the journey map and the "…next module: {name}?" question.
+- At every module start, BEFORE any module work: read progress, then show the module start
+  banner, a journey map (the **selected** modules — from `selected_modules` in
+  `config/bootcamp_preferences.yaml` — marked by position relative to `current_module`: ✅ for
+  modules already experienced, i.e. those before `current_module` in the list, including
+  apparatus-exempt Bootcamp preparation (never in `modules_completed`) and Module 0 (which, when it
+  runs, IS recorded in `modules_completed` — INV-092);
+  🔄 for the current module; ⬜ for upcoming), before/after
+  framing, and a brief numbered step overview. Never skip these - they orient the bootcamper.
+- **Module selection drives the journey map.** The bootcamp is a sequence of named modules chosen
+  in the **Bootcamp preparation** module (`../bootcamp-preparation/SKILL.md`): **Core** includes
+  every module in order; **Customized** includes the required modules plus whichever optional
+  modules the bootcamper chose. Required modules always run; a deselected optional module is a
+  requested skip (INV-014). The journey map shows exactly the selected modules, in order, by name —
+  not a fixed 1–7 range.
+- **Bootcamp preparation and Module 0 are lightweight setup/preamble modules.** The Bootcamp
+  preparation module (setup + module selection, always first) and the optional entity-resolution
+  concepts primer (`../module-00-entity-resolution-concepts/SKILL.md`, run **only when selected** —
+  its old skip/keep gate is retired; inclusion is driven by the Bootcamp preparation selection,
+  INV-078) do NOT run the module-start apparatus above (no journey map, no before/after, no step
+  overview, no bootcamper-facing end-of-module summary). Keep them lightweight. When Module 0 runs it
+  presents only its ENTITY RESOLUTION CONCEPTS banner, the MCP-sourced description, and its explore
+  gate. **Recap capture differs between the two:** Bootcamp preparation is fully exempt and is never
+  added to `modules_completed`; Module 0, when it runs, DOES append its own name-based recap section
+  and is added to `modules_completed` (INV-092), so it appears in the recap and is reconciled at
+  graduation (INV-085).
+- **Estimated time to complete (INV-096).** After the step overview and before the model/effort
+  prompt, add a short, honest, range-based estimate of how long the module will take — e.g.
+  "⏱️ Roughly 15-30 minutes, depending on download/install speed." Always caveat that it varies
+  with workstation power, business-scenario complexity, data volume, and how much must be
+  downloaded/installed. When a meaningful estimate is not possible for a module, say so plainly
+  ("hard to estimate for this module") rather than inventing a number; keep it honest and
+  range-based, never a single precise figure. It is explanatory output: suppress it entirely under
+  the `minimal` verbosity preset and keep it to one line under `concise` (INV-011/INV-012). This
+  applies only to the numbered content modules that run this apparatus — the apparatus-exempt setup
+  modules (Bootcamp preparation, Module 0) show no estimate.
+- **Best-value model/effort prompt.** This is the authoritative comparison, stage table and
+  switch/confirmation procedure, including graduation (INV-063/069/137/138/236/300).
+  After the overview and estimate, surface the recommendation below. Setup stages are exempt.
 
-Ask at most one 👉 question in a turn. If a model-change question is warranted, it consumes that
-turn's question; resume the module after the bootcamper answers. Checkpoint only work actually
-completed, using the progress rules above. Skip unselected optional modules and preserve the module
-order recorded in the bootcamp preferences.
+  **Unconditional guidance, optional change.** There is no `model_guidance` preference and no
+  guidance-mode question. Ignore stale preferences for it. Keeping one model throughout is valid.
+  This is the only host-level setting offered as a bootcamp question (INV-247); do not add
+  permission, auto-accept, plan-mode or other interface-setting gates.
+
+  **Resolve roles first:** use `../../docs/model-selection.md` to resolve each role to one
+  concrete available model using reliable current host information. Retain those resolved values;
+  never infer your current model from your identity or a name in a file. No time-sensitive model
+  name, price, context-window claim or invented host command belongs in this table.
+
+  **Compare model and effort separately against live settings**, using the most recent reliable
+  host information or explicit user report of the value actually selected. A bare "yes"/"done"
+  does not expose a hidden setting. A readable model is compared even when effort is unreadable,
+  and vice versa. **Only for an unreadable dial**, fall back to that dial's resolved recommendation
+  in the stage just completed. With no such evidence, disclose the unknown; do not invent a match,
+  mismatch or supported setting. Never compare recommendation to recommendation for a readable
+  dial: a flat sequence would hide the offer from a user actually running another model.
+
+  **Above the entire table is satisfied, per dial.** Reliably identified effort above every
+  `high` row, or a reliably identified model above every resolved recommendation, earns a
+  statement that staying higher is fine, not another downgrade offer at every stage. Never infer
+  capability order from names. An in-table high-to-medium step down still earns the same optional
+  choice as a step up; this exemption is not a blanket ban on step-down offers.
+
+  **No dial differs:** give a one-line statement naming the recommendation's model and effort
+  separately, ask no switch question, and continue automatic work to the next defined 👉.
+  Mention user-controlled changes can apply to later messages. An unavailable comparison is not
+  a claimed match.
+
+  **A dial differs:** name only the moving dial, including the answer hint. Pin the appropriate
+  question below, substituting the resolved value(s), `{stage}` ("this module" or "graduation"),
+  and `{step-down clause}` (empty unless a known in-table step down):
+
+  > 👉 **Would you like to switch to {model} at {effort} reasoning effort for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current model and effort.)
+
+  > 👉 **Would you like to switch to {model} for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current model.)
+
+  > 👉 **Would you like to switch to {effort} reasoning effort for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current effort.)
+
+  The pinned step-down clause is: " This is a step down from your current {current}; it is about
+  resource use, not a capability the stage requires, so staying put is fine." Make no unsupported
+  price claim. An effort-only offer never tells the user to reset the model.
+  Name the known Codex interface's supported controls before the question when needed; use intent,
+  not invented labels or commands. The offer is this turn's only question; do not show Step 1 yet.
+
+  **On no:** acknowledge and execute the first step in the same reply turn, continuing through
+  non-yielding steps to the next skill-defined 👉. A privacy reminder/status is not a turn ending.
+
+  **On yes:** re-read reliable setting evidence before replying. The user may have acted already,
+  so the live setting, not the yes alone, decides these three branches:
+
+  1. **Not yet set or still unobservable:** give one short supported-control instruction naming
+     only the moving dial, then end on this pinned wait gate; do not start stage work yet:
+
+     > 👉 **Are you done modifying the model and effort?** (Reply yes once you've set your model and effort; reply no if you need more time.)
+
+     On confirmation, continue into the first step. On no/"not yet", acknowledge and wait for
+     their go-ahead without re-asking the gate (INV-006). A bare confirmation does not make a
+     hidden value observed.
+  2. **Already at the recommendation:** acknowledge the actual setting and continue in the same
+     turn, with no confirmation gate. Nothing remains to confirm.
+  3. **Already deliberately set to another value:** name what is in force, honor it and continue
+     in the same turn without re-instructing the recommendation or adding a confirmation gate.
+     Running higher is fine; a recommended floor is not a ceiling.
+
+  Branches 2 and 3 skip the done gate; branch 1 keeps it. Only the bootcamper can change settings.
+  Never confuse an accepted offer with a performed switch or repeat a settled confirmation.
+
+  **One row per stage, in journey order.** This is the authoritative table; the host adaptation
+  resolves its roles and must not maintain a second table. Each row has one model and effort role.
+
+  | Stage | Model role | Reasoning effort |
+  |---|---|---|
+  | Onboarding | balanced | medium |
+  | Bootcamp preparation | balanced | medium |
+  | Entity Resolution Concepts | balanced | medium |
+  | Discover the Business Problem | balanced | medium |
+  | SDK setup | high-capability | high |
+  | System verification | balanced | high |
+  | Truth Set visualization | high-capability | high |
+  | Data collection | balanced | medium |
+  | Data Quality, Mapping, and Transformation | high-capability | high |
+  | Data processing | high-capability | high |
+  | Query, Visualize and Discover | high-capability | high |
+  | Bootcamp graduation | high-capability | high |
+
+  The first three rows are comparison-only: apparatus-exempt setup stages never present the
+  nudge (INV-075/078). From Data Quality, Mapping, and Transformation onward recommendations are
+  flat, so a user already there receives no new offer. Effort targets are floors, not ceilings.
+
+- **Module start banner:** name only the module, never its internal number:
+
+  ```text
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🚀🚀🚀  MODULE: [MODULE NAME IN CAPS]  🚀🚀🚀
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ```
+
+- After an affirmative transition, run the next selected module's apparatus immediately.
+  Its comparison decides whether to end on the switch offer or continue into the first step.
+  Follow the three reply branches above rather than always asking the done gate. Checkpoint
+  completed work only, preserve the selected sequence, and end on the next defined question.
 
 ## Closing questions
 
