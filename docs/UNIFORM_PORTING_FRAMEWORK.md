@@ -42,3 +42,9 @@ and releases are separate human publication steps, never actions of `propagate-t
 with the normalized development build, triage every divergence, and file deduplicated local
 issues. Parent-bound findings are handed to `escalate-to-parent`. It writes no checkout files;
 implementation and inverse self-reference conversion belong to the separate issue workflow.
+
+`production-readiness-audit` adds the static consistency, coherency, and completeness review of
+the entire shipped plugin, overlays included. Its inventory/coverage helper makes omitted or
+stale reviews visible; semantic conclusions require reading the instructions. Findings are
+deduplicated and routed locally or to the parent, and unexpressible inherited checks are recorded
+in the invariant-disposition register. Runtime evidence remains a separate gate.

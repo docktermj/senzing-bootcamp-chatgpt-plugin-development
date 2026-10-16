@@ -151,6 +151,20 @@ conflicting edits or moved refs; resolve those manually rather than resetting or
 The release skill also requires the plugin/skill validators and manual checklist; automated
 tests cannot establish host-behavior results.
 
+## Static production readiness audit
+
+`commands/production-readiness-audit.md` delegates to its repository-local maintainer skill.
+Audit the complete shipped tree, including overlay contributions, for instruction consistency,
+reference/route completeness, fulfilled onboarding promises, interaction-contract coherency,
+invariant coverage, and ownership. The inventory helper tracks file/context hashes and review
+coverage; mechanical checks and coverage validation do not substitute for reading the curriculum.
+
+File deduplicated local findings and hand parent-bound findings to `escalate-to-parent`, with
+evidence and routing reasons. Record unexpressible inherited checks as explicit limitations in
+the invariant-disposition register, preserving required mechanisms or discount justifications.
+Deferred reviews and filing blockers remain visible. Live host behavior is evaluated separately
+through `dry-run` and the manual checklist; a complete static coverage record is not a release pass.
+
 ## Implement a tracked issue
 
 Use the repository-local `implement-github-issue` operation with an explicitly selected issue:
