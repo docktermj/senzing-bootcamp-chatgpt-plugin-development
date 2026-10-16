@@ -65,6 +65,12 @@ else:
         errors.append("porting workflow does not require review of the Codex invariants ledger")
 
 manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
+write_gate_checks = subprocess.run(
+    ["python3", "-m", "unittest", "scripts.test_write_gate"],
+    cwd=ROOT, text=True, capture_output=True, check=False,
+)
+if write_gate_checks.returncode != 0:
+    errors.append(f"Native edit safety checks failed: {write_gate_checks.stderr.strip()}")
 propagation = subprocess.run(
     ["python3", "-m", "unittest",
      "scripts.test_propagate_to_public.PropagationTests.test_preview_leaves_working_tree_index_and_refs_unchanged",

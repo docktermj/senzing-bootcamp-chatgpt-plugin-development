@@ -34,6 +34,12 @@ same rule. This is the settled reading of INV-016 (whose own examples — "to pr
 your request", "to review what you said" — are purposes), resolving the earlier
 ambiguity between the purpose-phrasing and emitted-message readings.
 
+## Native Codex edit safety
+
+Codex sends native `apply_patch` edits as `tool_input.command`, including every add, update, delete, and move path. `Write|Edit` matches that tool through Codex aliases; it does not change the payload into `file_path`. The Codex-owned `write-gate.py` overlay checks every affected target against the resolved project directory, including symlink escapes, and blocks malformed or unsupported edit input explicitly. Legacy `Write`/`Edit` payloads with `tool_input.file_path` remain supported. The existing secret-pattern scan applies to both forms.
+
+This hook is a guardrail for matched edits, not a replacement for host sandbox permissions or a complete shell/MCP write boundary. Direct-script tests do not establish that the host fired the trusted hook; verify actual native edits in the release's Codex-host dry run.
+
 ## Runtime prerequisites (per platform)
 
 The hooks are **Python 3** scripts, invoked as `type: command` hooks whose `command`
