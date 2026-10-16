@@ -103,6 +103,18 @@ empty repository; maintaining separate creation and update skills would duplicat
 
 ## Public propagation boundary
 
+Before propagating, use `commands/retrofit-from-public.md` and its repository-local skill to
+identify public review changes that could be overwritten. The helper compares pinned committed
+snapshots after applying forward publication transformations in memory. It writes to neither
+checkout, does not apply inverse rewrites, and excludes public governance files outside the
+propagation payload. Dirty files are not part of the comparison.
+
+The workflow assigns every divergence a local or parent-bound verdict with a reason. It searches
+existing issues before filing actionable local findings and hands parent-bound evidence to the
+separate escalation workflow. Fingerprints aid repeat-run deduplication, while semantic review
+distinguishes a closed issue from a new unresolved delta. Importing a fix happens later through
+`implement-github-issue`, at the owning transformation, overlay, or parent source.
+
 `propagate-to-public` reads an exact tagged development release and requires a clean public
 checkout already on the maintainer's named review branch. Its default preview is read-only;
 `--apply` updates only the allowlisted public working-tree files. Both modes leave the Git index,

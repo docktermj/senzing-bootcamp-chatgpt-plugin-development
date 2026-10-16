@@ -22,6 +22,7 @@ jobs:
       - run: python3 -m unittest scripts.test_propagate_to_public
       - run: python3 -m unittest scripts.test_release
       - run: python3 -m unittest scripts.test_invariants
+      - run: python3 -m unittest scripts.test_retrofit_from_public
       - run: python3 scripts/check_maintainer_commands.py
       - run: python3 scripts/check_port.py
       - run: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts

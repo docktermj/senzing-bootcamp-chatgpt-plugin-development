@@ -39,6 +39,13 @@ DEV_ONLY_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", 
 DEV_ONLY_NAMES = {".DS_Store", ".coverage"}
 
 
+def is_payload_path(path: str) -> bool:
+    if path not in {MARKETPLACE, "README.md"} and not path.startswith(PLUGIN):
+        return False
+    return not (set(Path(path).parts) & DEV_ONLY_PARTS or Path(path).name in DEV_ONLY_NAMES
+                or path.endswith((".pyc", ".pyo", ".swp")))
+
+
 def git(repo: Path, *args: str, input_data: bytes | None = None) -> bytes:
     result = subprocess.run(
         ["git", "--no-optional-locks", "-C", str(repo), *args], input=input_data, capture_output=True
@@ -67,13 +74,10 @@ def tagged_payload(tag: str) -> tuple[dict[str, bytes], str]:
         meta, raw_path = entry.split(b"\t", 1)
         mode = meta.split(b" ", 1)[0]
         path = raw_path.decode()
-        if path not in {MARKETPLACE, "README.md"} and not path.startswith(PLUGIN):
+        if not is_payload_path(path):
             continue
         if mode not in {b"100644", b"100755"}:
             raise ValueError(f"unsupported tagged file type: {path}")
-        parts = set(Path(path).parts)
-        if parts & DEV_ONLY_PARTS or Path(path).name in DEV_ONLY_NAMES or path.endswith((".pyc", ".pyo", ".swp")):
-            continue
         payload[path] = git(SOURCE, "show", f"refs/tags/{tag}:{path}")
     missing = REQUIRED - payload.keys()
     if missing:
@@ -81,6 +85,11 @@ def tagged_payload(tag: str) -> tuple[dict[str, bytes], str]:
     version = json.loads(payload["plugins/senzing-bootcamp/.codex-plugin/plugin.json"])["version"]
     if version != tag.removeprefix("v"):
         raise ValueError(f"plugin version {version!r} does not match tag {tag!r}")
+    return publication_payload(payload, tag), commit
+
+
+def publication_payload(payload: dict[str, bytes], tag: str) -> dict[str, bytes]:
+    payload = payload.copy()
 
     readme = payload["README.md"].decode()
     readme = readme.replace("https//github.com/Senzing/...", f"https://github.com/{PUBLIC_SLUG}")
@@ -114,7 +123,7 @@ def tagged_payload(tag: str) -> tuple[dict[str, bytes], str]:
             )
         payload[path] = content.encode()
     validate_payload(payload)
-    return payload, commit
+    return payload
 
 
 def validate_payload(payload: dict[str, bytes]) -> None:
