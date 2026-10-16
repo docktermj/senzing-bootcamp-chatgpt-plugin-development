@@ -14,8 +14,9 @@ import sys
 
 import docker_lifecycle
 import recap_checkpoint
+from bootcamp_state import active_progress
 
-if recap_checkpoint.bootcamp_active():
+if active_progress() is not None:
     folded = recap_checkpoint.fold_checkpoint()
     # Fold first, then guarantee the file exists for the module about to resume.
     recap_checkpoint.ensure_checkpoint()

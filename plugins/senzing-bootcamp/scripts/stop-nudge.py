@@ -6,45 +6,28 @@ from __future__ import annotations
 import json
 import os
 import sys
-from pathlib import Path
+
+from bootcamp_state import active_progress, preference, truthy
 
 
 POINTER = "👉"
 
 
-def truthy(value: object) -> bool:
-    if isinstance(value, bool):
-        return value
-    return str(value).strip().strip("\"'").lower() in {"1", "true", "yes", "on"}
-
-
-def preference(key: str) -> bool:
-    try:
-        lines = Path("config/bootcamp_preferences.yaml").read_text(encoding="utf-8").splitlines()
-    except OSError:
-        return False
-    for line in lines:
-        if not line or line[:1].isspace() or line.lstrip().startswith("#") or ":" not in line:
-            continue
-        name, value = line.split(":", 1)
-        if name == key:
-            return truthy(value.split("#", 1)[0])
-    return False
-
-
 def main() -> int:
+    if active_progress() is None:
+        return 0
     try:
         payload = json.loads(sys.stdin.read() or "{}")
     except ValueError:
         payload = {}
+    if not isinstance(payload, dict):
+        payload = {}
 
     if payload.get("stop_hook_active") is True:
         return 0
-    if not Path("config/bootcamp_progress.json").is_file():
-        return 0
     if truthy(os.environ.get("SENZING_BOOTCAMP_DISABLE_STOP_NUDGE", "")):
         return 0
-    if preference("disable_stop_nudge") or preference("bootcamp_complete"):
+    if preference("disable_stop_nudge"):
         return 0
 
     final_text = payload.get("last_assistant_message")

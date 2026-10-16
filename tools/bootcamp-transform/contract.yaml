@@ -42,6 +42,21 @@
   ],
   "text_transforms": [
     {
+      "id": "onboarding-completed-run",
+      "match": ["skills/bootcamp-onboarding/SKILL.md"],
+      "operations": [
+        {"kind": "literal", "old": "## Before anything else", "new": "## Codex completed-run guard\n\nBefore applying the shared session-start rule or the fresh/resume decision below, read the top-level `bootcamp_complete` preference. If it is true, follow `../start-bootcamp/SKILL.md` for completed projects and stop the normal onboarding path: do not offer an automatic resume, repeat graduation, clear the completion marker, or overwrite progress. Only an explicitly requested new run proceeds in a user-selected fresh directory. When completion is not set, continue the unchanged onboarding/preparation path below.\n\n## Before anything else"}
+      ]
+    },
+    {
+      "id": "session-start-lifecycle",
+      "match": ["scripts/session-start.py"],
+      "operations": [
+        {"kind": "literal", "old": "import recap_checkpoint", "new": "import recap_checkpoint\nfrom bootcamp_state import active_progress"},
+        {"kind": "literal", "old": "if recap_checkpoint.bootcamp_active():", "new": "if active_progress() is not None:"}
+      ]
+    },
+    {
       "id": "global-host-language",
       "match": ["*.md", "*.py", "*.json"],
       "notice_on_change": "Adapted for Codex from the version-matched Senzing upstream release.",
@@ -80,6 +95,7 @@
       "match": ["hooks/README.md"],
       "operations": [
         {"kind": "literal", "old": "| `UserPromptSubmit` | `scripts/feedback-capture.py`", "new": "| `UserPromptSubmit` | `scripts/socratic-controller.py` | to restore the active module on every answer and keep automatic work moving until the next Socratic question. |\n| `UserPromptSubmit` | `scripts/feedback-capture.py`"},
+        {"kind": "literal", "old": "## Design notes", "new": "## Automatic continuation scope\n\nThe Codex controller, Stop hook, and automatic SessionStart resume share `scripts/bootcamp_state.py`: they require a valid progress object with a nonblank string `current_module` and stand down when the top-level `bootcamp_complete` preference is true. Missing, empty, malformed, non-object, and unrecorded progress do not invent an active module. The controller is still invoked on every prompt; invocation alone does not force bootcamp instructions into an inactive task. Explicit start/resume remains available through the `start-bootcamp` entry skill, with a fresh directory required for a separately requested new run after completion. These guards do not rewrite progress or preferences. Other hooks retain their documented write-safety, feedback, and recap-durability behavior.\n\n## Design notes"},
         {"kind": "literal", "old": "## Runtime prerequisites (per platform)", "new": "## Native Codex edit safety\n\nCodex sends native `apply_patch` edits as `tool_input.command`, including every add, update, delete, and move path. `Write|Edit` matches that tool through Codex aliases; it does not change the payload into `file_path`. The Codex-owned `write-gate.py` overlay checks every affected target against the resolved project directory, including symlink escapes, and blocks malformed or unsupported edit input explicitly. Legacy `Write`/`Edit` payloads with `tool_input.file_path` remain supported. The existing secret-pattern scan applies to both forms.\n\nThis hook is a guardrail for matched edits, not a replacement for host sandbox permissions or a complete shell/MCP write boundary. Direct-script tests do not establish that the host fired the trusted hook; verify actual native edits in the release's Codex-host dry run.\n\n## Runtime prerequisites (per platform)"},
         {"kind": "literal", "old": "Environment-variable substitution (`<plugin-root>`) is performed by Claude\nCode identically on all three platforms.", "new": "Codex substitutes `${PLUGIN_ROOT}` in each hook command on all three platforms."},
         {"kind": "literal", "old": "- **Hooks ship with the plugin.** There is no hook-install step (this replaces the\n  Kiro `install_hooks.py` / `.kiro/hooks/` workflow).", "new": "- **Hooks ship with the plugin.** Codex discovers `hooks/hooks.json` automatically; there is no hook-install step. Because bundled hooks are non-managed, the bootcamper must review and trust the current definitions before Codex runs them."},

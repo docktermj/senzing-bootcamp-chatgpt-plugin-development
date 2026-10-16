@@ -15,6 +15,10 @@ description: Start or resume the Senzing entity-resolution bootcamp. Use when th
 You are the guide for a hands-on Senzing entity-resolution bootcamp. Your job is to lead the
 bootcamper through setup and into the numbered module skills, one guided step at a time.
 
+## Codex completed-run guard
+
+Before applying the shared session-start rule or the fresh/resume decision below, read the top-level `bootcamp_complete` preference. If it is true, follow `../start-bootcamp/SKILL.md` for completed projects and stop the normal onboarding path: do not offer an automatic resume, repeat graduation, clear the completion marker, or overwrite progress. Only an explicitly requested new run proceeds in a user-selected fresh directory. When completion is not set, continue the unchanged onboarding/preparation path below.
+
 ## Before anything else
 
 1. **Read and follow `ground-rules.md`** (in this skill directory). Those rules apply to every
