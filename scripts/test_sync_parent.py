@@ -123,11 +123,11 @@ class TransformationContractTests(unittest.TestCase):
                 }
             ],
             "generated_artifacts": [
-                {"path": "generated.json", "format": "json", "value": {"version": "${PARENT_VERSION}"}}
+                {"path": "generated.json", "format": "json", "value": {"version": "${RELEASE_VERSION}"}}
             ],
             "overlays": [{"source": "overlay", "destination": "."}],
         }
-        variables = {"PARENT_VERSION": "1.2.3", "PARENT_COMMIT": "a" * 40}
+        variables = {"PARENT_VERSION": "1.2.3", "PARENT_COMMIT": "a" * 40, "RELEASE_VERSION": "4.0.0"}
         with TemporaryDirectory() as directory:
             root = Path(directory)
             upstream = root / "upstream"
@@ -148,6 +148,40 @@ class TransformationContractTests(unittest.TestCase):
             self.assertEqual((first / "skills/demo/SKILL.md").read_text(), "Codex plugin\n")
             self.assertEqual((first / "generated.json").read_text(), "overlay wins\n")
             self.assertFalse((first / "commands/start.md").exists())
+
+    def test_parent_rebuild_preserves_independent_local_release_version(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source"
+            source_manifest = source / "plugins/senzing-bootcamp/.claude-plugin/plugin.json"
+            source_manifest.parent.mkdir(parents=True)
+            source_manifest.write_text(json.dumps({"version": "1.2.3"}))
+            repository = root / "repository"
+            repository.mkdir()
+            (repository / "RELEASE_VERSION").write_text("4.0.0\n")
+            contract = {
+                "contract_version": 1,
+                "upstream": {"source_root": "plugins/senzing-bootcamp", "version_file": ".claude-plugin/plugin.json"},
+                "invariant_disposition_register": {"source_version": "1.2.3"},
+                "rules": [{"id": "ignore", "kind": "ignore", "match": [".claude-plugin/**"], "reason": "generated"}],
+                "output_root": "plugins/senzing-bootcamp",
+                "generated_artifacts": [{"path": ".codex-plugin/plugin.json", "format": "json",
+                                         "value": {"version": "${RELEASE_VERSION}"}}],
+                "provenance_artifacts": [{"path": "PARENT_VERSION", "value": "${PARENT_VERSION}\n"}],
+            }
+            contract_path = root / "contract.json"
+            contract_path.write_text(json.dumps(contract))
+            for iteration in range(2):
+                with self.subTest(iteration=iteration):
+                    self.assertEqual(sync.build(source, "1.2.3", repository_root=repository,
+                                                contract_path=contract_path), "4.0.0")
+                    self.assertEqual((repository / "PARENT_VERSION").read_text(), "1.2.3\n")
+                    built = json.loads((repository / "plugins/senzing-bootcamp/.codex-plugin/plugin.json").read_text())
+                    self.assertEqual(built["version"], "4.0.0")
+                    if iteration == 0:
+                        first = tree_bytes(repository)
+                    else:
+                        self.assertEqual(tree_bytes(repository), first)
 
 
 if __name__ == "__main__":

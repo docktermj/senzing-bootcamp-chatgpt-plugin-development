@@ -152,7 +152,7 @@
       "format": "json",
       "value": {
         "name": "senzing-bootcamp",
-        "version": "${PARENT_VERSION}",
+        "version": "${RELEASE_VERSION}",
         "description": "Guided bootcamp for learning Senzing entity resolution with Codex, from first demo to production deployment.",
         "author": {"name": "Senzing", "url": "https://senzing.com"},
         "homepage": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development",
@@ -178,6 +178,7 @@
     {"source": "port/overlay", "destination": ".", "reason": "Downstream-owned Codex content wins after transformation and generation (CINV-007)."}
   ],
   "provenance_artifacts": [
+    {"path": "RELEASE_VERSION", "value": "${RELEASE_VERSION}\n"},
     {"path": "PARENT_VERSION", "value": "${PARENT_VERSION}\n"},
     {"path": "PARENT_COMMIT", "value": "${PARENT_COMMIT}\n"}
   ]

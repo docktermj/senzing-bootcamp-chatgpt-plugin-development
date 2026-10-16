@@ -29,6 +29,8 @@ observations where they substantiate the result; do not record secrets or privat
 
 ## Exact-version confirmation
 
+**Exact-version checks:** NOT RUN — replace with PASS, X.Y.Z, repeated TC-03/TC-05/TC-06/TC-07/TC-08 IDs, and observations
+
 After restoring the cache-buster, identify which hook checks were repeated against X.Y.Z and their
 outcomes. A release cannot rely only on results from a cache-busted build.
 

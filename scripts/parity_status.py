@@ -26,12 +26,15 @@ def landed_provenance(checkout: Path) -> dict[str, str]:
     reference = "refs/remotes/origin/main"
     version = git(checkout, "show", f"{reference}:PARENT_VERSION")
     commit = git(checkout, "show", f"{reference}:PARENT_COMMIT")
+    release_version = git(checkout, "show", f"{reference}:RELEASE_VERSION")
     manifest = json.loads(git(checkout, "show", f"{reference}:.build-manifest.json"))
     plugin = json.loads(git(
         checkout, "show", f"{reference}:plugins/senzing-bootcamp/.codex-plugin/plugin.json",
     ))
     if (manifest.get("upstream_version") != version
-            or manifest.get("upstream_commit") != commit or plugin.get("version") != version):
+            or manifest.get("upstream_commit") != commit
+            or manifest.get("release_version") != release_version
+            or plugin.get("version") != release_version):
         raise ValueError("Landed provenance, build manifest, and plugin version disagree")
     return {"version": version, "commit": commit}
 

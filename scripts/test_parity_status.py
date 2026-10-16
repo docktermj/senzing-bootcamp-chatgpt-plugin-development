@@ -87,12 +87,14 @@ class ParityStatusTests(unittest.TestCase):
     def test_landing_reads_remote_main_not_feature_worktree(self):
         (self.parent / "PARENT_VERSION").write_text("1.0.1\n")
         (self.parent / "PARENT_COMMIT").write_text(self.closing + "\n")
+        (self.parent / "RELEASE_VERSION").write_text("2.0.0\n")
         (self.parent / ".build-manifest.json").write_text(json.dumps({
             "upstream_version": "1.0.1", "upstream_commit": self.closing,
+            "release_version": "2.0.0",
         }))
         plugin_manifest = self.parent / "plugins/senzing-bootcamp/.codex-plugin/plugin.json"
         plugin_manifest.parent.mkdir()
-        plugin_manifest.write_text(json.dumps({"version": "1.0.1"}))
+        plugin_manifest.write_text(json.dumps({"version": "2.0.0"}))
         landed_commit = self.commit("landed")
         git(self.parent, "update-ref", "refs/remotes/origin/main", landed_commit)
         (self.parent / "PARENT_VERSION").write_text("9.9.9")

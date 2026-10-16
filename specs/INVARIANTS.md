@@ -27,11 +27,11 @@ Every upstream update review MUST evaluate both sets:
 
 ## Index by subject
 
-- **Release source and provenance:** CINV-001, CINV-002, CINV-003, CINV-004
+- **Release source and provenance:** CINV-001, CINV-002, CINV-003, CINV-004, CINV-030, CINV-031
 - **Generation and ownership:** CINV-005, CINV-006, CINV-007
 - **Socratic runtime:** CINV-008, CINV-009, CINV-010, CINV-011, CINV-012, CINV-013, CINV-014
 - **Codex host behavior:** CINV-015, CINV-016, CINV-017, CINV-018, CINV-019
-- **Validation and release:** CINV-020, CINV-021, CINV-022, CINV-023
+- **Validation and release:** CINV-020, CINV-021, CINV-022, CINV-023, CINV-032
 - **Public propagation:** CINV-024, CINV-025, CINV-026, CINV-027, CINV-028, CINV-029
 
 ## Release source and provenance
@@ -42,8 +42,10 @@ Every upstream update review MUST evaluate both sets:
 - **CINV-002** — The Codex plugin release version MUST exactly match the selected Claude plugin
   manifest version. A temporary local cache-buster MAY extend that version only during manual
   testing and MUST be removed before packaging.
+  - **Superseded by:** CINV-030 — local release versions are independent of parent provenance
 - **CINV-003** — `PARENT_VERSION`, `PARENT_COMMIT`, and the generated Codex manifest MUST record
   reproducible source provenance, including the full commit for the selected production tag.
+  - **Superseded by:** CINV-031 — source provenance and local release version are recorded separately
 - **CINV-004** — Rebuilding from the same upstream tag and downstream source tree MUST produce the
   same plugin contents and deterministic release archive.
 
@@ -135,3 +137,17 @@ Every upstream update review MUST evaluate both sets:
   branch, and leave the Git index, commits, branches, tags, and remotes unchanged; staging,
   commits, pushes, branch creation or switching, PRs, tags, and releases are manual operations.
   - **Supersedes:** CINV-027
+
+## Local release versioning
+
+- **CINV-030** — The Codex plugin version MUST match `RELEASE_VERSION`, independently of the
+  parent tag; temporary manual-test versions MUST be restored before packaging or release.
+  - **Supersedes:** CINV-002
+- **CINV-031** — `PARENT_VERSION` and `PARENT_COMMIT` MUST retain exact tagged parent provenance,
+  independently of local release bumps; the build manifest MUST agree with both that provenance
+  and `RELEASE_VERSION`.
+  - **Supersedes:** CINV-003
+- **CINV-032** — A local release MUST update its version assertions, changelog commit, and exact
+  SemVer tag through an atomic branch/tag ref transaction, include a completed version-specific
+  host-test record, and perform no publication or writes outside this repository; interrupted
+  working-tree materialization MUST retain a recoverable journal and preserve conflicting edits.

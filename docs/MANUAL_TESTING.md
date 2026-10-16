@@ -5,7 +5,8 @@ gate is [`test-checklist.md`](test-checklist.md). Create a versioned record from
 [`test-records/TEMPLATE.md`](test-records/TEMPLATE.md) and record every step; a critical check that
 is failed, skipped, or not run blocks the release.
 
-1. Build the selected upstream tag with `python3 scripts/sync_parent.py --tag X.Y.Z`.
+1. Build the selected parent tag with `python3 scripts/sync_parent.py --tag PARENT_TAG`.
+   Select the local release candidate `X.Y.Z` independently of that parent tag.
 2. Validate with `python3 scripts/check_port.py` and the plugin validator.
 3. In the Codex desktop app, open the plugin from the repository marketplace link supplied by the
    maintainer, choose **Install**, review and trust the bundled lifecycle hooks, and then start a
@@ -16,9 +17,12 @@ is failed, skipped, or not run blocks the release.
 5. Execute and record every checklist step, including fresh start, empty-progress handling, resume,
    terse answers, non-yielding continuation, Stop continuation/release, visible working state,
    notes, feedback, checkpointing, transitions, module-specific paths, and graduation.
-6. Run `python3 scripts/local_version.py --restore`. Confirm the manifest and `PARENT_VERSION`
-   exactly equal `X.Y.Z`, repeat the required exact-version confirmation in the test record, then
-   run `python3 scripts/package_release.py`.
+6. Run `python3 scripts/local_version.py --candidate X.Y.Z` and repeat the required exact-version
+   hook checks, recording the version and observed results in the test record. Restore the
+   checkout with `python3 scripts/local_version.py --restore`, commit the completed record, and
+   use the `release` operation to preview and apply the local version/changelog/commit/tag update.
+   Confirm the manifest and `RELEASE_VERSION` equal `X.Y.Z`, then package. `PARENT_VERSION` remains
+   the selected source tag throughout.
 
 The release should remain blocked if any critical scenario fails or if the compatibility audit
 finds a Claude-only runtime assumption in an active skill.

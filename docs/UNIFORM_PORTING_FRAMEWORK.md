@@ -21,6 +21,13 @@ terminology and mechanisms.
 commit SHA. The family uses parent/child terminology for plugin provenance because "upstream"
 already identifies the Senzing MCP server and the destination for server-defect feedback.
 
+`RELEASE_VERSION` is independent of parent provenance and drives the local plugin version and
+packaging. The `release` command requires completed version-specific host-test evidence and
+updates version assertions, the changelog commit, and a local tag in one atomic branch/tag
+transaction. It keeps a recovery journal for interrupted file/index materialization and performs
+no public-repository writes or publication. The current marketplace resolves the local manifest
+and has no separate version assertion.
+
 The parent owns curriculum and all `INV-NNN` identifiers. A child never copies or renumbers them.
 If a host lacks a parent mechanism, preserve the guarantee with a host-native construction where
 possible; otherwise document the advisory degradation in the disposition register and release

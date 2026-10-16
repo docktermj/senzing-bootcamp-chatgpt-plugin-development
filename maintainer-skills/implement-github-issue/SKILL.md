@@ -91,6 +91,10 @@ PR. Verify their agreement and the complete parent delta; a partial cherry-pick 
 parity with a whole release. Do not manually advance only `PARENT_VERSION` or advance it for a
 report, a parent issue closing, or a local issue closing without the fix landing.
 
+Keep `RELEASE_VERSION` unchanged during parity imports. It is an independent local release
+version, managed by `release`; it is not evidence that a parent fix has landed. Verify parent
+provenance against the build manifest and the local version against the plugin manifest.
+
 The PR must carry the provenance update before publication. Its merge by a human lands both the
 fix and `PARENT_VERSION` and closes the parity issue through `Closes #<number>`. This command
 stops with the PR open; it never closes a parity issue early or makes a follow-up commit to
