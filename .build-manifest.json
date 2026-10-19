@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "release_version": "0.5.3",
+  "release_version": "0.6.1",
   "upstream_version": "0.6.1",
   "upstream_commit": "d3d99523f88957cd9dda2d29375892bf2c557663",
   "files": {
     ".codex-plugin/plugin.json": {
-      "generated": "3737329709a736adee87764aeb4a4605a9a5a776a8b64adf730202cb4ec4aeaf",
-      "output": "3737329709a736adee87764aeb4a4605a9a5a776a8b64adf730202cb4ec4aeaf"
+      "generated": "1865346a5557493fbf79d313d6820d4124b527f09b25e6878eb320ecfcc3737e",
+      "output": "1865346a5557493fbf79d313d6820d4124b527f09b25e6878eb320ecfcc3737e"
     },
     ".mcp.json": {
       "generated": "05f6b5112f9fcf29cc72f52dd60cbde565220dcba82352726f79337dd6c4972a",
