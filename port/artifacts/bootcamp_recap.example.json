@@ -3,9 +3,9 @@
   "renderer": "fpdf2==2.8.5; Pillow==10.2.0",
   "generator_sha256": "8a7e731cc71ff13ef729b2d453f57f81980249fa629edbbd9b856e847e89f0ed",
   "creation_date": "2000-01-01T00:00:00+00:00",
-  "pdf_sha256": "54e3539b19b42a1d22caedb62cbc3e6f56ad0ad72f4db61dc05c4c1129da4c7e",
+  "pdf_sha256": "268fcb1ed121e69325b29738d4ff8ec39914f51004fb7776dbd228a6c908cd8d",
   "inputs": {
-    "docs/examples/bootcamp_recap.example.md": "d4389f68f83ad22061480b70de592093f158b2902b37001170cf2c4ed2fbc680",
+    "docs/examples/bootcamp_recap.example.md": "76469303d78ef0a660d68e35705f43ebe859da560e43d55ee8545ee05b3b88e7",
     "docs/examples/visualizations/data_quality_assessment.png": "2172de441c2d09e2202b192d9fde972f920eeba8b68c0a525cc91148e59b6348",
     "docs/examples/visualizations/results_visualization-cross-source.png": "e27bcc5156a3600145c81fb083f4d4c65d4d4174770be88f819fd9ccb321ac27",
     "docs/examples/visualizations/results_visualization-entity-graph.png": "31c99bdc1a0468a4a3a9e108e7a8ef3a4514555d50871ff9c383efc9562c4acc",
