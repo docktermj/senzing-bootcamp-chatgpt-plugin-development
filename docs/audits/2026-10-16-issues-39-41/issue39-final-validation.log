@@ -1,0 +1,109 @@
+
+CI: python3 -m unittest scripts.test_sync_parent
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.144s
+
+OK
+Reconciliation report (before write):
+- added: .codex-plugin/plugin.json
+Reconciliation report (before write):
+- unchanged
+
+CI: python3 -m unittest scripts.test_parity_status
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.223s
+
+OK
+
+CI: python3 -m unittest scripts.test_maintainer_commands
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.004s
+
+OK
+
+CI: python3 -m unittest scripts.test_propagate_to_public
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.288s
+
+OK
+
+CI: python3 -m unittest scripts.test_release
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 0.886s
+
+OK
+
+CI: python3 -m unittest scripts.test_invariants
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+
+CI: python3 -m unittest scripts.test_retrofit_from_public
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.522s
+
+OK
+
+CI: python3 -m unittest scripts.test_audit_inventory
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.027s
+
+OK
+
+CI: python3 -m unittest scripts.test_dry_run_evidence
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.018s
+
+OK
+
+CI: python3 -m unittest scripts.test_write_gate
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 0.926s
+
+OK
+
+CI: python3 -m unittest scripts.test_bootcamp_state
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 2.017s
+
+OK
+
+CI: python3 -m unittest scripts.test_model_guidance
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.034s
+
+OK
+
+CI: python3 scripts/check_maintainer_commands.py
+Maintainer command checks passed
+
+CI: python3 scripts/check_port.py
+Port checks passed for 0.5.3
+
+CI: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts
+
+CI: python3 scripts/package_release.py
+Port checks passed for 0.5.3
+/home/senzing/.codex/worktrees/issue-39-model-guidance/senzing-bootcamp-chatgpt-plugin-development/dist/senzing-bootcamp-codex-plugin-0.5.3.zip
+..............................................................................................................................
+----------------------------------------------------------------------
+Ran 126 tests in 4.942s
+
+OK
+Reconciliation report (before write):
+- added: .codex-plugin/plugin.json
+Reconciliation report (before write):
+- unchanged

@@ -1,0 +1,47 @@
+{
+  "assurance": "Direct scripts only; not an actual Codex-host dry run",
+  "observations": [
+    {
+      "case": "legacy-file-path-outside-control",
+      "evidence_type": "direct_script",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Write blocked: use a project-relative path, not a system temp or Downloads directory.\n"
+    },
+    {
+      "case": "native-patch-outside",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "empty-progress-controller",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "{\"hookSpecificOutput\": {\"hookEventName\": \"UserPromptSubmit\", \"additionalContext\": \"A Senzing Bootcamp is active. Treat this prompt as the bootcamper's response to the pending Socratic question unless it clearly invokes an anytime bootcamp control. Before responding, read and follow the active skill at /home/senzing/github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/plugins/senzing-bootcamp/skills/bootcamp-onboarding/SKILL.md, the shared rules at /home/senzing/github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md, and the Codex interaction contract at /home/senzing/github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/plugins/senzing-bootcamp/docs/codex-interaction-contract.md. Process the answer first. During automatic work, send concise commentary so the bootcamper can see that Codex is working. Do not yield on commentary, a command result, a generated scenario, a status report, a file write, or a phase boundary. Continue in this same turn until the active shipped skill reaches its next defined question. The final response must end with exactly one skill-defined 👉 question and its options, with nothing after it. Never invent a continuation prompt.\"}}\n",
+      "stderr": ""
+    },
+    {
+      "case": "empty-progress-stop",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "{\"decision\": \"block\", \"reason\": \"The Senzing Bootcamp is active, but your last response ended without its next Socratic question. Do not wait for another bootcamper prompt. Read config/bootcamp_progress.json, load the matching Senzing Bootcamp module skill and shared ground rules, and continue all automatic and non-yielding work now. Use concise commentary while working. End only when you reach exactly one question defined by the shipped skill; render that 👉 question and its options as the final response, with nothing after it. Never invent a continuation question and never repeat a question already present in your last response.\"}\n",
+      "stderr": ""
+    },
+    {
+      "case": "graduated-controller",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "{\"hookSpecificOutput\": {\"hookEventName\": \"UserPromptSubmit\", \"additionalContext\": \"A Senzing Bootcamp is active. Treat this prompt as the bootcamper's response to the pending Socratic question unless it clearly invokes an anytime bootcamp control. Before responding, read and follow the active skill at /home/senzing/github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/plugins/senzing-bootcamp/skills/graduation/SKILL.md, the shared rules at /home/senzing/github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md, and the Codex interaction contract at /home/senzing/github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/plugins/senzing-bootcamp/docs/codex-interaction-contract.md. The recorded current step is 7. Process the answer first. During automatic work, send concise commentary so the bootcamper can see that Codex is working. Do not yield on commentary, a command result, a generated scenario, a status report, a file write, or a phase boundary. Continue in this same turn until the active shipped skill reaches its next defined question. The final response must end with exactly one skill-defined 👉 question and its options, with nothing after it. Never invent a continuation prompt.\"}}\n",
+      "stderr": ""
+    },
+    {
+      "case": "graduated-stop-control",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+ M .build-manifest.json
+ M .github/workflows/test.yaml
+ M PARENT_COMMIT
+ M PARENT_VERSION
+ M docs/PORTING.md
+ M plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.md
+ M plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.pdf
+ M plugins/senzing-bootcamp/scripts/capture_screenshots.py
+ M plugins/senzing-bootcamp/scripts/feedback-capture.py
+ M plugins/senzing-bootcamp/scripts/generate_discoveries_pdf.py
+ M plugins/senzing-bootcamp/scripts/generate_document_pdf.py
+ M plugins/senzing-bootcamp/scripts/generate_recap_pdf.py
+ M plugins/senzing-bootcamp/scripts/package_bootcamp.py
+ M plugins/senzing-bootcamp/scripts/senzing_viz_server.py
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/SKILL.md
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/feedback.md
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/module-completion.md
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/notes.md
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/onboarding-flow.md
+ M plugins/senzing-bootcamp/skills/bootcamp-onboarding/packaging.md
+ M plugins/senzing-bootcamp/skills/bootcamp-preparation/SKILL.md
+ M plugins/senzing-bootcamp/skills/graduation/SKILL.md
+ M plugins/senzing-bootcamp/skills/graduation/database-backup.md
+ M plugins/senzing-bootcamp/skills/module-00-entity-resolution-concepts/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-00-entity-resolution-concepts/concepts.md
+ M plugins/senzing-bootcamp/skills/module-01-business-problem/phase1-discovery.md
+ M plugins/senzing-bootcamp/skills/module-01-business-problem/phase2-document-confirm.md
+ M plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-03-system-verification/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-03-system-verification/phase1-verification.md
+ M plugins/senzing-bootcamp/skills/module-03-system-verification/phase2-report-close.md
+ M plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase1-visualization.md
+ M plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md
+ M plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/visualization-api-reference.md
+ M plugins/senzing-bootcamp/skills/module-04-data-collection/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase1-quality-assessment.md
+ M plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase2-data-mapping.md
+ M plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase3-test-load.md
+ M plugins/senzing-bootcamp/skills/module-06-data-processing/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-06-data-processing/phaseA-build-loading.md
+ M plugins/senzing-bootcamp/skills/module-06-data-processing/phaseB-load-first-source.md
+ M plugins/senzing-bootcamp/skills/module-06-data-processing/phaseC-multi-source.md
+ M plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md
+ M plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/SKILL.md
+ M plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md
+ M plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2-discover.md
+ M plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2b-discover.md
+ M port/artifacts/bootcamp_recap.example.json
+ M port/artifacts/bootcamp_recap.example.pdf
+ M scripts/check_port.py
+ M scripts/example_pdf.py
+ M scripts/sync_parent.py
+ M scripts/test_sync_parent.py
+ M tools/bootcamp-transform/contract.yaml
+?? docs/parent-0.6.1-review.md
+?? plugins/senzing-bootcamp/scripts/generate_recap_video.py
+?? requirements-dev.txt
+?? scripts/check_optional_renderers.py
+?? scripts/test_parent_061.py

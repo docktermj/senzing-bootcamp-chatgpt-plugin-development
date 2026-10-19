@@ -1,0 +1,7 @@
+test_the_cli_exits_2_without_ffmpeg (upstream_missing_ffmpeg_control.AMissingCapabilityExits2.test_the_cli_exits_2_without_ffmpeg)
+Out of process: PATH holds no ffmpeg and imageio-ffmpeg is hidden. ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.062s
+
+OK

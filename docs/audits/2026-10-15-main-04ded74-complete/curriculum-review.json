@@ -1,0 +1,291 @@
+{
+  "commit": "04ded7494d3e5ac0c1c543b964128acc5ef83d00",
+  "snapshot_sha256": "3920dd4ab0e3c9a1359689e8437475ec1c152f00c0a831873260b0bd3872377f",
+  "reviewer": "curriculum",
+  "files": [
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-01-business-problem/phase1-discovery.md",
+      "sha256": "6b27e99381b0833aeb3237bd8dc51bab019909c921d6dd637cb0b438b589f624",
+      "status": "reviewed",
+      "evidence": "Read all 400 lines: design-pattern sourcing/freshness, accepted generated-scenario shape/size, CORD-vs-synthesized provenance and disclosure, license deferral, inferred-details gates and Phase2 handoff. Compared generated marker and provenance to Module4 collection guard; product guidance requires runtime owning-route lookup, no current product correctness verdict."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-01-business-problem/phase2-document-confirm.md",
+      "sha256": "ff149bcbcab782efb284344b0fd19bdad1c831e6a351b5240f1f37a4584bb7c1",
+      "status": "reviewed",
+      "evidence": "Read all 382 lines: own-data diagram gate vs generated Mermaid artifacts; batched integration/deployment preferences, verbatim quotes and multi-select requirements, business-problem/README/stakeholder artifacts, confirmation and ModuleCompletion. Phase1 summary/answers flow into confirm gate; referenced phase and shared-completion paths resolve."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md",
+      "sha256": "b4ff0228ca5cf0679ae95bac49c82cf527f3c63f03931a81bab2746db5c9e87f",
+      "status": "reviewed",
+      "evidence": "Read all 1860 lines: existing-install/update/platform branches, EULA/package order, Python binding/env handling, cross-platform launch, verification vs engine readiness, license provisional/re-measure, schema/config/default seed and success close. Found inherited internal ordering/config contradictions (CUR-D01,D02,D03), matched existing parent issues; no SDK calls or install executed."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-03-system-verification/phase1-verification.md",
+      "sha256": "3b53f5331b34fba86dd166eec81c8f82ba1b248895499cfcf4dcc04dbaf5f5f1",
+      "status": "reviewed",
+      "evidence": "Read all 661 lines: all steps/opt-out, synthetic design constraints, connectivity/engine/binding/scaffold/build/registration/load/result/database checks and batched checkpoints. Traced nine checkpoint names into Phase2 report; inherited criteria/count contradiction CUR-D04; adaptation marker/restart host wording not causal."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-03-system-verification/phase2-report-close.md",
+      "sha256": "652d1759516dc868cdeb00c236d83f6fe3f1242b2c9d23808c5c3667246ae494",
+      "status": "reviewed",
+      "evidence": "Read all 201 lines: report status/expectation_mismatch handling, persisted check schema, failure cleanup guard, purge/retained artifacts and next-module close. Compared all-check success sentence and omitted engine_initialization against Phase1; CUR-D04."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/SKILL.md",
+      "sha256": "f86496a446c86beaf35bb758a4e61282f6b28b15ac7c931c5a3dc8b56288d039",
+      "status": "reviewed",
+      "evidence": "Read all 135 lines: selected standalone module, own acquisition/load, language choice, snapshot guarantee, MCP-first/fallback, API and Phase2 routes. Compared mandatory passed-live success to fallback; CUR-D05. Repeated missing best-value ground-rules anchor is existing F003."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase1-visualization.md",
+      "sha256": "4028bd60697352ddef1818b04477cd12034d58d443aed5f719b75fd261e40bae",
+      "status": "reviewed",
+      "evidence": "Read all 626 lines: module apparatus/model anchor, source fetch status/count integrity, source registration/load, reference-generated server routes, snapshot-first/D3/brand/deep links/encoding checks, live endpoints/capture/PID, tour and fallback. Followed tab/API contract and close; CUR-D05 no-live path cannot meet passed checkpoint gate."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md",
+      "sha256": "c336b230f8800ecefdc5d2eb3883c1495238f9474d6b6b22d11216295937bd75",
+      "status": "reviewed",
+      "evidence": "Read all 186 lines: snapshot/nonempty/passed checkpoints, tab comparison, failed-check proceed, teardown consent/PID/port capture/purge and completion. CUR-D05 and CUR-N01 identify conflicting gates and unsafe purge authorization after an unverified stop."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/visualization-api-reference.md",
+      "sha256": "547cc8176b371d5318e21869878d7e4656fd48899cd4a63b680a9403e03e9604",
+      "status": "reviewed",
+      "evidence": "Read all 1432 lines: endpoint/enrichment schemas, flags/source-value cautions, tab set/ids/deep links, per-entity actions/drilldowns, escaping/offline/label/encoding/render rules, server bind/nonce/PID/port/teardown and enrichment cap. Compared written endpoints/tabs and degraded snapshot actions to Phase1/close; CUR-N01 at1350 forbids purge when stop unverified. Parent diff only adaptation marker and plugin-root substitution, not finding causes. SDK names remain dated references requiring live re-query, not runtime assertions."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-04-data-collection/SKILL.md",
+      "sha256": "78d10ca6e3b22d5f50cc31f02f464844ddba43da84ddf195672a0bd4e8cc3f78",
+      "status": "reviewed",
+      "evidence": "Read all 1181 lines: actual source inventory, provenance-sensitive generated/BYO paths, quality-divergence generation with arithmetic self-check, CORD disclosure/status/count/staging contracts, registry validation, privacy/sampling/location-only state, license consent/request/measurement and SQLite decision/close. Missing active migration route CUR-D08; Module1 generated scenario promises fulfilled by synthesis branch; no data fetched."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/SKILL.md",
+      "sha256": "bcaac34bb6d875f9a417b83d365626f2b34327b51dc837b4455f86d460b36634",
+      "status": "reviewed",
+      "evidence": "Read all 115 lines: source scoring, prerequisites, mapping/reference language policy, globalization retrieval cautions, unavailable/unactionable validator paths and three phase routes. All phase files resolve. Product citations not independently refreshed unless a product finding is proposed; none proposed from this file."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase1-quality-assessment.md",
+      "sha256": "0b0b9e5b8fde9bcc829e51babf5bcc5b584785bcffb0301d3e651b562c8c908b",
+      "status": "reviewed",
+      "evidence": "Read all 913 lines: collected registry/reference retrieval/shape/catalog/readiness/full-coverage fast path/practice, exact weighted completeness/presence/type/duplicate arithmetic, synthetic-gap disclosure, band gate/improve/re-score and evaluation artifact. CUR-N02 formula contradicts displayed example/band; parent diff only adaptation marker/plugin root substitutions. Fast-path file_path remains raw with null quality, traced into Module6."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase2-data-mapping.md",
+      "sha256": "5771776da344170d8ea8eb5bd271f4b64c9c1bd9b6a17e8287f7ea70d846d53c",
+      "status": "reviewed",
+      "evidence": "Read all 1529 lines: per-source workflow/state/checkpoint and placement, valid actions/payloads/opaque state, tool-conversation precedence, embedded-master/back/sentinel paths, profile/plan/map/conditional question gates, collision and validator exemptions, fallback, mapper/test/quality/review/iterate/spec artifacts, optional sandbox menu and per-source completion. Traced per-source mapper mandatory gate, note fallback source marker vs template generated_by. No workflow call or generated transformation executed."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase3-test-load.md",
+      "sha256": "4a6d07178b684fa9a6457b313995af370727111ede0efe7886cc905e97155a19",
+      "status": "reviewed",
+      "evidence": "Read all 312 lines: optional sandbox entry after mapper documentation, environment/seed/register/test/evaluate/baseline comparison, gates, source continuation/module shortcut, resume and analysis/encoding/lifecycle rules. Traced own artifact paths and per-source state into Phase2 andModule6; shared installed-helper paths resolve. No sandbox created."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-06-data-processing/SKILL.md",
+      "sha256": "e8642f0954e0674b598df2aa324a9caa19064cd530ff9664cd31f495f4a56124",
+      "status": "reviewed",
+      "evidence": "Read all 75 lines: language/model/module apparatus, prerequisites, backup/noSQL/source-of-code rules and four phase routes. Fast-path raw inputs supported downstream PhaseA despite broad prerequisite wording requiring transformed data. Actual loads not run."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseA-build-loading.md",
+      "sha256": "b2bc4bdcbbe1cd3350c9e16291e3365d5da5bd41bf1e318c1a56559694c53869",
+      "status": "reviewed",
+      "evidence": "Read all 513 lines: Phase3 status/test deferred ordering, freshness/anti-pattern checks, production-volume parsing, licensed measured capacity reconciliation, scaffold architecture vs database writer limit, missing-binding JSON substitution, source registration/idempotence and SQLite marker/switch. CUR-D08 migration choice routes to future graduation rather than executable detour. Compared model/source registry state to preceding modules."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseB-load-first-source.md",
+      "sha256": "5fe8386b0224a5d4be3486f27128b0a4f4f9e9b600e81d59ebe0a69c173240f1",
+      "status": "reviewed",
+      "evidence": "Read all 309 lines: owed test load, diagnostics vs failed record counts, license-request reminder and apply gate, immutable source baseline plus expected_delta citations, SQLite previously-decided guard, load artifacts, finite redo drain, incremental guidance and PhaseC/D route. Traced embedded-master count increases from Module5 into legitimate expected_delta rather than false failure. No load/redo run."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseC-multi-source.md",
+      "sha256": "556e541128a2fcb04e7eef7068f4e2816f9ad5c2f3568bb8e0da81950c5b3cb7",
+      "status": "reviewed",
+      "evidence": "Read all 254 lines: source inventory/reconciled counts, provenance-aware merged dependency/strategy gate, load order/checklist/orchestrator counter isolation, retry/error boundaries, sample/full orchestration and finite redo/PhaseD. CUR-D06 PhaseC SQLite subset note disregards recorded earlier choice; exact parent164 duplicate. No orchestration executed."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md",
+      "sha256": "28cf002682fc8c8dce1ff83e93ecb7bdd77aa431e33014dfdae6545e2ad66779",
+      "status": "reviewed",
+      "evidence": "Read all 528 lines: UAT/cross-source selection/sampling, stakeholder branches/results artifacts/recovery, match-key buckets/denominators/flags/readability check, semantic vs structural findings and iterate/summary/close. CUR-D07 removed dashboard tabs; CUR-N03 decision table has no branch for UAT>=90 and accuracy<90. Compared named tabs to authoritative03b API; no entity queries run."
+    }
+  ],
+  "findings": [
+    {
+      "id": "CUR-D01",
+      "title": "SDK environment script cannot be sourced before config creation",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md:739",
+      "evidence": "Step3 requires engine_config.json and refuses absence; Step8 is first creation, but Step4 already needs platform exports. Exact known parent328; pinned0.5.3 still carries old template.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/328"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D02",
+      "title": "Install precedes EULA consent",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md:468",
+      "evidence": "Step3 Phase1 installs package at473 then Phase2 asks EULA508; same file358 says ask before anypackageinstall. Finding is internal order contradiction, not unsourced EULA legal/product assertion.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/192"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D03",
+      "title": "Engine configuration write procedure contradicts itself",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md:1477",
+      "evidence": "1477–1494 says build fromdefault_paths and doNOTwriteengine_configblobasis;1558–1559 sayssaveMCPJSONdirectlyanddonotmodifypaths. Exactparent505includesboththeseclausesandWindowsvariabledefect. Parentbytesidentical.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/505"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D04",
+      "title": "System verification count/criteria/report schema disagree",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03-system-verification/phase1-verification.md:648",
+      "evidence": "Phase1 records engine_initialization176 plus8otherchecksbutcriteria648lists8withoutitandrequiresresults_validationpass;Phase2:12,89,107usesseveninstallationchecksandacceptsexpectation_mismatch. Exactparent282 coverscount+criteria+report.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/282"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D05",
+      "title": "Truth Set fallback cannot satisfy completion gate",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md:11",
+      "evidence": "Phase1Fallback610–626guaranteessnapshotwhenliveservercannotserve;Phase2gate11requiresbothlivecheckspassed,but55allowsfailedproceed. Exactparent512coverstheseclauses.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/512"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D06",
+      "title": "PhaseC reopens settled SQLite subset choice",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseC-multi-source.md:215",
+      "evidence": "Step19runsoncompletedatasetandunguardedsubsetwarning217despitePhaseB207–215readingpriorSQLite/Module4decisionandhonoringitsilently. Exactparent164.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/164"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D07",
+      "title": "PhaseD describes a removed Relationship Network tab",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md:192",
+      "evidence": "PhaseD192namesRelationshipNetworktabswhile03bAPI625–630andtabtableexplicitlyremovedthatseparatetab;exactparent225firstbehavior. DownloadresourcechunksportionnotclaimedcurrentwithoutliveMCP.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/225"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-D08",
+      "title": "Switch-to-PostgreSQL answer has no active migration route",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-04-data-collection/SKILL.md:1121",
+      "evidence": "Module4offersswitchDB1095then1121–1123routesexclusivelytounportedDATABASE_MIGRATION.mdandforbidsinlineprocedure;Module6PhaseA503–507similarlyhandsbacktofuturegraduation. Exactparent528statesexecutabledetourandreturnpoints.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/528"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "CUR-N01",
+      "title": "Truth Set teardown both permits and forbids purge after unverified server stop",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md:127",
+      "evidence": "Phase2close127–134 says whenportremainsboundwarnthen permits step4purgeonceportfreeORbootcamperwarned. APIreference1350–1353 says whenportstillanswers afterforce-stop telluserthencontinueWITHOUTpurge. Warning alone therefore both authorizes and forbids irreversible deletion of data still beingserved.",
+      "reason": "Phase2close byte-identical toparent0.5.3; APIreference diff only marker andplugin-rootpath. No Senzingproductclaim; static conflicting safety instructions.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "All-page parent/local snapshot title/body dedup found no exact existing match; parent671 concerns screenshotembeddingtiming,notfailed-stop purge. Parenttrackingintake/escalation required; no write performed."
+      }
+    },
+    {
+      "id": "CUR-N02",
+      "title": "Quality assessment worked output contradicts its own formula and gate band",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase1-quality-assessment.md:665",
+      "evidence": "Formula439 weights0.70completeness+0.25format+0.05(100-duplicates),roundone decimal514. Example666–669 has82/90/3 ->84.75(~84.8)butprints78warn,changing>=80non-gating resultto70–79gatingresult.672–675has45/55/12 ->49.65(~49.7)butprints42.675. FormulaordinaryarithmeticnotSenzingfact.",
+      "reason": "Parent phase1qualityassessment differs only adaptation marker andplugin-root substitutions; numericexampleandformula inheritedunchanged.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "No exact issue match found in parent/local all-page snapshots after formula/example/84.8/49.7 searches. Needs parenttrackingintake and escalation; no write performed."
+      }
+    },
+    {
+      "id": "CUR-N03",
+      "title": "Module6 readiness decision omits high-UAT low-accuracy outcome",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md:455",
+      "evidence": "455branchrequiresUAT>=90 ANDaccuracy>=90;461branchUAT<80;463branchUAT80–89. ForUAT95andaccuracy70noneapplies. Rule427saysrouteonUAT/matchaccuracy,but no prescribedresponse/iteratequestionexistsforthisordinarycombination. SameissueforfractionalUAT89.5ifbandsreadliterally; mainfindingisindependentofrounding.",
+      "reason": "EntirePhaseDfile byte-identical topinnedparent0.5.3; missingbranchcurriculumowned. No SDK/productclaim.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "No exact existingissuefoundbyall-page parent/local bodykeywordsforaccuracy/bands; needs parenttrackingintake/escalation. No cross-repositorywriteperformed."
+      }
+    }
+  ],
+  "crosschecks": [
+    {
+      "category": "consistency",
+      "evidence": "Read19previouslydeferredfiles01–06fullyinboundedchunks,re-readanytruncatedgap;sourceprovenance,licensemeasurementmarkers,qualitybands,actualinputpaths,register-before-load,finite redo,truthsetpurgeandmodulehandoffscompared. Findings listed; not runtimepass."
+    },
+    {
+      "category": "references-and-routes",
+      "evidence": "Allnamedcurrentphasefiles/APIreferenceandsharedgroundrule/completionfilesexist. Explicitlyfutureportedbackgroundsnotmisclassifiedasbundledmissing. ActiveDBswitchdoesrouteexclusivelytounportedguide(CUR-D08). Best-valuetableanchorremainsF003. Dynamicuserartifactsareoutputs,notmissingbundledfiles."
+    },
+    {
+      "category": "onboarding-promises",
+      "evidence": "Generatedbusinesscasecreatesmulti-sourceprovenance,size/qualityshapecontract;Module4executesdownloador synthesiswithoutreasking;Module5quality/mappingartifacts+per-sourcegate;Module6takehomeproductionloader/stakeholdersummary;optionalfastpathpreservesrawpaths. TruthSetshowpiecefallbackblockedbyCUR-D05,notunfulfilledpromisedscenarioinvented."
+    },
+    {
+      "category": "host-interaction",
+      "evidence": "ComparedCodexinteractioncontractfullytoquestion-bearingcurriculum.Automaticstepscontinueacrossphasefiles;definedgatesonequestion;explicitblockersandterminalexceptionsdistinguished.Nohosthookfiringobserved.RepeatedgroundrulesbestvaluepromptdefectknownF003;inheritedEULAordercontradictionknownCUR-D02."
+    },
+    {
+      "category": "ownership-and-routing",
+      "evidence": "Comparedall19assignedfilebyteswithpinnedparentclone:12identical,7adapted.Marker/plugin-root/model/hostadaptationsnotcausalforthelistedcontradictions.APIreferenceandqualityphasediffsreadfullytoestablishnewfindingcause.Parent-bound,notCodexoverlayfix."
+    }
+  ],
+  "limitations": [
+    "No SDK install/load/query/sandbox/dataset fetch or browser app run performed.",
+    "No current product-fact finding proposed: dated Senzing notes remain runtime-owning-route sourced, not audit-certified product promises.",
+    "This subset alone does not closeglobalinvariantcoverage orall87files; parent reviewer merges othercoverage.",
+    "No repository files modified; no issues created/commented/edited."
+  ]
+}

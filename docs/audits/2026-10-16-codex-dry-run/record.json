@@ -1,0 +1,98 @@
+{
+  "snapshot_sha256": "86ea565061628b66777f545dd89c86aa00f323e3b08f368ef8d6795ddf6e4e9b",
+  "environment": {
+    "codex_build": "UNVERIFIED: desktop build not yet observed",
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+    "workspace": "/tmp/senzing-codex-dry-run-2026-10-16",
+    "tested_at": "2026-10-16 15:23:36 UTC",
+    "mcp_server_version": "1.39.1",
+    "installed_plugin_version": "0.5.3"
+  },
+  "phases": [
+    {
+      "id": "mcp",
+      "checks": [
+        {
+          "id": "capabilities",
+          "status": "PASS",
+          "evidence_type": "live_mcp",
+          "tool": "get_capabilities",
+          "request": {},
+          "response_summary": "Connected live server sz-mcp-coworker 1.39.1 returned 13 advertised tools and workflows.",
+          "evidence": [
+            {
+              "reference": "get-capabilities.json",
+              "observed": "Live request {} completed without isError; server_info identifies 1.39.1 and 13 tools."
+            }
+          ]
+        },
+        {
+          "id": "curriculum-contracts",
+          "evidence_type": "live_mcp",
+          "status": "NOT_RUN",
+          "reason": "Not executed yet: installed payload differs from candidate; full curriculum route probes pending exact-candidate setup. Discovery alone is not curriculum coverage."
+        }
+      ]
+    },
+    {
+      "id": "mechanisms",
+      "checks": [
+        {
+          "id": "script-execution",
+          "evidence_type": "direct_script",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        },
+        {
+          "id": "hook-lifecycle",
+          "evidence_type": "codex_host",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        }
+      ]
+    },
+    {
+      "id": "conversation",
+      "checks": [
+        {
+          "id": "turn-cycle",
+          "evidence_type": "codex_host",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        },
+        {
+          "id": "resume-transition",
+          "evidence_type": "codex_host",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        },
+        {
+          "id": "module-paths",
+          "evidence_type": "codex_host",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        },
+        {
+          "id": "artifact-review",
+          "evidence_type": "codex_host",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        },
+        {
+          "id": "terminal-completion",
+          "evidence_type": "codex_host",
+          "status": "BLOCKED",
+          "reason": "Exact installed-candidate identity not established: 53 shared files differ and two candidate scripts are absent; live curriculum-contract coverage remains incomplete."
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "preflight": {
+    "candidate_commit": "e374ed651fae431782fa60690201610f285f2e45",
+    "installed_path": "/home/senzing/.codex/plugins/cache/personal/senzing-bootcamp/0.5.3",
+    "payload_matches": false,
+    "hook_trust": "UNVERIFIED",
+    "note": "Candidate identity prerequisite failed. Same version label does not establish matching content."
+  }
+}

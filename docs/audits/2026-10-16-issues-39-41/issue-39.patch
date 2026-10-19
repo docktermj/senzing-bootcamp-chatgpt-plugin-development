@@ -1,0 +1,531 @@
+diff --git a/.build-manifest.json b/.build-manifest.json
+index 8c0c8e3..16f177f 100644
+--- a/.build-manifest.json
++++ b/.build-manifest.json
+@@ -86,7 +86,7 @@
+     },
+     "docs/model-selection.md": {
+       "generated": "d5a4e9c554cf42de0e137b3a77c5a52685036c7edd96c3026ec6ca83e5bc60c6",
+-      "output": "c36991db03e1f9840f81cd2cb6dc05c6cad0bc5e98c54c58fa9dd04367d01452"
++      "output": "006c132be8ae3b3c19280880f26e8d882b55a12ee7abb38ae338feacef4d40c6"
+     },
+     "hooks/README.md": {
+       "generated": "75622c455a105cb0d085d44b525a6f52976060c00b9cd83cf1d44ceacb73106c",
+@@ -201,8 +201,8 @@
+       "output": "adf7b90b39098c1926c8f34a82ec0d15b35c597f8fbdf8ec6eff089b948383e6"
+     },
+     "skills/bootcamp-onboarding/ground-rules.md": {
+-      "generated": "63d392ca1307362a756081ec8f73e85f85917022c6e17ebdbd6a07a60092d8a8",
+-      "output": "63d392ca1307362a756081ec8f73e85f85917022c6e17ebdbd6a07a60092d8a8"
++      "generated": "6c98065718945fda6581c73f2d29a585b4b8756e5f526703eed45fa6c832ba71",
++      "output": "6c98065718945fda6581c73f2d29a585b4b8756e5f526703eed45fa6c832ba71"
+     },
+     "skills/bootcamp-onboarding/module-completion.md": {
+       "generated": "e62116016b7731806ff863351b09a065048b3b81a87900dd3df8f6f815648955",
+@@ -229,8 +229,8 @@
+       "output": "10d5ba4596dd438be12d1617468ddfb42d272bf645b6b6879c1379a0c3b2d463"
+     },
+     "skills/graduation/SKILL.md": {
+-      "generated": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03",
+-      "output": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03"
++      "generated": "57c0c73681a226bf816baffa0bde19f91432588ead050cd9389185318c097bb5",
++      "output": "57c0c73681a226bf816baffa0bde19f91432588ead050cd9389185318c097bb5"
+     },
+     "skills/graduation/database-backup.md": {
+       "generated": "9e98ee4b3ad71e3d5028a35fe4706cb504e4681aeb6d71512379b02087cf51c6",
+diff --git a/.github/workflows/test.yaml b/.github/workflows/test.yaml
+index beb4fbb..d8fe649 100644
+--- a/.github/workflows/test.yaml
++++ b/.github/workflows/test.yaml
+@@ -27,6 +27,7 @@ jobs:
+       - run: python3 -m unittest scripts.test_dry_run_evidence
+       - run: python3 -m unittest scripts.test_write_gate
+       - run: python3 -m unittest scripts.test_bootcamp_state
++      - run: python3 -m unittest scripts.test_model_guidance
+       - run: python3 scripts/check_maintainer_commands.py
+       - run: python3 scripts/check_port.py
+       - run: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts
+diff --git a/plugins/senzing-bootcamp/docs/model-selection.md b/plugins/senzing-bootcamp/docs/model-selection.md
+index 5afc727..abccf72 100644
+--- a/plugins/senzing-bootcamp/docs/model-selection.md
++++ b/plugins/senzing-bootcamp/docs/model-selection.md
+@@ -1,10 +1,38 @@
+ # Codex model selection
+ 
+-The bootcamp may suggest a model or reasoning-effort change at a module boundary. It cannot make
++The authoritative bootcamp comparison, stage table and switch/confirmation procedure are in
++`../skills/bootcamp-onboarding/ground-rules.md` → "Best-value model/effort prompt". Graduation uses
++that same procedure. This document supplies only the host-control and model-role adaptation;
++never replace the procedure with an optional "when helpful" suggestion.
++
++The bootcamp compares the stage's model and effort recommendation at each eligible boundary. It cannot make
+ that change itself. In the Codex desktop app or IDE, tell the bootcamper to use the visible model
+ and reasoning controls. In the Codex CLI, describe the intent without inventing a command.
+ 
+-Use the user's current configured model by default. For long planning, data-mapping, debugging, or
+-graduation work, recommend a capable Codex model with medium or high reasoning. For short setup and
+-status steps, the current model is normally sufficient. Do not embed a time-sensitive model name,
+-price, or context-window claim in this versioned plugin.
++## Resolving the table's model roles
++
++Resolve `balanced` to one available general-purpose Codex model and `high-capability` to one
++available model the current host reliably describes as suited to complex reasoning/coding.
++Use current host-provided model descriptions or current official OpenAI documentation, never
++training-data model rankings. Reuse the current configured model when it satisfies the role.
++Do not present multiple candidates or add a model-selection question outside the pinned procedure.
++
++If available alternatives or their capabilities cannot be verified, retain the configured model
++and disclose that the role comparison is unavailable. Never invent an alternative, ordering,
++price or claim that the current model is inadequate. A role label is not an observed model ID.
++Resolve effort to the table's target only when the selected model/host supports it; otherwise
++name the unavailable target, retain the current supported setting and continue without blocking.
++The fallback does not add a host-configuration gate or silently claim a match.
++
++Read model and effort independently from reliable current context or explicit user reports of
++actual selected values; neither a recommendation nor a bare confirmation proves a hidden value.
++The ground-rules procedure owns per-dial fallback and every answer branch, not this document.
++
++In the desktop app or IDE, use the controls actually exposed by that interface. In an unknown
++interface or CLI, describe the intended setting and use only a control verified for that client;
++do not assume Claude commands or invent a separate effort command. Changing a host setting is
++always the user's action, never a plugin write.
++
++Official references checked for the host-control boundary (2026-10-15):
++[Codex CLI](https://learn.chatgpt.com/docs/codex/cli) documents model/reasoning selection.
++This reference does not establish the current task's settings or account-specific model access.
+diff --git a/plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md b/plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md
+index 587b2ba..23f9bd9 100644
+--- a/plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md
++++ b/plugins/senzing-bootcamp/skills/bootcamp-onboarding/ground-rules.md
+@@ -835,16 +835,148 @@ the 👉 protocol above).
+ 
+ ## Module start banners and transitions
+ 
+-At each selected module boundary, show its banner, journey map, before/after framing, numbered step
+-overview, and estimated time before doing module work. Read `../../docs/model-selection.md` before
+-giving model guidance. A model change is optional and controlled by the bootcamper; never claim to
+-have changed it. Use the visible Codex model and reasoning controls when available, and do not
+-invent Codex CLI slash commands.
+-
+-Ask at most one 👉 question in a turn. If a model-change question is warranted, it consumes that
+-turn's question; resume the module after the bootcamper answers. Checkpoint only work actually
+-completed, using the progress rules above. Skip unselected optional modules and preserve the module
+-order recorded in the bootcamp preferences.
++- **Never show a module number to the bootcamper (INV-079).** In *every* bootcamper-facing line — the module-start banner, the journey map, transition questions, and especially casual acknowledgments such as "Great, moving on to …" — refer to a module by its **name** ("Discover the Business Problem"), never its number ("Module 1"). Module numbers are internal only (skill directory names, prerequisites, section headings, `config/*` keys) and MUST NOT appear in anything the bootcamper reads. When acknowledging a transition, use the next module's **name** — the same name shown in the journey map and the "…next module: {name}?" question.
++- At every module start, BEFORE any module work: read progress, then show the module start
++  banner, a journey map (the **selected** modules — from `selected_modules` in
++  `config/bootcamp_preferences.yaml` — marked by position relative to `current_module`: ✅ for
++  modules already experienced, i.e. those before `current_module` in the list, including
++  apparatus-exempt Bootcamp preparation (never in `modules_completed`) and Module 0 (which, when it
++  runs, IS recorded in `modules_completed` — INV-092);
++  🔄 for the current module; ⬜ for upcoming), before/after
++  framing, and a brief numbered step overview. Never skip these - they orient the bootcamper.
++- **Module selection drives the journey map.** The bootcamp is a sequence of named modules chosen
++  in the **Bootcamp preparation** module (`../bootcamp-preparation/SKILL.md`): **Core** includes
++  every module in order; **Customized** includes the required modules plus whichever optional
++  modules the bootcamper chose. Required modules always run; a deselected optional module is a
++  requested skip (INV-014). The journey map shows exactly the selected modules, in order, by name —
++  not a fixed 1–7 range.
++- **Bootcamp preparation and Module 0 are lightweight setup/preamble modules.** The Bootcamp
++  preparation module (setup + module selection, always first) and the optional entity-resolution
++  concepts primer (`../module-00-entity-resolution-concepts/SKILL.md`, run **only when selected** —
++  its old skip/keep gate is retired; inclusion is driven by the Bootcamp preparation selection,
++  INV-078) do NOT run the module-start apparatus above (no journey map, no before/after, no step
++  overview, no bootcamper-facing end-of-module summary). Keep them lightweight. When Module 0 runs it
++  presents only its ENTITY RESOLUTION CONCEPTS banner, the MCP-sourced description, and its explore
++  gate. **Recap capture differs between the two:** Bootcamp preparation is fully exempt and is never
++  added to `modules_completed`; Module 0, when it runs, DOES append its own name-based recap section
++  and is added to `modules_completed` (INV-092), so it appears in the recap and is reconciled at
++  graduation (INV-085).
++- **Estimated time to complete (INV-096).** After the step overview and before the model/effort
++  prompt, add a short, honest, range-based estimate of how long the module will take — e.g.
++  "⏱️ Roughly 15-30 minutes, depending on download/install speed." Always caveat that it varies
++  with workstation power, business-scenario complexity, data volume, and how much must be
++  downloaded/installed. When a meaningful estimate is not possible for a module, say so plainly
++  ("hard to estimate for this module") rather than inventing a number; keep it honest and
++  range-based, never a single precise figure. It is explanatory output: suppress it entirely under
++  the `minimal` verbosity preset and keep it to one line under `concise` (INV-011/INV-012). This
++  applies only to the numbered content modules that run this apparatus — the apparatus-exempt setup
++  modules (Bootcamp preparation, Module 0) show no estimate.
++- **Best-value model/effort prompt.** This is the authoritative comparison, stage table and
++  switch/confirmation procedure, including graduation (INV-063/069/137/138/236/300).
++  After the overview and estimate, surface the recommendation below. Setup stages are exempt.
++
++  **Unconditional guidance, optional change.** There is no `model_guidance` preference and no
++  guidance-mode question. Ignore stale preferences for it. Keeping one model throughout is valid.
++  This is the only host-level setting offered as a bootcamp question (INV-247); do not add
++  permission, auto-accept, plan-mode or other interface-setting gates.
++
++  **Resolve roles first:** use `../../docs/model-selection.md` to resolve each role to one
++  concrete available model using reliable current host information. Retain those resolved values;
++  never infer your current model from your identity or a name in a file. No time-sensitive model
++  name, price, context-window claim or invented host command belongs in this table.
++
++  **Compare model and effort separately against live settings**, using the most recent reliable
++  host information or explicit user report of the value actually selected. A bare "yes"/"done"
++  does not expose a hidden setting. A readable model is compared even when effort is unreadable,
++  and vice versa. **Only for an unreadable dial**, fall back to that dial's resolved recommendation
++  in the stage just completed. With no such evidence, disclose the unknown; do not invent a match,
++  mismatch or supported setting. Never compare recommendation to recommendation for a readable
++  dial: a flat sequence would hide the offer from a user actually running another model.
++
++  **Above the entire table is satisfied, per dial.** Reliably identified effort above every
++  `high` row, or a reliably identified model above every resolved recommendation, earns a
++  statement that staying higher is fine, not another downgrade offer at every stage. Never infer
++  capability order from names. An in-table high-to-medium step down still earns the same optional
++  choice as a step up; this exemption is not a blanket ban on step-down offers.
++
++  **No dial differs:** give a one-line statement naming the recommendation's model and effort
++  separately, ask no switch question, and continue automatic work to the next defined 👉.
++  Mention user-controlled changes can apply to later messages. An unavailable comparison is not
++  a claimed match.
++
++  **A dial differs:** name only the moving dial, including the answer hint. Pin the appropriate
++  question below, substituting the resolved value(s), `{stage}` ("this module" or "graduation"),
++  and `{step-down clause}` (empty unless a known in-table step down):
++
++  > 👉 **Would you like to switch to {model} at {effort} reasoning effort for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current model and effort.)
++
++  > 👉 **Would you like to switch to {model} for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current model.)
++
++  > 👉 **Would you like to switch to {effort} reasoning effort for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current effort.)
++
++  The pinned step-down clause is: " This is a step down from your current {current}; it is about
++  resource use, not a capability the stage requires, so staying put is fine." Make no unsupported
++  price claim. An effort-only offer never tells the user to reset the model.
++  Name the known Codex interface's supported controls before the question when needed; use intent,
++  not invented labels or commands. The offer is this turn's only question; do not show Step 1 yet.
++
++  **On no:** acknowledge and execute the first step in the same reply turn, continuing through
++  non-yielding steps to the next skill-defined 👉. A privacy reminder/status is not a turn ending.
++
++  **On yes:** re-read reliable setting evidence before replying. The user may have acted already,
++  so the live setting, not the yes alone, decides these three branches:
++
++  1. **Not yet set or still unobservable:** give one short supported-control instruction naming
++     only the moving dial, then end on this pinned wait gate; do not start stage work yet:
++
++     > 👉 **Are you done modifying the model and effort?** (Reply yes once you've set your model and effort; reply no if you need more time.)
++
++     On confirmation, continue into the first step. On no/"not yet", acknowledge and wait for
++     their go-ahead without re-asking the gate (INV-006). A bare confirmation does not make a
++     hidden value observed.
++  2. **Already at the recommendation:** acknowledge the actual setting and continue in the same
++     turn, with no confirmation gate. Nothing remains to confirm.
++  3. **Already deliberately set to another value:** name what is in force, honor it and continue
++     in the same turn without re-instructing the recommendation or adding a confirmation gate.
++     Running higher is fine; a recommended floor is not a ceiling.
++
++  Branches 2 and 3 skip the done gate; branch 1 keeps it. Only the bootcamper can change settings.
++  Never confuse an accepted offer with a performed switch or repeat a settled confirmation.
++
++  **One row per stage, in journey order.** This is the authoritative table; the host adaptation
++  resolves its roles and must not maintain a second table. Each row has one model and effort role.
++
++  | Stage | Model role | Reasoning effort |
++  |---|---|---|
++  | Onboarding | balanced | medium |
++  | Bootcamp preparation | balanced | medium |
++  | Entity Resolution Concepts | balanced | medium |
++  | Discover the Business Problem | balanced | medium |
++  | SDK setup | high-capability | high |
++  | System verification | balanced | high |
++  | Truth Set visualization | high-capability | high |
++  | Data collection | balanced | medium |
++  | Data Quality, Mapping, and Transformation | high-capability | high |
++  | Data processing | high-capability | high |
++  | Query, Visualize and Discover | high-capability | high |
++  | Bootcamp graduation | high-capability | high |
++
++  The first three rows are comparison-only: apparatus-exempt setup stages never present the
++  nudge (INV-075/078). From Data Quality, Mapping, and Transformation onward recommendations are
++  flat, so a user already there receives no new offer. Effort targets are floors, not ceilings.
++
++- **Module start banner:** name only the module, never its internal number:
++
++  ```text
++  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
++  🚀🚀🚀  MODULE: [MODULE NAME IN CAPS]  🚀🚀🚀
++  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
++  ```
++
++- After an affirmative transition, run the next selected module's apparatus immediately.
++  Its comparison decides whether to end on the switch offer or continue into the first step.
++  Follow the three reply branches above rather than always asking the done gate. Checkpoint
++  completed work only, preserve the selected sequence, and end on the next defined question.
+ 
+ ## Closing questions
+ 
+diff --git a/plugins/senzing-bootcamp/skills/graduation/SKILL.md b/plugins/senzing-bootcamp/skills/graduation/SKILL.md
+index 8a5e80b..4ca6557 100644
+--- a/plugins/senzing-bootcamp/skills/graduation/SKILL.md
++++ b/plugins/senzing-bootcamp/skills/graduation/SKILL.md
+@@ -80,11 +80,22 @@ forward is the recap PDF and the `production/` project.
+ 
+ ## Best-value model/effort prompt
+ 
+-Graduation is a long, correctness-sensitive stage. Read `../../docs/model-selection.md` and, when
+-helpful, offer a capable Codex model at high reasoning effort using the host's visible controls.
+-The switch is optional, the plugin cannot perform it, and the question consumes the turn's single
+-👉 question. If the bootcamper declines, continue without pressure. If current settings cannot be
+-observed, say so rather than guessing.
++After the preface and before Pre-checks, follow the **Best-value model/effort prompt** in
++`../bootcamp-onboarding/ground-rules.md` in full. Use its **Bootcamp graduation** table row and
++substitute **graduation** for `{stage}` in its pinned question.
++`../../docs/model-selection.md` supplies only Codex controls and model-role resolution.
++
++Guidance is unconditional; switching remains optional. Do not read a `model_guidance` preference
++or offer it only "when helpful". Compare live model and effort separately, using the canonical
++per-dial fallback and above-table exemption. Query, Visualize and Discover shares this row:
++a user already there gets a statement, not a pointless offer.
++
++The switch is the turn's only question. On decline, continue into Pre-checks in the same turn.
++On acceptance, re-read actual setting evidence and follow the canonical three branches:
++not yet set/unobservable ends on its pinned done gate; already recommended or deliberately
++different continues without that gate. Only the bootcamper changes settings. After a needed
++confirmation, run Pre-checks and the first step, continuing to the next defined question or
++the terminal graduation banner under the interaction contract.
+ 
+ ## Pre-checks
+ 
+diff --git a/port/overlay/docs/model-selection.md b/port/overlay/docs/model-selection.md
+index 5afc727..abccf72 100644
+--- a/port/overlay/docs/model-selection.md
++++ b/port/overlay/docs/model-selection.md
+@@ -1,10 +1,38 @@
+ # Codex model selection
+ 
+-The bootcamp may suggest a model or reasoning-effort change at a module boundary. It cannot make
++The authoritative bootcamp comparison, stage table and switch/confirmation procedure are in
++`../skills/bootcamp-onboarding/ground-rules.md` → "Best-value model/effort prompt". Graduation uses
++that same procedure. This document supplies only the host-control and model-role adaptation;
++never replace the procedure with an optional "when helpful" suggestion.
++
++The bootcamp compares the stage's model and effort recommendation at each eligible boundary. It cannot make
+ that change itself. In the Codex desktop app or IDE, tell the bootcamper to use the visible model
+ and reasoning controls. In the Codex CLI, describe the intent without inventing a command.
+ 
+-Use the user's current configured model by default. For long planning, data-mapping, debugging, or
+-graduation work, recommend a capable Codex model with medium or high reasoning. For short setup and
+-status steps, the current model is normally sufficient. Do not embed a time-sensitive model name,
+-price, or context-window claim in this versioned plugin.
++## Resolving the table's model roles
++
++Resolve `balanced` to one available general-purpose Codex model and `high-capability` to one
++available model the current host reliably describes as suited to complex reasoning/coding.
++Use current host-provided model descriptions or current official OpenAI documentation, never
++training-data model rankings. Reuse the current configured model when it satisfies the role.
++Do not present multiple candidates or add a model-selection question outside the pinned procedure.
++
++If available alternatives or their capabilities cannot be verified, retain the configured model
++and disclose that the role comparison is unavailable. Never invent an alternative, ordering,
++price or claim that the current model is inadequate. A role label is not an observed model ID.
++Resolve effort to the table's target only when the selected model/host supports it; otherwise
++name the unavailable target, retain the current supported setting and continue without blocking.
++The fallback does not add a host-configuration gate or silently claim a match.
++
++Read model and effort independently from reliable current context or explicit user reports of
++actual selected values; neither a recommendation nor a bare confirmation proves a hidden value.
++The ground-rules procedure owns per-dial fallback and every answer branch, not this document.
++
++In the desktop app or IDE, use the controls actually exposed by that interface. In an unknown
++interface or CLI, describe the intended setting and use only a control verified for that client;
++do not assume Claude commands or invent a separate effort command. Changing a host setting is
++always the user's action, never a plugin write.
++
++Official references checked for the host-control boundary (2026-10-15):
++[Codex CLI](https://learn.chatgpt.com/docs/codex/cli) documents model/reasoning selection.
++This reference does not establish the current task's settings or account-specific model access.
+diff --git a/scripts/check_port.py b/scripts/check_port.py
+index 33d7142..25398c0 100644
+--- a/scripts/check_port.py
++++ b/scripts/check_port.py
+@@ -65,6 +65,12 @@ else:
+         errors.append("porting workflow does not require review of the Codex invariants ledger")
+ 
+ manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text())
++model_guidance_checks = subprocess.run(
++    ["python3", "-m", "unittest", "scripts.test_model_guidance"],
++    cwd=ROOT, text=True, capture_output=True, check=False,
++)
++if model_guidance_checks.returncode != 0:
++    errors.append(f"Codex model-guidance checks failed: {model_guidance_checks.stderr.strip()}")
+ lifecycle_checks = subprocess.run(
+     ["python3", "-m", "unittest", "scripts.test_bootcamp_state"],
+     cwd=ROOT, text=True, capture_output=True, check=False,
+diff --git a/tools/bootcamp-transform/contract.yaml b/tools/bootcamp-transform/contract.yaml
+index 7a337a3..7ae5b57 100644
+--- a/tools/bootcamp-transform/contract.yaml
++++ b/tools/bootcamp-transform/contract.yaml
+@@ -16,7 +16,17 @@
+     "honored": "all upstream INV-NNN identifiers except entries explicitly preserved_restated or discounted",
+     "preserved_restated": [
+       {"id": "INV-052", "mechanism": "Codex hook commands resolve bundled scripts through install-time `${PLUGIN_ROOT}` absolute paths and invoke only quoted `python3` script paths; CINV-017 and check_port.py enforce it."},
+-      {"id": "INV-158", "mechanism": "Codex-native terminology and visible host controls replace Claude-specific interface names and commands; CINV-019 and the ground-rules transformation enforce it."}
++      {"id": "INV-158", "mechanism": "Codex-native terminology and visible host controls replace Claude-specific interface names and commands; CINV-019 and the ground-rules transformation enforce it."},
++      {"id":"INV-063","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-069","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-098","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-114","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-137","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-138","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-139","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-140","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-141","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."},
++      {"id":"INV-236","mechanism":"The ground-rules transformation preserves the canonical stage table, setup exemptions, independent live-dial comparison, pinned native switch/done gates and answer branches. Graduation delegates to it; port/overlay/docs/model-selection.md resolves host-supported roles without fixed model IDs. scripts.test_model_guidance guards these constructions; actual host interaction remains a manual check."}
+     ],
+     "discounted": []
+   },
+@@ -112,14 +122,14 @@
+         {"kind": "literal", "old": "**Model/effort tuning.** Model/effort is a session-level choice the bootcamper controls with\n  `/model` and `/effort` (it persists for the session; per-skill frontmatter would not — see\n  `../../docs/model-selection.md`).", "new": "**Model/effort tuning.** Model and reasoning effort are host-level choices the bootcamper controls with the visible Codex controls (see `../../docs/model-selection.md`)."},
+         {"kind": "literal", "old": "the plugin ships\n  skills, hooks and commands, none of which reach their interface.", "new": "the plugin ships skills, lifecycle hooks, scripts, and an MCP configuration, none of which reach their interface."},
+         {"kind": "section", "start": "## Naming the Codex interface (INV-158)", "end": "## Visual deliverables (Senzing brand)", "replacement": "## Naming the Codex interface (INV-158)\n\nCall the desktop application the **Codex desktop app**, its coding workspace the **Codex IDE**,\nand the terminal client the **Codex CLI**. When the exact host is unknown, say **your Codex\ninterface**. Do not invent interface-specific commands or controls."},
+-        {"kind": "section", "start": "## Module start banners and transitions", "end": "## Closing questions", "replacement": "## Module start banners and transitions\n\nAt each selected module boundary, show its banner, journey map, before/after framing, numbered step\noverview, and estimated time before doing module work. Read `../../docs/model-selection.md` before\ngiving model guidance. A model change is optional and controlled by the bootcamper; never claim to\nhave changed it. Use the visible Codex model and reasoning controls when available, and do not\ninvent Codex CLI slash commands.\n\nAsk at most one 👉 question in a turn. If a model-change question is warranted, it consumes that\nturn's question; resume the module after the bootcamper answers. Checkpoint only work actually\ncompleted, using the progress rules above. Skip unselected optional modules and preserve the module\norder recorded in the bootcamp preferences."}
++        {"kind": "section", "start": "## Module start banners and transitions", "end": "## Closing questions", "replacement": "## Module start banners and transitions\n\n- **Never show a module number to the bootcamper (INV-079).** In *every* bootcamper-facing line — the module-start banner, the journey map, transition questions, and especially casual acknowledgments such as \"Great, moving on to …\" — refer to a module by its **name** (\"Discover the Business Problem\"), never its number (\"Module 1\"). Module numbers are internal only (skill directory names, prerequisites, section headings, `config/*` keys) and MUST NOT appear in anything the bootcamper reads. When acknowledging a transition, use the next module's **name** — the same name shown in the journey map and the \"…next module: {name}?\" question.\n- At every module start, BEFORE any module work: read progress, then show the module start\n  banner, a journey map (the **selected** modules — from `selected_modules` in\n  `config/bootcamp_preferences.yaml` — marked by position relative to `current_module`: ✅ for\n  modules already experienced, i.e. those before `current_module` in the list, including\n  apparatus-exempt Bootcamp preparation (never in `modules_completed`) and Module 0 (which, when it\n  runs, IS recorded in `modules_completed` — INV-092);\n  🔄 for the current module; ⬜ for upcoming), before/after\n  framing, and a brief numbered step overview. Never skip these - they orient the bootcamper.\n- **Module selection drives the journey map.** The bootcamp is a sequence of named modules chosen\n  in the **Bootcamp preparation** module (`../bootcamp-preparation/SKILL.md`): **Core** includes\n  every module in order; **Customized** includes the required modules plus whichever optional\n  modules the bootcamper chose. Required modules always run; a deselected optional module is a\n  requested skip (INV-014). The journey map shows exactly the selected modules, in order, by name —\n  not a fixed 1–7 range.\n- **Bootcamp preparation and Module 0 are lightweight setup/preamble modules.** The Bootcamp\n  preparation module (setup + module selection, always first) and the optional entity-resolution\n  concepts primer (`../module-00-entity-resolution-concepts/SKILL.md`, run **only when selected** —\n  its old skip/keep gate is retired; inclusion is driven by the Bootcamp preparation selection,\n  INV-078) do NOT run the module-start apparatus above (no journey map, no before/after, no step\n  overview, no bootcamper-facing end-of-module summary). Keep them lightweight. When Module 0 runs it\n  presents only its ENTITY RESOLUTION CONCEPTS banner, the MCP-sourced description, and its explore\n  gate. **Recap capture differs between the two:** Bootcamp preparation is fully exempt and is never\n  added to `modules_completed`; Module 0, when it runs, DOES append its own name-based recap section\n  and is added to `modules_completed` (INV-092), so it appears in the recap and is reconciled at\n  graduation (INV-085).\n- **Estimated time to complete (INV-096).** After the step overview and before the model/effort\n  prompt, add a short, honest, range-based estimate of how long the module will take — e.g.\n  \"⏱️ Roughly 15-30 minutes, depending on download/install speed.\" Always caveat that it varies\n  with workstation power, business-scenario complexity, data volume, and how much must be\n  downloaded/installed. When a meaningful estimate is not possible for a module, say so plainly\n  (\"hard to estimate for this module\") rather than inventing a number; keep it honest and\n  range-based, never a single precise figure. It is explanatory output: suppress it entirely under\n  the `minimal` verbosity preset and keep it to one line under `concise` (INV-011/INV-012). This\n  applies only to the numbered content modules that run this apparatus — the apparatus-exempt setup\n  modules (Bootcamp preparation, Module 0) show no estimate.\n- **Best-value model/effort prompt.** This is the authoritative comparison, stage table and\n  switch/confirmation procedure, including graduation (INV-063/069/137/138/236/300).\n  After the overview and estimate, surface the recommendation below. Setup stages are exempt.\n\n  **Unconditional guidance, optional change.** There is no `model_guidance` preference and no\n  guidance-mode question. Ignore stale preferences for it. Keeping one model throughout is valid.\n  This is the only host-level setting offered as a bootcamp question (INV-247); do not add\n  permission, auto-accept, plan-mode or other interface-setting gates.\n\n  **Resolve roles first:** use `../../docs/model-selection.md` to resolve each role to one\n  concrete available model using reliable current host information. Retain those resolved values;\n  never infer your current model from your identity or a name in a file. No time-sensitive model\n  name, price, context-window claim or invented host command belongs in this table.\n\n  **Compare model and effort separately against live settings**, using the most recent reliable\n  host information or explicit user report of the value actually selected. A bare \"yes\"/\"done\"\n  does not expose a hidden setting. A readable model is compared even when effort is unreadable,\n  and vice versa. **Only for an unreadable dial**, fall back to that dial's resolved recommendation\n  in the stage just completed. With no such evidence, disclose the unknown; do not invent a match,\n  mismatch or supported setting. Never compare recommendation to recommendation for a readable\n  dial: a flat sequence would hide the offer from a user actually running another model.\n\n  **Above the entire table is satisfied, per dial.** Reliably identified effort above every\n  `high` row, or a reliably identified model above every resolved recommendation, earns a\n  statement that staying higher is fine, not another downgrade offer at every stage. Never infer\n  capability order from names. An in-table high-to-medium step down still earns the same optional\n  choice as a step up; this exemption is not a blanket ban on step-down offers.\n\n  **No dial differs:** give a one-line statement naming the recommendation's model and effort\n  separately, ask no switch question, and continue automatic work to the next defined 👉.\n  Mention user-controlled changes can apply to later messages. An unavailable comparison is not\n  a claimed match.\n\n  **A dial differs:** name only the moving dial, including the answer hint. Pin the appropriate\n  question below, substituting the resolved value(s), `{stage}` (\"this module\" or \"graduation\"),\n  and `{step-down clause}` (empty unless a known in-table step down):\n\n  > 👉 **Would you like to switch to {model} at {effort} reasoning effort for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current model and effort.)\n\n  > 👉 **Would you like to switch to {model} for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current model.)\n\n  > 👉 **Would you like to switch to {effort} reasoning effort for {stage}?{step-down clause}** (Recommended for best value; reply no to keep your current effort.)\n\n  The pinned step-down clause is: \" This is a step down from your current {current}; it is about\n  resource use, not a capability the stage requires, so staying put is fine.\" Make no unsupported\n  price claim. An effort-only offer never tells the user to reset the model.\n  Name the known Codex interface's supported controls before the question when needed; use intent,\n  not invented labels or commands. The offer is this turn's only question; do not show Step 1 yet.\n\n  **On no:** acknowledge and execute the first step in the same reply turn, continuing through\n  non-yielding steps to the next skill-defined 👉. A privacy reminder/status is not a turn ending.\n\n  **On yes:** re-read reliable setting evidence before replying. The user may have acted already,\n  so the live setting, not the yes alone, decides these three branches:\n\n  1. **Not yet set or still unobservable:** give one short supported-control instruction naming\n     only the moving dial, then end on this pinned wait gate; do not start stage work yet:\n\n     > 👉 **Are you done modifying the model and effort?** (Reply yes once you've set your model and effort; reply no if you need more time.)\n\n     On confirmation, continue into the first step. On no/\"not yet\", acknowledge and wait for\n     their go-ahead without re-asking the gate (INV-006). A bare confirmation does not make a\n     hidden value observed.\n  2. **Already at the recommendation:** acknowledge the actual setting and continue in the same\n     turn, with no confirmation gate. Nothing remains to confirm.\n  3. **Already deliberately set to another value:** name what is in force, honor it and continue\n     in the same turn without re-instructing the recommendation or adding a confirmation gate.\n     Running higher is fine; a recommended floor is not a ceiling.\n\n  Branches 2 and 3 skip the done gate; branch 1 keeps it. Only the bootcamper can change settings.\n  Never confuse an accepted offer with a performed switch or repeat a settled confirmation.\n\n  **One row per stage, in journey order.** This is the authoritative table; the host adaptation\n  resolves its roles and must not maintain a second table. Each row has one model and effort role.\n\n  | Stage | Model role | Reasoning effort |\n  |---|---|---|\n  | Onboarding | balanced | medium |\n  | Bootcamp preparation | balanced | medium |\n  | Entity Resolution Concepts | balanced | medium |\n  | Discover the Business Problem | balanced | medium |\n  | SDK setup | high-capability | high |\n  | System verification | balanced | high |\n  | Truth Set visualization | high-capability | high |\n  | Data collection | balanced | medium |\n  | Data Quality, Mapping, and Transformation | high-capability | high |\n  | Data processing | high-capability | high |\n  | Query, Visualize and Discover | high-capability | high |\n  | Bootcamp graduation | high-capability | high |\n\n  The first three rows are comparison-only: apparatus-exempt setup stages never present the\n  nudge (INV-075/078). From Data Quality, Mapping, and Transformation onward recommendations are\n  flat, so a user already there receives no new offer. Effort targets are floors, not ceilings.\n\n- **Module start banner:** name only the module, never its internal number:\n\n  ```text\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  🚀🚀🚀  MODULE: [MODULE NAME IN CAPS]  🚀🚀🚀\n  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  ```\n\n- After an affirmative transition, run the next selected module's apparatus immediately.\n  Its comparison decides whether to end on the switch offer or continue into the first step.\n  Follow the three reply branches above rather than always asking the done gate. Checkpoint\n  completed work only, preserve the selected sequence, and end on the next defined question.\n"}
+       ]
+     },
+     {
+       "id": "graduation",
+       "match": ["skills/graduation/SKILL.md"],
+       "operations": [
+-        {"kind": "section", "start": "## Best-value model/effort prompt", "end": "## Pre-checks", "replacement": "## Best-value model/effort prompt\n\nGraduation is a long, correctness-sensitive stage. Read `../../docs/model-selection.md` and, when\nhelpful, offer a capable Codex model at high reasoning effort using the host's visible controls.\nThe switch is optional, the plugin cannot perform it, and the question consumes the turn's single\n👉 question. If the bootcamper declines, continue without pressure. If current settings cannot be\nobserved, say so rather than guessing."}
++        {"kind": "section", "start": "## Best-value model/effort prompt", "end": "## Pre-checks", "replacement": "## Best-value model/effort prompt\n\nAfter the preface and before Pre-checks, follow the **Best-value model/effort prompt** in\n`../bootcamp-onboarding/ground-rules.md` in full. Use its **Bootcamp graduation** table row and\nsubstitute **graduation** for `{stage}` in its pinned question.\n`../../docs/model-selection.md` supplies only Codex controls and model-role resolution.\n\nGuidance is unconditional; switching remains optional. Do not read a `model_guidance` preference\nor offer it only \"when helpful\". Compare live model and effort separately, using the canonical\nper-dial fallback and above-table exemption. Query, Visualize and Discover shares this row:\na user already there gets a statement, not a pointless offer.\n\nThe switch is the turn's only question. On decline, continue into Pre-checks in the same turn.\nOn acceptance, re-read actual setting evidence and follow the canonical three branches:\nnot yet set/unobservable ends on its pinned done gate; already recommended or deliberately\ndifferent continues without that gate. Only the bootcamper changes settings. After a needed\nconfirmation, run Pre-checks and the first step, continuing to the next defined question or\nthe terminal graduation banner under the interaction contract."}
+       ]
+     },
+     {
+diff --git a/scripts/test_model_guidance.py b/scripts/test_model_guidance.py
+new file mode 100644
+index 0000000..78dbd30
+--- /dev/null
++++ b/scripts/test_model_guidance.py
+@@ -0,0 +1,130 @@
++"""Static model-guidance preservation tests; no host conversation pass implied."""
++
++import re
++import unittest
++from pathlib import Path
++from tempfile import TemporaryDirectory
++
++from scripts import sync_parent as sync
++
++
++ROOT = Path(__file__).resolve().parents[1]
++PLUGIN = ROOT / "plugins/senzing-bootcamp"
++GROUND = "skills/bootcamp-onboarding/ground-rules.md"
++GRADUATION = "skills/graduation/SKILL.md"
++STAGES = [
++    "Onboarding", "Bootcamp preparation", "Entity Resolution Concepts",
++    "Discover the Business Problem", "SDK setup", "System verification",
++    "Truth Set visualization", "Data collection", "Data Quality, Mapping, and Transformation",
++    "Data processing", "Query, Visualize and Discover", "Bootcamp graduation",
++]
++REQUIRED = [
++    "**Best-value model/effort prompt.**",
++    "**Compare model and effort separately against live settings**",
++    "**Only for an unreadable dial**",
++    "**Above the entire table is satisfied, per dial.**",
++    "**No dial differs:**", "**A dial differs:**", "**On no:**", "**On yes:**",
++    "**Not yet set or still unobservable:**", "**Already at the recommendation:**",
++    "**Already deliberately set to another value:**",
++    "Branches 2 and 3 skip the done gate; branch 1 keeps it.",
++    "Are you done modifying the model and effort?",
++    "reply no to keep your current model and effort.",
++    "reply no to keep your current model.",
++    "reply no to keep your current effort.",
++    "about resource use, not a capability the stage requires",
++]
++
++
++def missing_guarantees(text):
++    normalized = " ".join(text.split())
++    return [phrase for phrase in REQUIRED if phrase not in normalized]
++
++
++class ModelGuidanceTests(unittest.TestCase):
++    def setUp(self):
++        self.contract = sync.load_contract(ROOT / "tools/bootcamp-transform/contract.yaml")
++        self.ground = (PLUGIN / GROUND).read_text()
++        self.graduation = (PLUGIN / GRADUATION).read_text()
++
++    def test_generated_policy_carries_comparison_and_all_answer_branches(self):
++        self.assertEqual(missing_guarantees(self.ground), [])
++
++    def test_old_generic_replacement_is_a_negative_control(self):
++        old = "A model change is optional. If a question is warranted, resume after the answer."
++        self.assertTrue(missing_guarantees(old))
++        for phrase in REQUIRED:
++            with self.subTest(phrase=phrase):
++                normalized = " ".join(self.ground.split())
++                self.assertIn(phrase, missing_guarantees(normalized.replace(phrase, "")))
++
++    def test_real_contract_restores_the_policy_not_only_generated_output(self):
++        fixture = (
++            "# Rules\n\n## Naming the Codex interface (INV-158)\nOld\n"
++            "## Visual deliverables (Senzing brand)\nVisual\n"
++            "## Module start banners and transitions\nOld module policy\n"
++            "## Closing questions\nKeep this closing rule\n"
++        )
++        transform = next(item for item in self.contract["text_transforms"] if item["id"] == "ground-rules")
++        with TemporaryDirectory() as directory:
++            root = Path(directory)
++            target = root / GROUND
++            target.parent.mkdir(parents=True)
++            target.write_text(fixture)
++            sync.apply_text_transforms(root, {"text_transforms": [transform]})
++            result = target.read_text()
++            self.assertEqual(missing_guarantees(result), [])
++            self.assertIn("Keep this closing rule", result)
++            self.assertNotIn("Old module policy", result)
++
++    def test_stage_table_has_every_stage_once_and_flat_final_recommendation(self):
++        rows = re.findall(r"(?m)^  \| (.+?) \| (balanced|high-capability) \| (medium|high) \|$", self.ground)
++        self.assertEqual([row[0] for row in rows], STAGES)
++        self.assertEqual(len({row[0] for row in rows}), len(STAGES))
++        self.assertEqual({row[1:] for row in rows[-4:]}, {("high-capability", "high")})
++        self.assertEqual(rows[5][1:], ("balanced", "high"))
++
++    def test_setup_exemptions_journey_order_and_estimates_survive(self):
++        for phrase in (
++            "do NOT run the module-start apparatus",
++            "Bootcamp preparation is fully exempt",
++            "Module 0, when it runs, DOES append",
++            "selected_modules", "minimal", "concise",
++            "hard to estimate for this module",
++            "setup stages never present the",
++        ):
++            with self.subTest(phrase=phrase):
++                self.assertIn(phrase, self.ground)
++
++    def test_graduation_uses_the_single_canonical_procedure(self):
++        for phrase in (
++            "../bootcamp-onboarding/ground-rules.md",
++            "**Bootcamp graduation**", "Guidance is unconditional",
++            "three branches", "already recommended or deliberately",
++            "On decline, continue into Pre-checks",
++        ):
++            self.assertIn(phrase, self.graduation)
++        self.assertNotIn("when\nhelpful, offer", self.graduation)
++
++    def test_role_adapter_does_not_claim_hidden_settings_or_fixed_model_ids(self):
++        adapter = (ROOT / "port/overlay/docs/model-selection.md").read_text()
++        for phrase in (
++            "reliable current context", "comparison is unavailable",
++            "retain the current supported setting", "not an observed model ID",
++            "actual selected values",
++        ):
++            self.assertIn(phrase, adapter)
++        policy = self.ground[self.ground.index("## Module start banners and transitions"):]
++        self.assertNotRegex(policy, r"gpt-\d|Opus|Sonnet|`/(?:effort|model)\b")
++        self.assertNotRegex(adapter, r"gpt-\d|Opus|Sonnet")
++
++    def test_register_restates_the_native_mechanisms_without_discounts(self):
++        register = self.contract["invariant_disposition_register"]
++        entries = {entry["id"]: entry for entry in register["preserved_restated"]}
++        for identifier in ("063", "069", "098", "114", "137", "138", "139", "140", "141", "236"):
++            self.assertIn("scripts.test_model_guidance", entries["INV-" + identifier]["mechanism"])
++        self.assertEqual(register["discounted"], [])
++
++
++if __name__ == "__main__":
++    unittest.main()
++

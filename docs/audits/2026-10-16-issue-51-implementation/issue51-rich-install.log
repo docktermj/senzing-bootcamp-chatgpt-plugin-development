@@ -1,0 +1,21 @@
+Collecting fpdf2==2.8.5 (from -r requirements-example-pdf.txt (line 1))
+  Using cached fpdf2-2.8.5-py3-none-any.whl.metadata (76 kB)
+Collecting Pillow==10.2.0 (from -r requirements-example-pdf.txt (line 2))
+  Downloading pillow-10.2.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+Collecting imageio-ffmpeg==0.6.0 (from -r requirements-dev.txt (line 2))
+  Downloading imageio_ffmpeg-0.6.0-py3-none-manylinux2014_x86_64.whl.metadata (1.5 kB)
+Collecting defusedxml (from fpdf2==2.8.5->-r requirements-example-pdf.txt (line 1))
+  Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Collecting fonttools>=4.34.0 (from fpdf2==2.8.5->-r requirements-example-pdf.txt (line 1))
+  Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (137 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.2/137.2 kB 3.8 MB/s eta 0:00:00
+Using cached fpdf2-2.8.5-py3-none-any.whl (301 kB)
+Downloading pillow-10.2.0-cp312-cp312-manylinux_2_28_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 8.7 MB/s eta 0:00:00
+Downloading imageio_ffmpeg-0.6.0-py3-none-manylinux2014_x86_64.whl (29.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 29.5/29.5 MB 12.1 MB/s eta 0:00:00
+Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 13.8 MB/s eta 0:00:00
+Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Installing collected packages: Pillow, imageio-ffmpeg, fonttools, defusedxml, fpdf2
+Successfully installed Pillow-10.2.0 defusedxml-0.7.1 fonttools-4.67.0 fpdf2-2.8.5 imageio-ffmpeg-0.6.0

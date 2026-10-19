@@ -1,0 +1,49 @@
+{
+  "assurance": "Synthetic fixtures/direct renderers/generated snapshot shim only, no SDK or user data",
+  "observations": [
+    {
+      "probe": "stdlib_content_loss",
+      "audit_ok": true,
+      "audit_retention": 0.98828125,
+      "rendered": true,
+      "source_marker_count": 2,
+      "pdf_marker_count": 0,
+      "stderr": ""
+    },
+    {
+      "probe": "recap_stdlib_table_loss",
+      "fatal": [],
+      "warnings": [],
+      "audit_retention": 0.923728813559322,
+      "source_marker_count": 1,
+      "pdf_marker_count": 0
+    },
+    {
+      "probe": "share_contains_mapped_input",
+      "included": [
+        "production/data/senzing-ready/people.jsonl"
+      ],
+      "promise_no_source_data": true
+    },
+    {
+      "probe": "explicit_output_outside_project",
+      "exit": 0,
+      "outside_written": true
+    },
+    {
+      "probe": "snapshot_records_graph_cap",
+      "graph_count": 1500,
+      "graph_capped": true,
+      "merges_count": 1501,
+      "omitted_id": 1501,
+      "omitted_id_in_graph": false
+    },
+    {
+      "probe": "actual_snapshot_shim_omitted_records",
+      "response": {
+        "entity_id": "1501",
+        "error": "not found: no such entity"
+      }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "snapshot_sha256": "3920dd4ab0e3c9a1359689e8437475ec1c152f00c0a831873260b0bd3872377f",
+  "coverage_complete": false,
+  "coverage_errors": [
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.pdf",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/brand_tokens.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/capture_screenshots.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/generate_discoveries_pdf.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/generate_recap_pdf.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/normalize_docs_markdown.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/package_bootcamp.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/senzing_viz_server.py",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/scripts/vendor/d3.v7.min.js",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/graduation/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-01-business-problem/phase1-discovery.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-01-business-problem/phase2-document-confirm.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-03-system-verification/phase1-verification.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-03-system-verification/phase2-report-close.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase1-visualization.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/visualization-api-reference.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-04-data-collection/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase1-quality-assessment.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase2-data-mapping.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase3-test-load.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-06-data-processing/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-06-data-processing/phaseA-build-loading.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-06-data-processing/phaseB-load-first-source.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-06-data-processing/phaseC-multi-source.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/SKILL.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2-discover.md",
+    "Missing, stale, deferred, or unsupported file review: plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2b-discover.md",
+    "Check is deferred or lacks review evidence: consistency",
+    "Check is deferred or lacks review evidence: references-and-routes",
+    "Check is deferred or lacks review evidence: onboarding-promises",
+    "Check is deferred or lacks review evidence: host-interaction",
+    "Check is deferred or lacks review evidence: invariant-coverage",
+    "Check is deferred or lacks review evidence: ownership-and-routing",
+    "Required semantic review is incomplete: consistency",
+    "Required semantic review is incomplete: references-and-routes",
+    "Required semantic review is incomplete: onboarding-promises",
+    "Required semantic review is incomplete: host-interaction",
+    "Required semantic review is incomplete: invariant-coverage",
+    "Required semantic review is incomplete: ownership-and-routing"
+  ],
+  "structural_alerts": [],
+  "findings": [
+    {
+      "id": "F-003",
+      "route": "local",
+      "reason": "The Codex transformation replaces parent module-start guidance; authoritative internal links and setup exemptions no longer agree.",
+      "source": "tools/bootcamp-transform/contract.yaml:115",
+      "evidence": "Compared pinned parent module-start procedure with generated ground-rules.md:836 and preparation:215-223. Detailed best-value, switch/done and exemption semantics are missing.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/39"
+      }
+    },
+    {
+      "id": "F-004",
+      "route": "parent-bound",
+      "reason": "Conflicting screenshot embedding timing is inherited from the pinned parent, not introduced by Codex adaptation.",
+      "source": "plugins/senzing-bootcamp/skills/bootcamp-onboarding/module-completion.md:124",
+      "evidence": "Lines 124-131 require checkpoint-now/embed-at-close, while 312-317 require embedding in the same capture turn. Parent content compared; escalation approved and both issue links verified.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/40"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/671",
+      "tracking_label": "awaiting-parity"
+    },
+    {
+      "id": "F-005",
+      "route": "parent-bound",
+      "reason": "The shipped parent-derived reference image clips a long match-key label. No local renderer root cause was fully reviewed.",
+      "source": "plugins/senzing-bootcamp/docs/examples/visualizations/truthset_verification-match-keys.png",
+      "evidence": "Visual inspection shows a long label cut off at the left image edge. Closed parent #463 describes related label-gutter clipping, but its scope does not establish regeneration of this bundled image or containing release.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "Evidence handed off in this checkpoint. Before escalation, create a local tracking issue, verify whether parent #463 covers the reference asset and containing release, then create/reuse a parent issue with cross-links. No escalation claimed."
+      },
+      "related_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/463"
+    }
+  ],
+  "assurance": "Coverage validation does not establish semantic correctness or runtime readiness",
+  "command_exit_code": 1
+}

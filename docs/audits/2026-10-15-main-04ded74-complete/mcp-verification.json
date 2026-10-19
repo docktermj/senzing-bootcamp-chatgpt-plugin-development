@@ -1,0 +1,62 @@
+{
+  "finding": "F-007",
+  "requests": [
+    {
+      "tool": "get_sdk_reference",
+      "arguments": {
+        "topic": "response_schemas",
+        "filter": "why_entities",
+        "language": "python"
+      },
+      "selected_response": [
+        {
+          "id": "why_entities",
+          "fields": [
+            {
+              "field_type": "object",
+              "path": "WHY_RESULTS[].MATCH_INFO.WHY_KEY_DETAILS",
+              "requires_flags": [
+                "SZ_INCLUDE_MATCH_KEY_DETAILS"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tool": "get_sdk_reference",
+      "arguments": {
+        "topic": "flags",
+        "filter": "SZ_INCLUDE_MATCH_KEY_DETAILS",
+        "language": "python"
+      },
+      "selected_response": [
+        {
+          "applies_to": [
+            "get_entity_by_entity_id",
+            "get_entity_by_record_id",
+            "search_by_attributes",
+            "how_entity_by_entity_id",
+            "why_entities",
+            "why_records",
+            "why_record_in_entity",
+            "why_search",
+            "export_json_entity_report",
+            "export_csv_entity_report",
+            "find_path_by_entity_id",
+            "find_path_by_record_id",
+            "find_network_by_entity_id",
+            "find_network_by_record_id"
+          ],
+          "description": "The SZ_INCLUDE_MATCH_KEY_DETAILS flag is dependent on using one of the following flags: SZ_ENTITY_INCLUDE_ALL_RELATIONS , SZ_ENTITY_INCLUDE_POSSIBLY_SAME_RELATIONS , SZ_ENTITY_INCLUDE_POSSIBLY_RELATED_RELATIONS , SZ_ENTITY_INCLUDE_NAME_ONLY_RELATIONS , or SZ_ENTITY_INCLUDE_DISCLOSED_RELATIONS. When the SZ_INCLUDE_MATCH_KEY_DETAILS flag is used, each related entity includes a MATCH_KEY_DETAILS object containing CONFIRMATIONS (and optionally DENIALS) arrays. Each entry describes the specific feature comparison that contributed to or denied the relationship, including scores and score buckets.",
+          "name": "SZ_INCLUDE_MATCH_KEY_DETAILS",
+          "response_paths": [
+            "RELATED_ENTITIES[].MATCH_KEY_DETAILS"
+          ],
+          "source_file": "docs-flags-4-flags_get_entity.md"
+        }
+      ]
+    }
+  ],
+  "limits": "Selected owning-route result, not an engine observation or universal field-presence promise."
+}
