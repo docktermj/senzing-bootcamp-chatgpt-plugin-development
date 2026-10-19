@@ -1,0 +1,93 @@
+{
+  "authorization": "User explicitly approved all seven new parent-bound findings.",
+  "workflow": "maintainer-skills/escalate-to-parent/SKILL.md",
+  "verified_escalations": [
+    {
+      "id": "F-020",
+      "number": 673,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/673",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/43",
+      "child_number": 43,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/43#issuecomment-6207520507"
+    },
+    {
+      "id": "F-021",
+      "number": 677,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/677",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/47",
+      "child_number": 47,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/47#issuecomment-6207530784"
+    },
+    {
+      "id": "F-022",
+      "number": 678,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/678",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/48",
+      "child_number": 48,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/48#issuecomment-6207532578"
+    },
+    {
+      "id": "F-023",
+      "number": 672,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/672",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/42",
+      "child_number": 42,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/42#issuecomment-6207517862"
+    },
+    {
+      "id": "F-024",
+      "number": 674,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/674",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/44",
+      "child_number": 44,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/44#issuecomment-6207522487"
+    },
+    {
+      "id": "F-025",
+      "number": 676,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/676",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/46",
+      "child_number": 46,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/46#issuecomment-6207528682"
+    },
+    {
+      "id": "F-026",
+      "number": 675,
+      "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/675",
+      "child_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/45",
+      "child_number": 45,
+      "label": "awaiting-parity",
+      "child_state": "OPEN",
+      "parent_state": "OPEN",
+      "cross_links_verified": true,
+      "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/45#issuecomment-6207526080"
+    }
+  ],
+  "remaining_handoffs": 0,
+  "keep_open_rule": "Keep child tracking open until a verified containing parent tag lands via parity-check. Parent closure alone is insufficient.",
+  "scope": "Issue/report changes only; no implementation, pin, branch or commit changes."
+}

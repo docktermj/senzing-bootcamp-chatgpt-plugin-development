@@ -1,0 +1,11 @@
+ M .build-manifest.json
+ M .github/workflows/test.yaml
+ M docs/PORTING.md
+ M plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.pdf
+ M scripts/check_port.py
+ M scripts/sync_parent.py
+ M tools/bootcamp-transform/contract.yaml
+?? port/artifacts/
+?? requirements-example-pdf.txt
+?? scripts/example_pdf.py
+?? scripts/test_example_pdf.py

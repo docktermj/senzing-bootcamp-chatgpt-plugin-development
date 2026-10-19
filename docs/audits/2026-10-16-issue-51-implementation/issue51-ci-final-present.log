@@ -1,0 +1,279 @@
+
+CI: python3 -m unittest scripts.test_sync_parent
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.248s
+
+OK
+Reconciliation report (before write):
+- added: .codex-plugin/plugin.json
+Reconciliation report (before write):
+- unchanged
+
+CI: python3 -m unittest scripts.test_example_pdf
+........
+----------------------------------------------------------------------
+Ran 8 tests in 1.347s
+
+OK
+
+CI: python3 -m unittest scripts.test_parity_status
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.227s
+
+OK
+
+CI: python3 -m unittest scripts.test_maintainer_commands
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.004s
+
+OK
+
+CI: python3 -m unittest scripts.test_propagate_to_public
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.283s
+
+OK
+
+CI: python3 -m unittest scripts.test_release
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 0.845s
+
+OK
+
+CI: python3 -m unittest scripts.test_invariants
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+
+CI: python3 -m unittest scripts.test_retrofit_from_public
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.522s
+
+OK
+
+CI: python3 -m unittest scripts.test_audit_inventory
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.027s
+
+OK
+
+CI: python3 -m unittest scripts.test_dry_run_evidence
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.019s
+
+OK
+
+CI: python3 -m unittest scripts.test_write_gate
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 1.002s
+
+OK
+
+CI: python3 -m unittest scripts.test_bootcamp_state
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 2.373s
+
+OK
+
+CI: python3 -m unittest scripts.test_model_guidance
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.048s
+
+OK
+
+CI: python3 -m unittest scripts.test_parent_061
+.............OVERRUN: scenes[0] (title_card): the narration needs 1.6 s (0.8 s spoken, estimated at 160 words a minute with no voice, plus 0.8 s of lead and tail), more than the planned 1 s; the scene is extended to 1.6 s so nothing is cut.
+....
+----------------------------------------------------------------------
+Ran 17 tests in 0.245s
+
+OK
+
+CI: python3 scripts/check_optional_renderers.py
+test_caches_are_excluded_but_unexpected_payload_is_reported (test_audit_inventory.AuditInventoryTests.test_caches_are_excluded_but_unexpected_payload_is_reported) ... ok
+test_complete_coverage_is_distinct_from_readiness (test_audit_inventory.AuditInventoryTests.test_complete_coverage_is_distinct_from_readiness) ... ok
+test_duplicate_and_unreviewed_checks_fail (test_audit_inventory.AuditInventoryTests.test_duplicate_and_unreviewed_checks_fail) ... ok
+test_finding_reviews_require_routing_and_real_disposition_fields (test_audit_inventory.AuditInventoryTests.test_finding_reviews_require_routing_and_real_disposition_fields) ... ok
+test_inventory_includes_hidden_binary_and_overlay_files_without_writes (test_audit_inventory.AuditInventoryTests.test_inventory_includes_hidden_binary_and_overlay_files_without_writes) ... ok
+test_missing_overlay_output_and_changed_build_are_visible (test_audit_inventory.AuditInventoryTests.test_missing_overlay_output_and_changed_build_are_visible) ... ok
+test_missing_stale_and_deferred_file_reviews_fail (test_audit_inventory.AuditInventoryTests.test_missing_stale_and_deferred_file_reviews_fail) ... ok
+test_symlink_inputs_are_not_silently_omitted (test_audit_inventory.AuditInventoryTests.test_symlink_inputs_are_not_silently_omitted) ... ok
+test_unexpressible_check_requires_register_entry (test_audit_inventory.AuditInventoryTests.test_unexpressible_check_requires_register_entry) ... ok
+test_active_session_resume_retains_module_and_checkpoint_behavior (test_bootcamp_state.BootcampStateTests.test_active_session_resume_retains_module_and_checkpoint_behavior) ... ok
+test_active_stop_still_blocks_status_only_and_releases_questions_and_loops (test_bootcamp_state.BootcampStateTests.test_active_stop_still_blocks_status_only_and_releases_questions_and_loops) ... ok
+test_active_terse_answers_keep_recorded_skill_and_step (test_bootcamp_state.BootcampStateTests.test_active_terse_answers_keep_recorded_skill_and_step) ... ok
+test_completed_unrelated_prompt_does_not_restart_or_inject (test_bootcamp_state.BootcampStateTests.test_completed_unrelated_prompt_does_not_restart_or_inject) ... ok
+test_completion_marker_stands_down_all_continuation_guards (test_bootcamp_state.BootcampStateTests.test_completion_marker_stands_down_all_continuation_guards) ... ok
+test_explicit_start_entry_and_fresh_preparation_are_preserved (test_bootcamp_state.BootcampStateTests.test_explicit_start_entry_and_fresh_preparation_are_preserved) ... ok
+test_explicitly_recorded_preparation_remains_active (test_bootcamp_state.BootcampStateTests.test_explicitly_recorded_preparation_remains_active) ... ok
+test_false_completion_and_nested_or_commented_flags_do_not_disable (test_bootcamp_state.BootcampStateTests.test_false_completion_and_nested_or_commented_flags_do_not_disable) ... ok
+test_hook_registration_and_overlay_outputs_remain_present (test_bootcamp_state.BootcampStateTests.test_hook_registration_and_overlay_outputs_remain_present) ... ok
+test_invalid_utf8_progress_is_silent (test_bootcamp_state.BootcampStateTests.test_invalid_utf8_progress_is_silent) ... ok
+test_malformed_stop_payload_never_crashes (test_bootcamp_state.BootcampStateTests.test_malformed_stop_payload_never_crashes) ... ok
+test_missing_progress_is_silent_and_nonmutating (test_bootcamp_state.BootcampStateTests.test_missing_progress_is_silent_and_nonmutating) ... ok
+test_progress_directory_instead_of_file_is_silent (test_bootcamp_state.BootcampStateTests.test_progress_directory_instead_of_file_is_silent) ... ok
+test_stop_opt_out_does_not_disable_controller (test_bootcamp_state.BootcampStateTests.test_stop_opt_out_does_not_disable_controller) ... ok
+test_unrecorded_and_invalid_progress_states_are_silent (test_bootcamp_state.BootcampStateTests.test_unrecorded_and_invalid_progress_states_are_silent) ... ok
+test_complete_record_is_structurally_valid_not_proof_of_observations (test_dry_run_evidence.DryRunEvidenceTests.test_complete_record_is_structurally_valid_not_proof_of_observations) ... ok
+test_direct_script_cannot_substitute_for_host_observations (test_dry_run_evidence.DryRunEvidenceTests.test_direct_script_cannot_substitute_for_host_observations) ... ok
+test_duplicate_phases_and_unrouted_findings_fail (test_dry_run_evidence.DryRunEvidenceTests.test_duplicate_phases_and_unrouted_findings_fail) ... ok
+test_failed_mcp_blocks_dependent_phases (test_dry_run_evidence.DryRunEvidenceTests.test_failed_mcp_blocks_dependent_phases) ... ok
+test_failed_run_with_unexecuted_dependents_is_a_valid_nonpass_record (test_dry_run_evidence.DryRunEvidenceTests.test_failed_run_with_unexecuted_dependents_is_a_valid_nonpass_record) ... ok
+test_missing_check_stale_snapshot_and_wrong_installed_version_fail (test_dry_run_evidence.DryRunEvidenceTests.test_missing_check_stale_snapshot_and_wrong_installed_version_fail) ... ok
+test_missing_trace_or_invented_question_template_cannot_pass (test_dry_run_evidence.DryRunEvidenceTests.test_missing_trace_or_invented_question_template_cannot_pass) ... ok
+test_status_only_final_missing_origin_and_intermediate_yield_fail (test_dry_run_evidence.DryRunEvidenceTests.test_status_only_final_missing_origin_and_intermediate_yield_fail) ... ok
+test_unavailable_host_phase_is_advisory_never_pass (test_dry_run_evidence.DryRunEvidenceTests.test_unavailable_host_phase_is_advisory_never_pass) ... ok
+test_unavailable_mcp_is_a_blocker (test_dry_run_evidence.DryRunEvidenceTests.test_unavailable_mcp_is_a_blocker) ... ok
+test_actual_binary_matches_all_declared_adapted_inputs (test_example_pdf.ExamplePDFTests.test_actual_binary_matches_all_declared_adapted_inputs) ... ok
+test_artifact_input_cannot_escape_plugin_root (test_example_pdf.ExamplePDFTests.test_artifact_input_cannot_escape_plugin_root) ... ok
+test_changed_binary_is_rejected (test_example_pdf.ExamplePDFTests.test_changed_binary_is_rejected) ... ok
+test_changed_markdown_renderer_or_image_blocks_stale_copy (test_example_pdf.ExamplePDFTests.test_changed_markdown_renderer_or_image_blocks_stale_copy) ... ok
+test_compressed_content_is_checked_not_only_the_pdf_header (test_example_pdf.ExamplePDFTests.test_compressed_content_is_checked_not_only_the_pdf_header) ... ok
+test_contract_copies_verified_binary_and_rejects_a_stale_input (test_example_pdf.ExamplePDFTests.test_contract_copies_verified_binary_and_rejects_a_stale_input) ... ok
+test_missing_input_cannot_be_waived_by_removing_its_hash (test_example_pdf.ExamplePDFTests.test_missing_input_cannot_be_waived_by_removing_its_hash) ... ok
+test_rehashed_claude_instruction_still_fails_content_check (test_example_pdf.ExamplePDFTests.test_rehashed_claude_instruction_still_fails_content_check) ... ok
+test_alternate_syntax_and_foreign_namespace_fail (test_invariants.InvariantTests.test_alternate_syntax_and_foreign_namespace_fail) ... ok
+test_chain_and_multiple_predecessors_are_supported (test_invariants.InvariantTests.test_chain_and_multiple_predecessors_are_supported) ... ok
+test_duplicate_and_missing_definitions_fail (test_invariants.InvariantTests.test_duplicate_and_missing_definitions_fail) ... ok
+test_duplicate_links_and_multiple_successors_fail (test_invariants.InvariantTests.test_duplicate_links_and_multiple_successors_fail) ... ok
+test_maintenance_examples_are_not_invariant_metadata (test_invariants.InvariantTests.test_maintenance_examples_are_not_invariant_metadata) ... ok
+test_missing_reciprocal_link_fails_in_both_directions (test_invariants.InvariantTests.test_missing_reciprocal_link_fails_in_both_directions) ... ok
+test_nonexistent_targets_fail_in_both_directions (test_invariants.InvariantTests.test_nonexistent_targets_fail_in_both_directions) ... ok
+test_reciprocal_pair_has_only_active_and_superseded_status (test_invariants.InvariantTests.test_reciprocal_pair_has_only_active_and_superseded_status) ... ok
+test_self_links_and_cycles_fail (test_invariants.InvariantTests.test_self_links_and_cycles_fail) ... ok
+test_both_skill_locations_are_supported (test_maintainer_commands.MaintainerCommandTests.test_both_skill_locations_are_supported) ... ok
+test_command_without_skill_fails (test_maintainer_commands.MaintainerCommandTests.test_command_without_skill_fails) ... ok
+test_duplicate_skill_names_across_locations_fail (test_maintainer_commands.MaintainerCommandTests.test_duplicate_skill_names_across_locations_fail) ... ok
+test_metadata_and_explicit_target_are_required (test_maintainer_commands.MaintainerCommandTests.test_metadata_and_explicit_target_are_required) ... ok
+test_skill_without_command_fails (test_maintainer_commands.MaintainerCommandTests.test_skill_without_command_fails) ... ok
+test_stale_location_and_ambiguous_targets_fail (test_maintainer_commands.MaintainerCommandTests.test_stale_location_and_ambiguous_targets_fail) ... ok
+test_wrong_target_fails_even_when_command_and_skill_names_match (test_maintainer_commands.MaintainerCommandTests.test_wrong_target_fails_even_when_command_and_skill_names_match) ... ok
+test_generated_policy_carries_comparison_and_all_answer_branches (test_model_guidance.ModelGuidanceTests.test_generated_policy_carries_comparison_and_all_answer_branches) ... ok
+test_graduation_uses_the_single_canonical_procedure (test_model_guidance.ModelGuidanceTests.test_graduation_uses_the_single_canonical_procedure) ... ok
+test_old_generic_replacement_is_a_negative_control (test_model_guidance.ModelGuidanceTests.test_old_generic_replacement_is_a_negative_control) ... ok
+test_real_contract_restores_the_policy_not_only_generated_output (test_model_guidance.ModelGuidanceTests.test_real_contract_restores_the_policy_not_only_generated_output) ... ok
+test_register_restates_the_native_mechanisms_without_discounts (test_model_guidance.ModelGuidanceTests.test_register_restates_the_native_mechanisms_without_discounts) ... ok
+test_role_adapter_does_not_claim_hidden_settings_or_fixed_model_ids (test_model_guidance.ModelGuidanceTests.test_role_adapter_does_not_claim_hidden_settings_or_fixed_model_ids) ... ok
+test_setup_exemptions_journey_order_and_estimates_survive (test_model_guidance.ModelGuidanceTests.test_setup_exemptions_journey_order_and_estimates_survive) ... ok
+test_stage_table_has_every_stage_once_and_flat_final_recommendation (test_model_guidance.ModelGuidanceTests.test_stage_table_has_every_stage_once_and_flat_final_recommendation) ... ok
+test_rich_renderer_emits_a_pdf (test_parent_061.PDFRendererTests.test_rich_renderer_emits_a_pdf) ... ok
+test_stdlib_renderer_emits_a_pdf (test_parent_061.PDFRendererTests.test_stdlib_renderer_emits_a_pdf) ... ok
+test_broll_and_graduation_keep_privacy_and_decline_rules (test_parent_061.ParentImportTests.test_broll_and_graduation_keep_privacy_and_decline_rules) ... ok
+test_example_version_uses_the_local_release_variable_not_a_fixed_bump (test_parent_061.ParentImportTests.test_example_version_uses_the_local_release_variable_not_a_fixed_bump) ... ok
+test_full_model_tokens_and_feedback_examples_are_transformed (test_parent_061.ParentImportTests.test_full_model_tokens_and_feedback_examples_are_transformed) ... ok
+test_installed_sdk_version_and_eula_existing_install_route_survive (test_parent_061.ParentImportTests.test_installed_sdk_version_and_eula_existing_install_route_survive) ... ok
+test_mapping_returns_and_per_source_gates_are_preserved (test_parent_061.ParentImportTests.test_mapping_returns_and_per_source_gates_are_preserved) ... ok
+test_provenance_agrees_without_bumping_local_release (test_parent_061.ParentImportTests.test_provenance_agrees_without_bumping_local_release) ... ok
+test_reconciliation_counts_and_subset_records_survive (test_parent_061.ParentImportTests.test_reconciliation_counts_and_subset_records_survive) ... ok
+test_shipped_text_has_no_new_host_token_leaks (test_parent_061.ParentImportTests.test_shipped_text_has_no_new_host_token_leaks) ... ok
+test_branch_prerelease_and_manifest_mismatch_are_rejected (test_parent_061.RefreshProvenanceTests.test_branch_prerelease_and_manifest_mismatch_are_rejected) ... ok
+test_reviewed_target_can_refresh_before_current_pins_advance (test_parent_061.RefreshProvenanceTests.test_reviewed_target_can_refresh_before_current_pins_advance) ... ok
+test_wrong_checkout_or_reviewed_commit_is_rejected (test_parent_061.RefreshProvenanceTests.test_wrong_checkout_or_reviewed_commit_is_rejected) ... ok
+test_frame_drawing_uses_the_actual_imported_renderer (test_parent_061.VideoRuntimeTests.test_frame_drawing_uses_the_actual_imported_renderer) ... OVERRUN: scenes[0] (title_card): the narration needs 1.6 s (0.8 s spoken, estimated at 160 words a minute with no voice, plus 0.8 s of lead and tail), more than the planned 1 s; the scene is extended to 1.6 s so nothing is cut.
+ok
+test_invalid_storyboard_preserves_existing_video (test_parent_061.VideoRuntimeTests.test_invalid_storyboard_preserves_existing_video) ... ok
+test_local_path_policy_rejects_urls_absolute_paths_and_symlink_escape (test_parent_061.VideoRuntimeTests.test_local_path_policy_rejects_urls_absolute_paths_and_symlink_escape) ... ok
+test_valid_storyboard_and_all_exit_codes (test_parent_061.VideoRuntimeTests.test_valid_storyboard_and_all_exit_codes) ... ok
+test_closed_parent_without_released_fix_stays_open (test_parity_status.ParityStatusTests.test_closed_parent_without_released_fix_stays_open) ... ok
+test_closing_commit_on_another_branch_does_not_qualify (test_parity_status.ParityStatusTests.test_closing_commit_on_another_branch_does_not_qualify) ... ok
+test_declined_fix_requires_human (test_parity_status.ParityStatusTests.test_declined_fix_requires_human) ... ok
+test_different_production_payload_blocks (test_parity_status.ParityStatusTests.test_different_production_payload_blocks) ... ok
+test_landed_tagged_fix_is_ready_and_comment_names_tag (test_parity_status.ParityStatusTests.test_landed_tagged_fix_is_ready_and_comment_names_tag) ... ok
+test_landing_reads_remote_main_not_feature_worktree (test_parity_status.ParityStatusTests.test_landing_reads_remote_main_not_feature_worktree) ... ok
+test_missing_or_unknown_evidence_blocks (test_parity_status.ParityStatusTests.test_missing_or_unknown_evidence_blocks) ... ok
+test_moving_and_missing_tags_block (test_parity_status.ParityStatusTests.test_moving_and_missing_tags_block) ... ok
+test_released_fix_without_landing_stays_open (test_parity_status.ParityStatusTests.test_released_fix_without_landing_stays_open) ... ok
+test_reopened_parent_stays_open (test_parity_status.ParityStatusTests.test_reopened_parent_stays_open) ... ok
+test_apply_updates_only_payload_and_never_stages_commits_or_contacts_remote (test_propagate_to_public.PropagationTests.test_apply_updates_only_payload_and_never_stages_commits_or_contacts_remote) ... ok
+test_branch_name_is_not_a_release (test_propagate_to_public.PropagationTests.test_branch_name_is_not_a_release) ... ok
+test_british_spelling_blocks_release (test_propagate_to_public.PropagationTests.test_british_spelling_blocks_release) ... ok
+test_deletions_are_scoped_to_plugin_payload (test_propagate_to_public.PropagationTests.test_deletions_are_scoped_to_plugin_payload) ... ok
+test_destination_requires_named_checked_out_review_branch (test_propagate_to_public.PropagationTests.test_destination_requires_named_checked_out_review_branch) ... ok
+test_development_reference_blocks_release (test_propagate_to_public.PropagationTests.test_development_reference_blocks_release) ... ok
+test_dirty_public_index_is_preserved_and_rejected (test_propagate_to_public.PropagationTests.test_dirty_public_index_is_preserved_and_rejected) ... ok
+test_preview_leaves_working_tree_index_and_refs_unchanged (test_propagate_to_public.PropagationTests.test_preview_leaves_working_tree_index_and_refs_unchanged) ... ok
+test_remote_slug_requires_exact_github_repository (test_propagate_to_public.PropagationTests.test_remote_slug_requires_exact_github_repository) ... ok
+test_removed_publication_flags_are_rejected_without_changes (test_propagate_to_public.PropagationTests.test_removed_publication_flags_are_rejected_without_changes) ... ok
+test_tagged_release_is_public_only_and_versioned (test_propagate_to_public.PropagationTests.test_tagged_release_is_public_only_and_versioned) ... ok
+test_apply_commits_all_metadata_and_tag_together (test_release.ReleaseTests.test_apply_commits_all_metadata_and_tag_together) ... ok
+test_check_temporary_files_stay_inside_repository (test_release.ReleaseTests.test_check_temporary_files_stay_inside_repository) ... ok
+test_commit_creation_failure_leaves_no_partial_release (test_release.ReleaseTests.test_commit_creation_failure_leaves_no_partial_release) ... ok
+test_existing_marketplace_version_assertion_moves_with_release (test_release.ReleaseTests.test_existing_marketplace_version_assertion_moves_with_release) ... ok
+test_failed_validation_does_not_prepare_refs_or_files (test_release.ReleaseTests.test_failed_validation_does_not_prepare_refs_or_files) ... ok
+test_interrupted_materialization_can_be_recovered (test_release.ReleaseTests.test_interrupted_materialization_can_be_recovered) ... ok
+test_invalid_or_existing_versions_block (test_release.ReleaseTests.test_invalid_or_existing_versions_block) ... ok
+test_local_candidate_restore_uses_release_not_parent_version (test_release.ReleaseTests.test_local_candidate_restore_uses_release_not_parent_version) ... ok
+test_missing_or_nonpassing_record_blocks_without_release (test_release.ReleaseTests.test_missing_or_nonpassing_record_blocks_without_release) ... ok
+test_preview_is_read_only_and_preserves_parent_provenance (test_release.ReleaseTests.test_preview_is_read_only_and_preserves_parent_provenance) ... ok
+test_public_origin_and_dirty_checkout_are_rejected (test_release.ReleaseTests.test_public_origin_and_dirty_checkout_are_rejected) ... ok
+test_recovery_does_not_remove_someone_elses_index_lock (test_release.ReleaseTests.test_recovery_does_not_remove_someone_elses_index_lock) ... ok
+test_recovery_preserves_unrelated_edits (test_release.ReleaseTests.test_recovery_preserves_unrelated_edits) ... ok
+test_ref_lock_failure_rolls_back_both_refs (test_release.ReleaseTests.test_ref_lock_failure_rolls_back_both_refs) ... ok
+test_added_removed_and_modified_payload_files_are_reported (test_retrofit_from_public.RetrofitTests.test_added_removed_and_modified_payload_files_are_reported) ... ok
+test_binary_evidence_and_fingerprint_are_stable (test_retrofit_from_public.RetrofitTests.test_binary_evidence_and_fingerprint_are_stable) ... ok
+test_committed_snapshot_does_not_read_dirty_working_files (test_retrofit_from_public.RetrofitTests.test_committed_snapshot_does_not_read_dirty_working_files) ... ok
+test_expected_public_rewrites_are_not_divergence (test_retrofit_from_public.RetrofitTests.test_expected_public_rewrites_are_not_divergence) ... ok
+test_file_mode_changes_are_reported (test_retrofit_from_public.RetrofitTests.test_file_mode_changes_are_reported) ... ok
+test_matching_issues_includes_open_and_closed_without_automatically_refiling (test_retrofit_from_public.RetrofitTests.test_matching_issues_includes_open_and_closed_without_automatically_refiling) ... ok
+test_public_governance_files_are_outside_propagation_scope (test_retrofit_from_public.RetrofitTests.test_public_governance_files_are_outside_propagation_scope) ... ok
+test_wrong_repository_and_unsupported_file_types_block (test_retrofit_from_public.RetrofitTests.test_wrong_repository_and_unsupported_file_types_block) ... ok
+test_cli_rejects_non_tag_references (test_sync_parent.TransformationContractTests.test_cli_rejects_non_tag_references) ... ok
+test_execution_is_deterministic_and_overlay_wins (test_sync_parent.TransformationContractTests.test_execution_is_deterministic_and_overlay_wins) ... ok
+test_new_upstream_version_requires_invariant_register_review (test_sync_parent.TransformationContractTests.test_new_upstream_version_requires_invariant_register_review) ... ok
+test_non_tag_references_are_rejected_before_reading_or_writing (test_sync_parent.TransformationContractTests.test_non_tag_references_are_rejected_before_reading_or_writing) ... ok
+test_parent_child_governance_skills_keep_cross_repo_writes_scoped (test_sync_parent.TransformationContractTests.test_parent_child_governance_skills_keep_cross_repo_writes_scoped) ... ok
+test_parent_rebuild_preserves_independent_local_release_version (test_sync_parent.TransformationContractTests.test_parent_rebuild_preserves_independent_local_release_version) ... ok
+test_reconciliation_reports_an_overlay_conflict (test_sync_parent.TransformationContractTests.test_reconciliation_reports_an_overlay_conflict) ... ok
+test_repository_contract_is_the_only_home_for_transform_rules (test_sync_parent.TransformationContractTests.test_repository_contract_is_the_only_home_for_transform_rules) ... ok
+test_uniform_framework_covers_all_nine_components (test_sync_parent.TransformationContractTests.test_uniform_framework_covers_all_nine_components) ... ok
+test_unmatched_upstream_file_names_itself_and_writes_nothing (test_sync_parent.TransformationContractTests.test_unmatched_upstream_file_names_itself_and_writes_nothing) ... ok
+test_added_patch_like_text_is_not_treated_as_a_target (test_write_gate.WriteGateTests.test_added_patch_like_text_is_not_treated_as_a_target) ... ok
+test_case_distinct_outside_directory_is_not_exempted (test_write_gate.WriteGateTests.test_case_distinct_outside_directory_is_not_exempted) ... ok
+test_inactive_workspace_is_not_affected (test_write_gate.WriteGateTests.test_inactive_workspace_is_not_affected) ... ok
+test_legacy_write_and_edit_are_preserved (test_write_gate.WriteGateTests.test_legacy_write_and_edit_are_preserved) ... ok
+test_malformed_or_unsupported_inputs_block_explicitly (test_write_gate.WriteGateTests.test_malformed_or_unsupported_inputs_block_explicitly) ... ok
+test_malformed_patch_structure_blocks (test_write_gate.WriteGateTests.test_malformed_patch_structure_blocks) ... ok
+test_mixed_patch_checks_every_target (test_write_gate.WriteGateTests.test_mixed_patch_checks_every_target) ... ok
+test_moves_check_source_and_destination (test_write_gate.WriteGateTests.test_moves_check_source_and_destination) ... ok
+test_native_add_inside_project_and_spaced_paths_are_allowed (test_write_gate.WriteGateTests.test_native_add_inside_project_and_spaced_paths_are_allowed) ... ok
+test_native_outside_add_update_and_delete_are_blocked (test_write_gate.WriteGateTests.test_native_outside_add_update_and_delete_are_blocked) ... ok
+test_native_update_context_eof_and_delete_are_allowed (test_write_gate.WriteGateTests.test_native_update_context_eof_and_delete_are_allowed) ... ok
+test_overlay_and_shipped_secret_pattern_match_parent_helper (test_write_gate.WriteGateTests.test_overlay_and_shipped_secret_pattern_match_parent_helper) ... ok
+test_secret_scan_covers_native_and_legacy_payloads (test_write_gate.WriteGateTests.test_secret_scan_covers_native_and_legacy_payloads) ... ok
+test_symlink_escape_is_blocked (test_write_gate.WriteGateTests.test_symlink_escape_is_blocked) ... ok
+test_unexpanded_temp_targets_are_blocked (test_write_gate.WriteGateTests.test_unexpanded_temp_targets_are_blocked) ... ok
+
+----------------------------------------------------------------------
+Ran 151 tests in 7.524s
+
+OK
+Reconciliation report (before write):
+- added: .codex-plugin/plugin.json
+Reconciliation report (before write):
+- unchanged
+Optional PDF environment: present; tests=151; skips=0
+
+CI: python3 scripts/check_maintainer_commands.py
+Maintainer command checks passed
+
+CI: python3 scripts/check_port.py
+Port checks passed for 0.5.3
+
+CI: python3 -m compileall -q scripts plugins/senzing-bootcamp/scripts
+
+CI: python3 scripts/package_release.py
+Port checks passed for 0.5.3
+/home/senzing/.codex/worktrees/issue-39-model-guidance/senzing-bootcamp-chatgpt-plugin-development/dist/senzing-bootcamp-codex-plugin-0.5.3.zip

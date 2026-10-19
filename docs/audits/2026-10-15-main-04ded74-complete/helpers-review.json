@@ -1,0 +1,224 @@
+{
+  "snapshot_sha256": "3920dd4ab0e3c9a1359689e8437475ec1c152f00c0a831873260b0bd3872377f",
+  "commit": "04ded7494d3e5ac0c1c543b964128acc5ef83d00",
+  "scope": "Seven assigned helper/graduation files, static full reads; no fixes or GitHub writes",
+  "files": [
+    {
+      "path": "plugins/senzing-bootcamp/scripts/capture_screenshots.py",
+      "sha256": "52038f00fe5a54bf4dcd260bb0796ee892f660c64f2b59a53152c55555bf01bc",
+      "status": "reviewed",
+      "evidence": "Fully read lines1–1648 in contiguous bounded chunks. Reviewed six-tab inventory, reserved identifiers, single-page detection, data applicability, local-target preflight, four optional backends, per-tab settled/full-page reporting, duplicate capture deletion, manifest merge and skip/failure distinctions. Byte-identical to pinned parent. No confirmed new finding in this file; local-only network-enforcement lead remains explicitly unverified. This is not a live screenshot/backend pass."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/scripts/generate_discoveries_pdf.py",
+      "sha256": "900a65b2956425e449fe9f8a4c0def9d88087c321e29478aa4ff87f498ff7360",
+      "status": "finding",
+      "finding_id": "H002",
+      "evidence": "Fully read lines1–956; Markdown parser, heading audit, content-retention calculation, fpdf grid/wrap path, stdlib token/page path and CLI flags reviewed together with recap plumbing and graduation renderer instructions. Parent byte-identical. Reproduced stdlib code/table tail loss in /tmp: auditOK98.828%, 2source markers versus0pdftotext markers, empty stderr."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/scripts/generate_recap_pdf.py",
+      "sha256": "05bc304d5033f9873ccc1d94be83e432ad6aff3740db1bd9b15c0ee1e5087684",
+      "status": "finding",
+      "finding_id": "H002",
+      "evidence": "Fully read lines1–4083 in contiguous600-line chunks. Reviewed checkpoint/notes fence extraction and stray policy, module parsing/completeness, pre-render retention, external screenshot manifests and expected-visualization denominator, certificate/preferences precedence, Unicode drop reporting, rich two-pass layout, stdlib PDF serialization and table fallback. Only Codex banner/host-language substitutions differ from pinned parent. Reproduced stdlib table loss: no audit fatal/warnings,92.373%retention,1source sentinel versus0extracted PDF sentinels. H008 additionally records render-success coverage reporting gap."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/scripts/package_bootcamp.py",
+      "sha256": "08e27ab18f8b1d202848d9cc045e319460ceacfb0523bb53cf0773988a7f535c",
+      "status": "finding",
+      "finding_id": "H001",
+      "evidence": "Fully read lines1–535. Reviewed profile allow/exclusion paths, segment matching, symlink containment, extension-independent streaming secret scan, manifest digests, unconditional OPEN_ME_FIRST promises, output path and ZIP reopen/integrity flow. Only Codex banner/path/manifest terminology differs from pinned parent. Reproduced share packaging of production/data/senzing-ready/people.jsonl despite no-input promise; H006 is known parent321 unconditional artifact-pointer duplicate. --output outside-root behavior recorded separately as a policy lead, not an asserted vulnerability."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/scripts/senzing_viz_server.py",
+      "sha256": "a318484caeca0e703cd5e811f8cd66e066eda5bcba80adacbd0753507c580896",
+      "status": "finding",
+      "finding_id": "H003",
+      "evidence": "Fully read lines1–2420. Reviewed record/export model paths, capped graph ranking, aggregate drilldowns, source-set encoding, search fallback, why/how data handling, all six embedded JS tabs, node/label layering, capture settle/fitting, deep links, inline escaping, vendored D3 fallback, HTTP loopback identity, snapshot fetch shim and settings precedence. Byte-identical pinned parent. H003 filter leaves sibling labels; H004 uncapped snapshot entity actions lose Records outside capped graph; H005 parent463 width-estimate duplicate; H007 parent327 missing cap-disclosure duplicate. No SDK run or new product-fact finding claimed."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/scripts/vendor/d3.v7.min.js",
+      "sha256": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539",
+      "status": "reviewed",
+      "evidence": "Read all279706bytes in14 contiguous dd chunks: offsets0,20000,…260000, final19706bytes; none truncated. Two-line UMD D3v7.9.0 bundle reviewed across array/data utilities, dispatch/DOM selections, colors/interpolators/transitions, brush/drag/zoom, geometry/contours/Delaunay/Voronoi, CSV/TSV, force/quadtree/timers, formatting/geography, hierarchy/layout/random/scales/time/chromatic/shapes and exported API table. Copyright/version header retained. Byte-for-byte cmp with pinned parent succeeded. Bundled network helpers are callable APIs, not evidence that the shipped visualization fetches remotely; no security certification or browser pass implied."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/graduation/SKILL.md",
+      "sha256": "1ff52f6051df30c1ba7906eb4f04c9754d3449719c21e600bb733c716409bd03",
+      "status": "finding",
+      "finding_id": "H001",
+      "evidence": "Fully reread lines1–1124 in bounded chunks after an initial whole-file output truncated (initial output not counted). Traced prechecks, retrospective, recap reconcile/backfill/notes/normalization/render verification, production copying/config/docs, keepsakes, revisit state/backup/guide, closing offer and completion preference. Compared actual transformation ownership: global host wording plus graduation model-prompt section only; data copy lines789–797 is inherited. H001 conflicts with packaging share no-input guarantee; existing F003 covers Codex deletion of common model-start guarantees, not this inherited data privacy issue."
+    }
+  ],
+  "findings": [
+    {
+      "id": "H001",
+      "title": "Share package includes mapped source inputs despite explicit no-source-data promise",
+      "priority": "P1",
+      "route": "parent-bound",
+      "source": "Parent scripts/package_bootcamp.py exclusion policy and skills/graduation/SKILL.md production data copy",
+      "reason": "Inherited profile/privacy behavior, not a Codex transform or overlay; package diff contains only host labels and manifest path changes, graduation transforms do not touch copy rules.",
+      "evidence": "packaging.md:52–53 promises no source data; package_bootcamp.py:95–98 includes docs and production recursively; :379–380 says no source data and safe for readers who should not see inputs. graduation/SKILL.md:789 explicitly copies data/senzing-ready/** to production/data/senzing-ready/ and :793–797 says these are verbatim loader inputs. Synthetic collect/build_manifest/open_me_first probe includes production/data/senzing-ready/people.jsonl containing input name/address values while generated introduction still makes the no-source-data claim. Exclusions do not cover this nested mapped-input directory; secret-pattern detection is not a PII/input-data scanner.",
+      "impact": "A bootcamper selecting the lower-disclosure share profile can hand over mapped input rows under a promise that only results travel. No real user data or external transmission used in reproduction.",
+      "deduplication": "Searched all open/closed issue bodies from /tmp/audit-finish-parent-issues.json and local counterpart using source-data/share/senzing-ready/packager terms; parent321 covers missing included-artifact promises, not leaking mapped input present in production. No exact match found.",
+      "mcp_verification": "Not applicable: this is repository inclusion behavior and internal privacy promise, no Senzing product fact asserted.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "Requires local parent-bound tracking intake and escalate-to-parent; reviewer performed no GitHub writes."
+      }
+    },
+    {
+      "id": "H002",
+      "title": "Stdlib PDF renderers truncate code/table values while pre-render retention reports success",
+      "priority": "P2",
+      "route": "parent-bound",
+      "source": "Parent scripts/generate_discoveries_pdf.py render_with_stdlib and scripts/generate_recap_pdf.py _stdlib_table/_render_table_monospace",
+      "reason": "Discoveries file is byte-identical parent; recap changes only host wording/banner, not parser/renderer logic.",
+      "evidence": "Discoveries :765 slices code to92chars; :778–788 caps cells46chars and rows92chars. Recap :3606–3617 caps cells40chars and clips rows to95chars; rich-to-monospace fallback :3100–3109 also clips cell tails. Retention counts parsed strings before these slices. Harmless fixture direct renderer probes: discoveries auditOK0.98828125, both sentinel suffixes missing from pdftotext output, no stderr; recap no fatal/warnings at0.923728813559322 retention, table sentinel gone. Graduation1b guarantees a valid complete lesser rendering; module docs say high retention makes silent truncation visible, but these render-time losses are not in that tally.",
+      "impact": "Long identifiers, match keys, source paths, command tails or mapping values can vanish from keepsake PDFs without a loss warning, especially when optional fpdf2 is unavailable.",
+      "deduplication": "All-page local/parent issue-body searches for stdlib/truncation/table/code/retention found no exact match; parent30 is test dependencies and explicitly excludes shipped renderer behavior.",
+      "mcp_verification": "Not applicable: pure parser/render output mismatch; no Senzing field validity claim.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "Requires child intake and escalate-to-parent, not implemented or filed by reviewer."
+      }
+    },
+    {
+      "id": "H003",
+      "title": "Entity Graph source filtering hides circles but leaves their detached labels visible",
+      "priority": "P2",
+      "route": "parent-bound",
+      "source": "Parent scripts/senzing_viz_server.py drawGraph label layer and drawLegend filter handler",
+      "reason": "Whole visualization reference is byte-identical pinned parent; this is inherited DOM filtering behavior.",
+      "evidence": "senzing_viz_server.py:1281–1283 appends .node-labels as a sibling layer of per-datum .node groups. At :1477–1483 legend handler selects only '#graph-container .node' and toggles display from data_sources; neither sibling labels nor edge layer is updated. Labels are no longer descendants, so circle visibility does not hide text. This affects labels-on data at≤150entities or any run where labels are enabled. Existing comments explicitly describe click-to-filter behavior and acknowledge separate label groups for paint ordering.",
+      "impact": "Filtered-out entities remain named on screen and can leave ghost labels/edges, making the displayed source filter misleading.",
+      "deduplication": "All-page local/parent issue bodies searched for label/filter/source/node/legend; no exact match found. Parent463 governs Match Keys sizing, not node-label filtering.",
+      "mcp_verification": "Not applicable: DOM selector/layer mismatch, no product-fact claim.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "Requires child intake and escalate-to-parent; static finding, not a rendered browser assertion."
+      }
+    },
+    {
+      "id": "H004",
+      "title": "Snapshot Records actions falsely return not found for entities outside the graph cap",
+      "priority": "P2",
+      "route": "parent-bound",
+      "source": "Parent scripts/senzing_viz_server.py write_snapshot embedded records index",
+      "reason": "Byte-identical inherited snapshot implementation, not transformed content.",
+      "evidence": "write_snapshot :2185 embeds model.graph(cap=GRAPH_NODE_CAP), with cap1500; :2186 embeds all merged entities, and other aggregate lists can refer to entities outside the graph. __recordsFor at:2206–2211 indexes only __DATA__.graph.nodes and returns 'not found: no such entity' otherwise. Synthetic1501entity model: graph1500capped, merges1501; omittedID1501 has live records. Executing the actual generated snapshot shim in Node, without SDK/browser/network, fetch('/api/records?entity_id=1501') returns notfound. Thus offline browse/aggregate entity actions can name a real entity whose Records action fails solely because its node was capped.",
+      "impact": "At production scale the retained standalone snapshot cannot deliver its promised offline Records action for every browsable entity, despite data being available in the original model and merges payload.",
+      "deduplication": "All-page local/parent issue-body search for snapshot/record/graph.nodes/cap1500 found no exact match. Parent327 concerns cap disclosure notes and deliberately leaves cap/ranking unchanged; it does not repair the records lookup denominator.",
+      "mcp_verification": "Not applicable: synthetic dictionary/shim evidence; no SDK response contract asserted.",
+      "disposition": {
+        "kind": "handoff",
+        "reason": "Requires child tracking and escalate-to-parent; no issue writes by reviewer."
+      }
+    },
+    {
+      "id": "H005",
+      "title": "Match Keys active renderer retains the known5.9px-per-character clipping defect",
+      "route": "parent-bound",
+      "source": "Parent scripts/senzing_viz_server.py drawMatchKeys",
+      "reason": "Exact affected algorithm still present in pinned0.5.3 byte-identical inherited reference.",
+      "evidence": "Current :1758 sizes gutter using longest*5.9+14; :1765 divides width by5.9 before fitting; :1788–1790 right-anchors11px monospace text. This is exactly parent463 root algorithm and scope, not merely an unregenerated example asset. Root parent may decide whether the bundled PNG needs refresh in addition to importing a containing release.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/463"
+      }
+    },
+    {
+      "id": "H006",
+      "title": "Package introduction unconditionally points to optional absent keepsakes/revisit guide",
+      "route": "parent-bound",
+      "source": "Parent scripts/package_bootcamp.py open_me_first",
+      "reason": "Inherited static introduction with exact known parent321 behavior; closed parent issue does not imply tagged fix imported.",
+      "evidence": "Current :359–369 unconditionally instructs opening docs/bootcamp_recap.pdf; :384–390 promises revisit state/database and docs/REVISIT_BOOTCAMP.md without consulting manifest.included. Packaging is available any time and optional missing roots are skipped. Parent321 body expressly names these same branches and conditional-manifest remedy; exact duplicate, separate from H001 inputs leaking despite exclusion promise.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/321"
+      }
+    },
+    {
+      "id": "H007",
+      "title": "Capped Entity Graph still describes its subset as the whole relationship population",
+      "route": "parent-bound",
+      "source": "Parent scripts/senzing_viz_server.py addGraphControls and graph payload",
+      "reason": "Inherited behavior and exact parent327 scope; no claim that closed issue's fix is in current pinned release.",
+      "evidence": "Current graph(cap) returns total/capped, but UI :1424–1428 says shown relationship nodes are 'the ... entities that have relationships' and 'Uncheck ... show them all' although both modes remain capped1500. Parent327 full body reviewed; explicitly covers this wording, total/related_total and capped UI branches. H004 Records-index failure is not covered by327 scope.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/327"
+      }
+    }
+  ],
+  "leads": [
+    {
+      "id": "H008",
+      "source": "scripts/generate_recap_pdf.py:4066–4072 versus :3945–3973",
+      "status": "needs focused disposition",
+      "evidence": "--check computes missing expected visualization manifests and withholds coverage figures; normal render success calls tab_coverage_note directly on existing manifests and can print complete-looking captured-tab coverage even when --progress expects another absent visualization. Fully read code, no focused CLI reproduction yet; root can confirm/triage before treating as independent finding."
+    },
+    {
+      "id": "H009",
+      "source": "scripts/package_bootcamp.py:485–488",
+      "status": "policy intent needs triage",
+      "evidence": "Explicit --output accepts paths outside --project-root; synthetic /tmp probe wrote outside.zip at exit0, despite docstring's archive-inside-project guarantee. Default workflow uses contained path, and explicit user CLI override may be deliberate; do not label security vulnerability without intended boundary determination."
+    },
+    {
+      "id": "H010",
+      "source": "scripts/capture_screenshots.py:369–376, :444–454 and browser navigation",
+      "status": "unverified enforcement lead",
+      "evidence": "_is_local_target accepts file: URLs regardless hostname and validates initial HTTP target only; urlopen/browser redirects and page subresources are not visibly constrained. No remote fetch attempted and no network-exfiltration finding asserted; requires isolated redirect/subresource verification and owning guarantee interpretation."
+    }
+  ],
+  "probe_script": "/tmp/audit-helpers-probe.py",
+  "probe_results": [
+    {
+      "probe": "stdlib_content_loss",
+      "audit_ok": true,
+      "audit_retention": 0.98828125,
+      "rendered": true,
+      "source_marker_count": 2,
+      "pdf_marker_count": 0,
+      "stderr": ""
+    },
+    {
+      "probe": "recap_stdlib_table_loss",
+      "fatal": [],
+      "warnings": [],
+      "audit_retention": 0.923728813559322,
+      "source_marker_count": 1,
+      "pdf_marker_count": 0
+    },
+    {
+      "probe": "share_contains_mapped_input",
+      "included": [
+        "production/data/senzing-ready/people.jsonl"
+      ],
+      "promise_no_source_data": true
+    },
+    {
+      "probe": "explicit_output_outside_project",
+      "exit": 0,
+      "outside_written": true
+    },
+    {
+      "probe": "snapshot_records_graph_cap",
+      "graph_count": 1500,
+      "graph_capped": true,
+      "merges_count": 1501,
+      "omitted_id": 1501,
+      "omitted_id_in_graph": false
+    },
+    {
+      "probe": "actual_snapshot_shim_omitted_records",
+      "response": {
+        "entity_id": "1501",
+        "error": "not found: no such entity"
+      }
+    }
+  ],
+  "limitations": "No host hook firing, screenshots/browser interaction, real Senzing SDK/datastore, full runtime graduation, upload or external network behavior tested. Report-only temp artifacts; no repository implementation change. Product-specific claims present in inherited files were read but not newly adjudicated without live owning MCP verification. Duplicates reuse verified all-page issue evidence; new parent-bound findings require root intake/authorization workflow."
+}

@@ -1,0 +1,296 @@
+[
+  {
+    "path": ".claude-plugin/plugin.json",
+    "rule": "ignore-claude-manifest",
+    "kind": "ignore",
+    "overlay_owned": false
+  },
+  {
+    "path": "commands/graduate.md",
+    "rule": "ignore-claude-commands",
+    "kind": "ignore",
+    "overlay_owned": false
+  },
+  {
+    "path": "docs/examples/bootcamp_recap.example.md",
+    "rule": "copy-docs",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "docs/examples/bootcamp_recap.example.pdf",
+    "rule": "copy-docs",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "docs/model-selection.md",
+    "rule": "copy-docs",
+    "kind": "copy",
+    "overlay_owned": true
+  },
+  {
+    "path": "scripts/capture_screenshots.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/feedback-capture.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/generate_discoveries_pdf.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/generate_document_pdf.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/generate_recap_pdf.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/generate_recap_video.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/package_bootcamp.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "scripts/senzing_viz_server.py",
+    "rule": "copy-scripts",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/feedback.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/ground-rules.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/module-completion.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/notes.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/onboarding-flow.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-onboarding/packaging.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/bootcamp-preparation/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/graduation/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/graduation/database-backup.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-00-entity-resolution-concepts/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-00-entity-resolution-concepts/concepts.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-01-business-problem/phase1-discovery.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-01-business-problem/phase2-document-confirm.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-02-sdk-setup/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03-system-verification/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03-system-verification/phase1-verification.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03-system-verification/phase2-report-close.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03b-truthset-visualization/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03b-truthset-visualization/phase1-visualization.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03b-truthset-visualization/phase2-close.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-03b-truthset-visualization/visualization-api-reference.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-04-data-collection/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-05-data-quality-mapping/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-05-data-quality-mapping/phase1-quality-assessment.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-05-data-quality-mapping/phase2-data-mapping.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-05-data-quality-mapping/phase3-test-load.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-06-data-processing/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-06-data-processing/phaseA-build-loading.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-06-data-processing/phaseB-load-first-source.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-06-data-processing/phaseC-multi-source.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-06-data-processing/phaseD-validation.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-07-query-visualize-discover/SKILL.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-07-query-visualize-discover/phase1-query-visualize.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-07-query-visualize-discover/phase2-discover.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  },
+  {
+    "path": "skills/module-07-query-visualize-discover/phase2b-discover.md",
+    "rule": "copy-skills",
+    "kind": "copy",
+    "overlay_owned": false
+  }
+]

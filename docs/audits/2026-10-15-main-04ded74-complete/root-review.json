@@ -1,0 +1,160 @@
+{
+  "reviewer": "root",
+  "files": [
+    {
+      "path": "plugins/senzing-bootcamp/scripts/brand_tokens.py",
+      "sha256": "a2063c02472ff00dcb6d706768305d5292a4de27a629c3072d73ab378250b122",
+      "status": "reviewed",
+      "evidence": "Full 200-line read; shared palette/font tokens, deterministic source assignment, preferred vs fallback encodings, 210 fallback appearance capacity and overflow warning reviewed. Consumers audited by helper reviewer; no renderer run from this read."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/scripts/normalize_docs_markdown.py",
+      "sha256": "270fe1b5e8ea3743ae2088cfac24f64565fe4ee8197af373eafd1b3135ef0b87",
+      "status": "reviewed",
+      "evidence": "Full 326-line read; whitespace-only fingerprint guard, MD040 fence exception, top-level-only docs scope, mojibake warning and non-blocking exit handling inspected. No normalization applied to repo."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.md",
+      "sha256": "4ea2b9fc86549157b1799bc4a8e7ce78077f06ce7615eb2baa7f9e6edb93a1f6",
+      "status": "reviewed",
+      "evidence": "All 579 lines read in bounded chunks (truncated 381-425 passage re-read). All 13 visualization references resolve to inspected PNGs. Source records historical run, not new audit runtime evidence. Program list says eleven but lists twelve; final note says 5241 rather than 5000 records, matching known parent #616. Adapted Codex questions compared with unadapted PDF (#41). Golden-record terminology remains unverified lead, not product verdict."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.pdf",
+      "sha256": "0c40b2c418e717b60ebd7feda620ada032b572467bbb6bf3df77b75cba8e14f8",
+      "status": "reviewed",
+      "evidence": "Rendered all 32 pages with Poppler at 1500-pixel maximum dimension and visually inspected each page. Cover/environment/contents, nine module sections, all embedded views/captions, note appendix and landscape certificate reviewed. No global layout corruption seen; long-label clipping inherited from input PNG remains. PDF cover/certificate say Claude plugin v0.5.2 and pages 8/10/12/19 teach Claude model controls despite adapted Markdown and package version0.5.3 (local #41). No actual bootcamp run performed."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/SKILL.md",
+      "sha256": "60a96c40b87f4c1ad1eb07e606933ff4a178dbe0c4a2ddf9835fd2525961b1c7",
+      "status": "reviewed",
+      "evidence": "Read all 94 lines: module start, MCP/no-SQL boundary, code-method-vs-tool distinction, phases and resume, mandatory query/graduation gates. Crosschecked downstream phase files and contract; module model procedure is affected by F-003 globally."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md",
+      "sha256": "859086268722d2f2406df0826c8f308a4aa0d05a6c0f99c49e7a1c999b6cafa6",
+      "status": "reviewed",
+      "evidence": "Read all 1012 lines through bounded contiguous ranges. Requirements derive from confirmed source, binding/flag/schema lookup, key folding, evidence-first quality branches, single six-tab app, export/D3/native-path expectations, capture/server lifecycle, every-path discoveries PDF and graduation gate reviewed. Confirmed stale no-documented-flag claim at424-429 matches parent #387 and live MCP schema. Teardown placement matches parent #166; silent-capture copy drift matches #523. No SDK or host run inferred."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2-discover.md",
+      "sha256": "6aa37bff49ffbdd217756bcc2398f782f3b74189ab23be13a82383a29ff9bcb9",
+      "status": "reviewed",
+      "evidence": "Read all409lines in two contiguous chunks. Opt-in and early exits return to every-path findings convergence; per-step checkpoint/resume and empty-vs-absent fallbacks reviewed. Disclosed-only relationship candidate selection/count called clusters matches parent #166. Why schema/flag claim corroborated live; no engine output synthesized."
+    },
+    {
+      "path": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2b-discover.md",
+      "sha256": "5577c61e00a53604d3574e3fa53141fe0a70bcdeed552bbe18ac5097da046241",
+      "status": "reviewed",
+      "evidence": "Read all247lines. Signature/schema lookup, link/path endpoint distinction, relationships demonstrations, data-poor fallback, checkpoint completed-vs-skipped and return route reviewed. Redundant completion question sends both answers to same action, exact parent #488; missing path-selection procedure and clusters wording covered by parent #166."
+    }
+  ],
+  "pdf_inspection": {
+    "source": "plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.pdf",
+    "render_command": "pdftoppm -scale-to 1500 -png <source> /tmp/audit-main-pdf/page",
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "runtime_assurance": "Read-only visual inspection of shipped reference PDF, not a newly executed bootcamp"
+  },
+  "findings": [
+    {
+      "id": "F-006",
+      "route": "local",
+      "source": "tools/bootcamp-transform/contract.yaml:26",
+      "reason": "Binary reference PDF escapes the Codex host-language transform; owning adaptation belongs to the child, not canonical Claude curriculum.",
+      "evidence": "PDFpages1/32 attribute Claude plugin v0.5.2;8/10/12/19 teach /model and /effort routes; corresponding Markdown has Codex wording andversion0.5.3. All32pages visuallyreviewed.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/41"
+      }
+    },
+    {
+      "id": "F-007",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md:424",
+      "reason": "Stale inherited claim contradicts same-file current schema requirement and owning live MCP response.",
+      "evidence": "424–429 says no flag is documented, but157/163 cite requires_flags. Current get_sdk_reference(response_schemas,why_entities,python) returns WHY_KEY_DETAILS requires_flags SZ_INCLUDE_MATCH_KEY_DETAILS; flags route separately documents relations dependency. Exact behavior and passage covered by closed parent #387, not yet landed in pinned0.5.3.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/387"
+      }
+    },
+    {
+      "id": "F-008",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md:778",
+      "reason": "Inherited server teardown gate placement and Discover relationship selection/count instructions leave route semantics ambiguous.",
+      "evidence": "Teardown gate sits inside step3c though server must stay running throughDiscover/completeness. Phase2step4a counts disclosed-only entities as clusters;4d offers2+hop path without selectionprocedure. Exact passages/behavior covered by closed parent #166.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/166"
+      }
+    },
+    {
+      "id": "F-009",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2b-discover.md:196",
+      "reason": "Inherited pacing question provides no answer-dependent route.",
+      "evidence": "4d transition asks whether to continue to completion now, then says phase complete either way/proceed. Exact gate is candidate1 of closed parent #488; no need to create duplicate.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/488"
+      }
+    },
+    {
+      "id": "F-010",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.md:538",
+      "reason": "Inherited example counters disagree with their concrete lists and displayed measurements.",
+      "evidence": "src/query list says eleven programs but names twelve; final reminder says5241records while histogramandload say5000. Closed parent #616 explicitly owns example program count and final record-count correction (later source changed to twelve/thirteen, same counter drift).",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/616"
+      }
+    },
+    {
+      "id": "F-011",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md:734",
+      "reason": "Inherited local capture copies disagree with canonical exit2 reason/verbosity handling.",
+      "evidence": "Phase1 says skip silently with no headless capability; canonical module-completion exit2 handling requires reading reason and is silent only at minimal verbosity. Exact copied instructions covered by parent #523item2.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/523"
+      }
+    }
+  ]
+}

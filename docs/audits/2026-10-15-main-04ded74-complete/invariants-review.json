@@ -1,0 +1,148 @@
+{
+  "scope": "Invariant and transformation ownership review for main 04ded7494d3e5ac0c1c543b964128acc5ef83d00; no implementation or register changes",
+  "canonical_parent_ledger": {
+    "repository": "/home/senzing/github.com/docktermj/senzing-bootcamp-claude-plugin-development",
+    "ref": "0.5.3:specs/INVARIANTS.md",
+    "development_tag_commit": "de0934c4df1344deda2652a796211425e805d0c1",
+    "production_parent_commit": "7e2d484f6cfe9af864762e0a0c95119d483cbb08",
+    "association": "Previously established by parent agent: 83 corresponding plugin files, 82 byte-identical, manifest differs only in repository/homepage URLs. The development tag ledger is associated with the pinned production payload, not assumed to be its shipped file.",
+    "read": "All 660 lines / 375165 bytes read in bounded displayed chunks. A combined 356-390 display truncated around INV-274/273; lines 367-378 were re-read explicitly, covering those entries in full. Lines 379-390 were visible in full in the original result.",
+    "guarantees": "Read every foundational/whole-bootcamp/administrative/preface/module/graduation/layout outcome and every appended INV-051 through INV-300 definition, including all dated corrections, partial supersessions, reinstatements, index applicability notes and single-statement ownership requirements. Historical examples are not current product facts."
+  },
+  "other_full_reads": [
+    "maintainer-skills/production-readiness-audit/SKILL.md",
+    "maintainer-skills/production-readiness-audit/references/coverage-format.md",
+    "specs/INVARIANTS.md",
+    "tools/bootcamp-transform/contract.yaml",
+    "port/overlay/docs/codex-interaction-contract.md",
+    "port/overlay/docs/codex-port.md",
+    "port/overlay/docs/model-selection.md",
+    "port/overlay/scripts/bootcamp_state.py",
+    "port/overlay/scripts/socratic-controller.py",
+    "port/overlay/scripts/stop-nudge.py",
+    "port/overlay/scripts/write-gate.py",
+    "port/overlay/skills/bootcamp-feedback/SKILL.md",
+    "port/overlay/skills/bootcamp-note/SKILL.md",
+    "port/overlay/skills/graduate/SKILL.md",
+    "port/overlay/skills/package-bootcamp/SKILL.md",
+    "port/overlay/skills/start-bootcamp/SKILL.md",
+    "plugins/senzing-bootcamp/hooks/hooks.json",
+    "scripts/check_invariants.py",
+    "scripts/check_port.py"
+  ],
+  "partial_supporting_reads": [
+    "scripts/sync_parent.py:1-150 (contract loading, production SemVer selection, file classification, provenance gate and transform execution entry)",
+    "plugins/senzing-bootcamp/skills/graduation/SKILL.md:1-150 (banner/preface, transformed model prompt, actual preference field names and fallback distinctions)",
+    "plugins/senzing-bootcamp/skills/bootcamp-preparation/SKILL.md:223-225 (pointer to absent canonical model procedure)"
+  ],
+  "invariant_category": {
+    "status": "finding",
+    "finding_id": "F-003",
+    "evidence": "Canonical guarantees, local CINV ledger, explicit parent dispositions, all transformation operations and all winning overlays have been read together. The blanket honored declaration does not make preservation true: contract section replacements delete the active canonical model-switch procedure, required stage table and setup exemptions (F-003), and graduation separately deletes the pinned switch and done-gate procedure. Remaining inherited curriculum mechanisms must be joined with the other reviewers' full shipped-file observations; this subreview does not establish actual model behavior, platform execution or product correctness from ledger prose alone."
+  },
+  "active_guarantee_observations": [
+    {
+      "subject": "Local namespace, supersession and release provenance",
+      "evidence": "CINV-002 -> CINV-030, CINV-003 -> CINV-031 and CINV-027 -> CINV-029 carry reciprocal links; all 32 definitions retained, 29 active/3 superseded. Release version can diverge from pinned parent provenance; superseded exact-parent-version and push-capable propagation guarantees must not be reapplied. Contract source_version/source_commit match 0.5.3/7e2d484. The register is not a namespace-renumbering or CINV supersession mechanism."
+    },
+    {
+      "subject": "Inherited partial supersession",
+      "evidence": "INV-079 still owns name-only banners, transition wording and completion line while INV-085 owns recap headers. INV-086 retains first-class/full apparatus after INV-087 moves its recording location. INV-101 retains recording and warn/continue after INV-195 expands container runtime dispatch. INV-104 retains consolidated single app/applicability after INV-155 changes tab enumeration. INV-063 and INV-069 behavior is restored by INV-137; INV-138 replaces only the trigger, preserving the pinned questions and exempt setup stages. INV-040's main analysis obligation survives INV-198's narrowing of its CORD exemption. INV-048/085/092 retain four subsections while INV-103 renames Journal. These are not fully retired rules."
+    },
+    {
+      "subject": "Question, turn and host controls",
+      "evidence": "INV-005 marker, INV-051 neutral numbered options, INV-056 pinned gates, INV-211 caveats-before-question, INV-224 options-below-question, INV-225 non-yielding continuation, INV-247 skill-defined origin and INV-251 exactly-one question are distinct obligations. CINV-012/014/015 restate their Codex channel semantics through the interaction contract; controller injects active skill/step/rules/contract references and continuation instruction; Stop uses last_assistant_message and stops its own continuation at stop_hook_active. Missing or blank last-message evidence stays silent, preserving INV-054's false-positive restraint. ENV/preference opt-out preserves INV-055. No claim of actual trusted hook invocation follows from source or direct tests."
+    },
+    {
+      "subject": "Model guidance intent loss (confirmed local defect)",
+      "evidence": "INV-052 and INV-158 are explicitly restated; INV-063/069/098/114/137/138/139/140/141/236 are otherwise honored in the register. Codex can express the stage comparison, user-controlled switch, neutral pinned question, post-yes done gate, per-dial observation fallback, downgrade explanation and setup exemptions without Claude commands. Removing them is a transform defect, not an unexpressible-host limitation. Ground-rules replacement at contract.yaml:115 and graduation replacement at contract.yaml:122 both lose required intent."
+    },
+    {
+      "subject": "Hook invocation and write safety",
+      "evidence": "INV-052 explicitly maps to quoted python3 ${PLUGIN_ROOT}/scripts paths; all 8 hook handlers retain type command, quoted absolute plugin-root expansion and visible statusMessage, without args arrays. Native write-gate checks all add/update/delete/move paths and independent secrets, rejects malformed payloads, resolves symlinks, and permits project-under-temp paths before rejecting outside paths (INV-109/200). The documented shell/MCP write-boundary limitation is honest; it is not a waiver of the written project-local rule. Controller/Stop automatic state requires valid nonblank current_module and completion false, preserving INV-227 and the merged lifecycle fix."
+    },
+    {
+      "subject": "MCP, code and evidence disciplines",
+      "evidence": "Read the active distinctions: declared parameters vs runtime needs_input (INV-136/192); schema parameters vs coverage prose (INV-234/280); shape-based selection (INV-267); binding signatures/composite representations (INV-132/268); output-field flags (INV-115/148/149/179/194); conditional licensing notes vs measured authoritative state (INV-150/244/278/295); actual successful payload/query execution (INV-206/291); conversation-only override (INV-205); immutable opaque workflow state and bounded documented fallbacks (INV-125). Global host-name substitutions and entry overlays do not intentionally replace these mechanisms. A product-claim finding still requires a live owning-route request; ledger examples alone cannot establish it."
+    },
+    {
+      "subject": "Artifact and visual guarantees",
+      "evidence": "Read independent caller verification, loss reporting, absent/unreadable distinction, external expected denominator and non-vacuity obligations (INV-110/111/129/163/178/193/265/271/276); shared branded/offline/context-escaped outputs (INV-081/091/106/184); any-language visualization hooks, source-set encoding, nonce/loopback identity and synchronous settled capture (INV-124/259/260/270/298/299); fitted label no-leading-clipping (INV-153); capture timing/order/faithful captions (INV-122/123/131/146/147); recap ownership/append safety/name and notes preservation (INV-085/157/170/176/226/258/288). F-004's conflicting same-turn vs module-close embed instructions are inherited curriculum, not a Codex host limitation. The independently observed bundled clipped label is governed by INV-153; its renderer cause is not established by reading the ledger."
+    },
+    {
+      "subject": "Development-only parent guarantees",
+      "evidence": "Canonical subject index explicitly exempts its development-record group from shipped citation expectations (INV-108/182/191/201/202/207/209/213/216/217/219/241/246/253/282). Some general disciplines still inform audit honesty and local validation; absence of the parent's .claude implement-spec workflow in a Codex runtime payload is not by itself a missing bootcamper guarantee. No parent IDs copied or renumbered locally."
+    },
+    {
+      "subject": "Ownership and winning overlays",
+      "evidence": "Contract classifies upstream .mcp.json/docs/hooks/scripts/skills as copied; Claude manifest and commands intentionally ignored; Codex manifest generated; text/JSON host transforms follow; port/overlay is last and wins. All 12 overlay files read in full: three host docs, four Codex hook/state scripts, five entry skills. Runtime curriculum and source data stay parent-owned unless the specific bytes are transformed. The offending model section deletions are local even though ground-rules/graduation filenames are inherited; module-completion timing is parent-bound because its offending passage is not replaced by the contract or an overlay."
+    }
+  ],
+  "finding_scope_addition": {
+    "existing_issue": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/39",
+    "source": "tools/bootcamp-transform/contract.yaml:122",
+    "shipped_evidence": "plugins/senzing-bootcamp/skills/graduation/SKILL.md:79-86 replaces the stage's mandatory model comparison and pinned switch/done-gate procedure with an optional when-helpful offer. The offer is not a pinned question, contrary to INV-056, and the allowed answer branches are no longer fully specified.",
+    "route": "local",
+    "reason": "Independent broad section transform owned by this Codex repository; same root class and acceptance intent as F-003. Do not create a separate parent issue for this deletion."
+  },
+  "cross_file_route_ownership_review": {
+    "status": "finding",
+    "scope": "Focused resolution of migration, Docker asset boundaries, teardown safety and every local host-replacement/entry overlay; complete shipped-file reads by the other reviewers remain the foundation for overall references-and-routes coverage.",
+    "observations": [
+      "Generated project artifacts are not incorrectly classified as missing bundles: config/data_sources.yaml, mapping state, source-generated SDK/server code, project env script, runtime checkpoint and recap paths are authored by earlier steps. The migration guide is different: the switch_db branch explicitly directs a reader to an external Kiro guide whose port is acknowledged as future, with no shipped destination or owning MCP retrieval route.",
+      "All 12 entry/host overlay references resolve within the shipped tree: feedback->onboarding/feedback.md, note->onboarding/notes.md, graduate->graduation/SKILL.md, package->onboarding/packaging.md and its package_bootcamp.py helper, start->onboarding/SKILL.md and interaction contract. Active-module controller maps all canonical module tokens plus supported aliases to shipped skill directories. F-003 is the identified mandatory-question loss from local section replacements; no other removed mandatory gate was established by the full contract/overlay review.",
+      "Docker teardown now explicitly identifies container pid namespace, shell-builtin kill and Python socket probing, so missing procps/lsof is not itself a new defect. However its shared contract and module-close caller disagree about whether failed-stop warning authorizes irreversible purge.",
+      "Docker setup establishes a host-project bind mount, whereas the Python visualization path runs the external installed plugin's reference and adjacent bundled assets. No explicit plugin-root mount or asset staging route was located in the complete corpus searches and inspected setup/build/teardown passages. This is a route-completeness lead, not an observed container failure. The model-generated non-Python path stores its new assets under the project src/server and is a different route."
+    ]
+  },
+  "additional_confirmed_findings": [
+    {
+      "candidate_id": "migration-route",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-04-data-collection/SKILL.md:1121-1124",
+      "evidence": "Step 8b offers switch to PostgreSQL, then the selected branch routes to the database-migration guide, acknowledges Kiro docs/guides/DATABASE_MIGRATION.md is a later porting phase and forbids inlining/restating steps. It nevertheless records switch_db and advances. This is the only DATABASE_MIGRATION occurrence in the entire repository; no bundled guide, linked accessible URL or named migration-owning MCP route is supplied. Exact same branch exists in the pinned parent 0.5.3 payload.",
+      "invariants": [
+        "INV-003",
+        "INV-183",
+        "INV-284"
+      ],
+      "impact": "A selectable supported branch has no executable migration procedure, leaving engine/configuration unchanged while persisting a switch decision.",
+      "handoff": "Deduplicate with parent open/closed issues and use the approved escalation workflow; no issue writes performed by this reviewer."
+    },
+    {
+      "candidate_id": "purge-after-unverified-stop",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md:127-138 and visualization-api-reference.md:1345-1353",
+      "evidence": "The module-close caller permits Step 4 once the port is confirmed free OR the bootcamper has been warned (line 130), then unconditionally purges Truth Set records. The canonical server-lifetime contract says a port still answering after force-stop and re-check must be reported and the flow must continue WITHOUT purge (lines 1350-1353). Both contradictory clauses are present in pinned parent 0.5.3 (phase2 line130 and API reference1350-1351), not introduced by Codex transforms.",
+      "invariants": [
+        "INV-003",
+        "INV-131",
+        "INV-223",
+        "INV-300"
+      ],
+      "impact": "Following the module-close procedure can irreversibly purge records while the live visualization server still answers, despite the shared contract explicitly forbidding that action.",
+      "handoff": "Sent precise evidence to parent agent for deduplication/escalation; no issue writes performed by this reviewer."
+    }
+  ],
+  "additional_unverified_leads": [
+    {
+      "id": "docker-plugin-assets-route",
+      "route": "parent-bound",
+      "evidence": "SDK setup:475-484 starts the SDK in a container and mounts the project directory. Truth Set phase1:243-250 names installed-plugin D3/brand assets; 271-274 requires running the installed-plugin Python reference directly. No plugin mount/path translation/staging prescription located. Shared contract:1315-1328 recognizes container execution for pid/probe but does not address installed-plugin asset visibility.",
+      "reason_unverified": "The setup mount list is not stated to be exhaustive, and an actual container/server launch was not performed; an assistant could mount the plugin itself. Do not claim an observed ENOENT, unsafe wildcard bind or network forwarding failure. A targeted native Docker host dry-run should establish the route and missing instructions before a runtime-failure claim is filed."
+    },
+    {
+      "id": "sqlite-additional-confirmation-not-pinned",
+      "route": "parent-bound",
+      "evidence": "Module04 Step8b:1107-1109 demands an additional explicit confirmation of expected SQLite load time after the bootcamper selects Load all, without pinning an actual 👉 question or specifying that the existing selection itself fulfills confirmation. Sampling branch1110 also instructs a new strategy question without wording.",
+      "reason_unverified": "Could be part of the same branch-completeness defect as missing migration; contextual question semantics need triage, not an independently invented gate. Parent agent notified, no separate issue write."
+    }
+  ],
+  "register_changes": [],
+  "unexpressible_checks": [],
+  "limitations": [
+    "No intrinsically unexpressible inherited check identified; unavailable runtime evidence is not unexpressibility and needs no audit_limitations waiver.",
+    "No full parent test suite or actual Codex-host workflow executed by this subreview. Host hooks, model-control semantics, Windows/macOS execution, SDK behavior and final-artifact runtime production remain live dry-run/manual evidence obligations.",
+    "Supporting check_port source checks and direct subprocess tests establish construction, not all semantic guarantees; the broad honored declaration is not semantic proof."
+  ]
+}

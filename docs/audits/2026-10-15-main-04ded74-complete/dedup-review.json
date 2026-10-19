@@ -1,0 +1,57 @@
+{
+  "scope": "Independent deduplication of CUR-N01, CUR-N02 and CUR-N03 against all-page parent/local snapshots supplied by the parent agent; no issue or repository writes",
+  "snapshot_paths": ["/tmp/audit-finish-parent-issues.json", "/tmp/audit-finish-local-issues.json"],
+  "snapshot_issue_counts_excluding_pull_requests": {"parent": 320, "local": 21},
+  "method": "Searched title and complete body content across every snapshot page, not only open issues or titles. Broad subject searches were narrowed by quoted behavior, numbers, operand names and relevant branches. Plausible related issue bodies were displayed and compared in full; oversized combined displays were re-read individually for #523, #614, #526, #512 and #397. Compared findings with actual current shipped clauses. A matching phrase alone was not treated as a duplicate.",
+  "reviewed_related_issue_bodies": [620, 618, 614, 526, 523, 512, 504, 490, 488, 655, 617, 234, 229, 521, 463, 397, 337],
+  "reviewed_local_operation_issue_bodies": [19, 20],
+  "findings": [
+    {
+      "id": "CUR-N01",
+      "outcome": "unmatched",
+      "evidence": "Current phase2-close.md:127-134 permits irreversible Step4 purge once portfree OR bootcamperwarned; visualization-api-reference.md:1350-1353 requires continue WITHOUT purge after stop remains unverified. Canonical INV-223 requires portfree before subsequent steps.",
+      "searches": ["purge", "teardown", "confirmed free", "port.*bound", "force.stop", "unverified.*stop", "purge.*warn", "warn.*purge"],
+      "related_not_duplicates": [
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/512", "reason": "No-live-server fallback and its completion checkpoint state; specifies skipping termination when server never started, not whether warning authorizes purge after an existing server fails to stop."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/614", "reason": "Module7 teardown should be skipped when no pid/port exists; distinct from Module3b's conflicting failed-stop purge rule."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/618", "reason": "Conditions the no-answer URL statement on server availability, not failed-stop purge safety."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/488", "reason": "Explicitly retains irreversible stop/purge consent gate; does not address execution after failed stop."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/523", "reason": "Fourteen-item coherence list covers capture order and related visualization content, but has no failed-stop warning-versus-purge clause."}
+      ],
+      "filing": "Parent-bound new issue eligible after immediate pre-write refresh and tracking intake. No issue filed by reviewer."
+    },
+    {
+      "id": "CUR-N02",
+      "outcome": "unmatched",
+      "evidence": "Quality formula at phase1-quality-assessment.md:439 uses 0.70completeness + 0.25format + 0.05(100-duplicates). Example666-669 values82/90/3 produce84.75 (about84.8), not78; second example45/55/12 produces49.65 (about49.7), not42. First discrepancy changes >=80 non-yielding branch to70-79 gating branch.",
+      "searches": ["84.8", "84.75", "49.7", "49.65", "78", "weighted", "arithmetic", "formula", "overall.*quality", "quality.*score", "completeness.*format", "duplicate.rate"],
+      "related_not_duplicates": [
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/337", "reason": "No-progress improvement gates and collection return; expressly leaves completeness weights and band boundaries unchanged, never identifies the inconsistent worked arithmetic."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/521", "reason": "Module5 checkpoint, validation and success-indicator gaps; no formula-versus-example arithmetic finding."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/655", "reason": "BM25 relevance_score/date/path drift in globalization MCP lookup, not data-quality weighted metrics."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/229", "reason": "Broad earlier audit issue has no weighted quality-example item; actual quality mention concerns a third fast-path type/name gate."}
+      ],
+      "filing": "Parent-bound new issue eligible after immediate pre-write refresh and tracking intake. No issue filed by reviewer."
+    },
+    {
+      "id": "CUR-N03",
+      "outcome": "unmatched",
+      "evidence": "phaseD-validation.md:455 requires UAT>=90 ANDaccuracy>=90, branch461 requires UAT<80, branch463 requires UAT80-89. UAT95 with match accuracy70 reaches none despite gate427 requiring routing on both. Fractional89.5 is a secondary possible gap, not needed for main finding.",
+      "searches": ["UAT", "accuracy", "accuracy.*branch", "accuracy.*90", "UAT.*90", "95.*70", "acceptance test", "gate", "missing branch"],
+      "related_not_duplicates": [
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/523", "reason": "Item10 defines/computes UAT percentage and permits self-directed validation instead of stakeholder sign-off. It does not close the high-UAT/low-match-accuracy condition."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/504", "reason": "Tracks unhandled selected iterate option in80-89 and inadequate<80 route; neither condition covers UAT>=90 with accuracy<90. Its broad goal is not evidence that this specific absent condition was identified or fixed."},
+        {"url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/526", "reason": "Specifically implements iterate and<80 return routes, with source selection and PhaseD resume. Does not alter success condition or add high-UAT/low-accuracy branch; UAT computation explicitly out of scope."}
+      ],
+      "filing": "Parent-bound new issue eligible after immediate pre-write refresh and tracking intake. No issue filed by reviewer."
+    }
+  ],
+  "additional_related_confirmation": {
+    "lead": "docker-plugin-assets-route",
+    "existing_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/490",
+    "outcome": "exact existing parent match",
+    "reason": "Read full issue490: explicitly covers host-only installed-plugin Python visualization path, three-file copy with relative vendored D3 layout into project data/temp/truthset-viz before each container run; native/non-Python paths out of scope. This resolves the prior unverified lead's ownership/dedup without pretending an actual container launch was observed."
+  },
+  "limitations": "Snapshot-based search establishes no existing matching report in the supplied evidence, not a guarantee that none can be created after snapshot collection. Parent agent must refresh immediately before creating. Closed related reports are not treated as successful containment in pinned0.5.3."
+}
+

@@ -1,0 +1,15 @@
+{
+  "commit": "04ded7494d3e5ac0c1c543b964128acc5ef83d00",
+  "supporting_checks": {
+    "port": "pass (0.5.3)",
+    "invariants": "pass (29 active, 3 superseded)",
+    "maintainer_commands": "pass",
+    "unit_tests": {
+      "command": "python3 -m unittest discover -s scripts -p 'test_*.py'",
+      "count": 118,
+      "result": "OK",
+      "duration_seconds": 5.163
+    }
+  },
+  "assurance": "Mechanical and direct checks only; no real host/SDK workflow run."
+}

@@ -1,0 +1,407 @@
+{
+  "snapshot_sha256": "3920dd4ab0e3c9a1359689e8437475ec1c152f00c0a831873260b0bd3872377f",
+  "coverage_complete": true,
+  "coverage_errors": [],
+  "structural_alerts": [],
+  "findings": [
+    {
+      "id": "F-003",
+      "route": "local",
+      "reason": "The Codex transformation replaces parent module-start guidance; authoritative internal links and setup exemptions no longer agree.",
+      "source": "tools/bootcamp-transform/contract.yaml:115",
+      "evidence": "Compared pinned parent module-start procedure with generated ground-rules.md:836 and preparation:215-223. Detailed best-value, switch/done and exemption semantics are missing. Full canonical ledger review also confirms independent graduation section deletion at contract:122 and shipped graduation:79–86; evidence added to issue39.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/39"
+      }
+    },
+    {
+      "id": "F-004",
+      "route": "parent-bound",
+      "reason": "Conflicting screenshot embedding timing is inherited from the pinned parent, not introduced by Codex adaptation.",
+      "source": "plugins/senzing-bootcamp/skills/bootcamp-onboarding/module-completion.md:124",
+      "evidence": "Lines 124-131 require checkpoint-now/embed-at-close, while 312-317 require embedding in the same capture turn. Parent content compared; escalation approved and both issue links verified.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/40"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/671",
+      "tracking_label": "awaiting-parity"
+    },
+    {
+      "id": "F-006",
+      "route": "local",
+      "source": "tools/bootcamp-transform/contract.yaml:26",
+      "reason": "Binary reference PDF escapes the Codex host-language transform; owning adaptation belongs to the child, not canonical Claude curriculum.",
+      "evidence": "PDFpages1/32 attribute Claude plugin v0.5.2;8/10/12/19 teach /model and /effort routes; corresponding Markdown has Codex wording andversion0.5.3. All32pages visuallyreviewed.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/41"
+      }
+    },
+    {
+      "id": "F-007",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md:424",
+      "reason": "Stale inherited claim contradicts same-file current schema requirement and owning live MCP response.",
+      "evidence": "424–429 says no flag is documented, but157/163 cite requires_flags. Current get_sdk_reference(response_schemas,why_entities,python) returns WHY_KEY_DETAILS requires_flags SZ_INCLUDE_MATCH_KEY_DETAILS; flags route separately documents relations dependency. Exact behavior and passage covered by closed parent #387, not yet landed in pinned0.5.3.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/387"
+      }
+    },
+    {
+      "id": "F-008",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md:778",
+      "reason": "Inherited server teardown gate placement and Discover relationship selection/count instructions leave route semantics ambiguous.",
+      "evidence": "Teardown gate sits inside step3c though server must stay running throughDiscover/completeness. Phase2step4a counts disclosed-only entities as clusters;4d offers2+hop path without selectionprocedure. Exact passages/behavior covered by closed parent #166.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/166"
+      }
+    },
+    {
+      "id": "F-009",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase2b-discover.md:197",
+      "reason": "Inherited pacing question provides no answer-dependent route.",
+      "evidence": "4d transition asks whether to continue to completion now, then says phase complete either way/proceed. Exact gate is candidate1 of closed parent #488; no need to create duplicate.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/488"
+      }
+    },
+    {
+      "id": "F-010",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/docs/examples/bootcamp_recap.example.md:539",
+      "reason": "Inherited example counters disagree with their concrete lists and displayed measurements.",
+      "evidence": "src/query list says eleven programs but names twelve; final reminder says5241records while histogramandload say5000. Closed parent #616 explicitly owns example program count and final record-count correction (later source changed to twelve/thirteen, same counter drift).",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/616"
+      }
+    },
+    {
+      "id": "F-011",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-07-query-visualize-discover/phase1-query-visualize.md:734",
+      "reason": "Inherited local capture copies disagree with canonical exit2 reason/verbosity handling.",
+      "evidence": "Phase1 says skip silently with no headless capability; canonical module-completion exit2 handling requires reading reason and is silent only at minimal verbosity. Exact copied instructions covered by parent #523item2.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/523"
+      }
+    },
+    {
+      "id": "F-005",
+      "route": "parent-bound",
+      "reason": "The shipped parent-derived reference image clips a long match-key label. No local renderer root cause was fully reviewed.",
+      "source": "plugins/senzing-bootcamp/scripts/senzing_viz_server.py:1758",
+      "evidence": "Bundled Truth Set match-key PNG visibly clips a long left label. Full renderer review confirms the same longest*5.9 gutter and /5.9 fitting algorithm remains at1758/1765; exact closed parent #463 root cause, not only an asset-refresh lead. The pinned release still contains the defect.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/463"
+      },
+      "related_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/463"
+    },
+    {
+      "id": "F-012",
+      "title": "SDK environment script cannot be sourced before config creation",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md:739",
+      "evidence": "SDK setup's environment script refuses an absent engine_config.json at739, but Step8 first creates it and Step4 already requires the exports. Exact existing parent #328; affected pinned text remains.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/328"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-013",
+      "title": "Install precedes EULA consent",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md:468",
+      "evidence": "Module02 Step3's Phase1 installs the package at473 before Phase2's EULA question508, while358 says consent must precede any package installation. Internal sequencing conflict, exact parent #192; no legal opinion asserted.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/192"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-014",
+      "title": "Engine configuration write procedure contradicts itself",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-02-sdk-setup/SKILL.md:1477",
+      "evidence": "Module02:1477–1494 says construct config from default_paths and do not write the engine_config blob as-is;1558–1559 says save MCP JSON directly without modifying paths. Exact parent #505.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/505"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-015",
+      "title": "System verification count/criteria/report schema disagree",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03-system-verification/phase1-verification.md:648",
+      "evidence": "System Verification records engine_initialization plus eight other checks, but Phase1 success criteria omit it and demand results_validation pass. Phase2 uses seven installation checks and accepts expectation_mismatch. Exact parent #282.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/282"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-016",
+      "title": "Truth Set fallback cannot satisfy completion gate",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md:11",
+      "evidence": "Truth Set Phase1 fallback promises a snapshot when the live server cannot serve; Phase2 requires passed live checks, yet permits continuing with failed ones. Exact parent #512.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/512"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-017",
+      "title": "PhaseC reopens settled SQLite subset choice",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseC-multi-source.md:215",
+      "evidence": "PhaseC's unguarded subset warning at215–217 reopens a SQLite choice that PhaseB207–215 reads and honors. Exact parent #164.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/164"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-018",
+      "title": "PhaseD describes a removed Relationship Network tab",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md:192",
+      "evidence": "PhaseD192 refers to Relationship Network tabs removed by the authoritative visualization tab contract. Exact parent #225; download-resource behavior is not independently adjudicated.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/225"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-019",
+      "title": "Switch-to-PostgreSQL answer has no active migration route",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-04-data-collection/SKILL.md:1121",
+      "evidence": "Module04 offers switch_db but1121–1123 routes exclusively to an unported DATABASE_MIGRATION.md and forbids restating steps. Module06 PhaseA hands off to future graduation. Exact parent #528.",
+      "reason": "Affected content is inherited from pinned parent0.5.3; compared parent bytes or generated diff. Exact existing parent issue scope matched in fresh all-page issue snapshot, no new escalation performed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/528"
+      },
+      "release_status": "Existing issue is not proof that its fix is present in pinned0.5.3; old affected text remains verified on current childmain."
+    },
+    {
+      "id": "F-020",
+      "title": "Truth Set teardown both permits and forbids purge after unverified server stop",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase2-close.md:127",
+      "evidence": "Truth Set close127–134 permits Step4 purge once the port is free OR the bootcamper is warned. API1350–1353 says continue WITHOUT purge if the port still answers after force-stop. Warning both permits and forbids irreversible deletion.",
+      "reason": "Phase2close byte-identical toparent0.5.3; APIreference diff only marker andplugin-rootpath. No Senzingproductclaim; static conflicting safety instructions.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/43"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/673",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/43#issuecomment-6207520507"
+      }
+    },
+    {
+      "id": "F-021",
+      "title": "Quality assessment worked output contradicts its own formula and gate band",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-05-data-quality-mapping/phase1-quality-assessment.md:665",
+      "evidence": "Quality formula439 is 0.70×completeness + 0.25×format + 0.05×(100−duplicates). Example82/90/3 yields84.75 (about84.8), not78;45/55/12 yields49.65 (about49.7), not42. First discrepancy changes the gate band.",
+      "reason": "Parent phase1qualityassessment differs only adaptation marker andplugin-root substitutions; numericexampleandformula inheritedunchanged.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/47"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/677",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/47#issuecomment-6207530784"
+      }
+    },
+    {
+      "id": "F-022",
+      "title": "Module6 readiness decision omits high-UAT low-accuracy outcome",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-06-data-processing/phaseD-validation.md:455",
+      "evidence": "PhaseD455 requires UAT≥90 AND accuracy≥90;461 handles UAT<80;463 handles UAT80–89. UAT95 with accuracy70 matches no branch despite a gate requiring both metrics. No SDK/product claim.",
+      "reason": "EntirePhaseDfile byte-identical topinnedparent0.5.3; missingbranchcurriculumowned. No SDK/productclaim.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/48"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/678",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/48#issuecomment-6207532578"
+      }
+    },
+    {
+      "id": "F-023",
+      "title": "Share package includes mapped source inputs despite explicit no-source-data promise",
+      "priority": "P1",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/scripts/package_bootcamp.py:95",
+      "reason": "Inherited profile/privacy behavior, not a Codex transform or overlay; package diff contains only host labels and manifest path changes, graduation transforms do not touch copy rules.",
+      "evidence": "packaging.md:52–53 promises no source data; package_bootcamp.py:95–98 includes docs and production recursively; :379–380 says no source data and safe for readers who should not see inputs. graduation/SKILL.md:789 explicitly copies data/senzing-ready/** to production/data/senzing-ready/ and :793–797 says these are verbatim loader inputs. Synthetic collect/build_manifest/open_me_first probe includes production/data/senzing-ready/people.jsonl containing input name/address values while generated introduction still makes the no-source-data claim. Exclusions do not cover this nested mapped-input directory; secret-pattern detection is not a PII/input-data scanner.",
+      "impact": "A bootcamper selecting the lower-disclosure share profile can hand over mapped input rows under a promise that only results travel. No real user data or external transmission used in reproduction.",
+      "deduplication": "Searched all open/closed issue bodies from /tmp/audit-finish-parent-issues.json and local counterpart using source-data/share/senzing-ready/packager terms; parent321 covers missing included-artifact promises, not leaking mapped input present in production. No exact match found.",
+      "mcp_verification": "Not applicable: this is repository inclusion behavior and internal privacy promise, no Senzing product fact asserted.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/42"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/672",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/42#issuecomment-6207517862"
+      }
+    },
+    {
+      "id": "F-024",
+      "title": "Stdlib PDF renderers truncate code/table values while pre-render retention reports success",
+      "priority": "P2",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/scripts/generate_discoveries_pdf.py:765",
+      "reason": "Discoveries file is byte-identical parent; recap changes only host wording/banner, not parser/renderer logic.",
+      "evidence": "Discoveries :765 slices code to92chars; :778–788 caps cells46chars and rows92chars. Recap :3606–3617 caps cells40chars and clips rows to95chars; rich-to-monospace fallback :3100–3109 also clips cell tails. Retention counts parsed strings before these slices. Harmless fixture direct renderer probes: discoveries auditOK0.98828125, both sentinel suffixes missing from pdftotext output, no stderr; recap no fatal/warnings at0.923728813559322 retention, table sentinel gone. Graduation1b guarantees a valid complete lesser rendering; module docs say high retention makes silent truncation visible, but these render-time losses are not in that tally.",
+      "impact": "Long identifiers, match keys, source paths, command tails or mapping values can vanish from keepsake PDFs without a loss warning, especially when optional fpdf2 is unavailable.",
+      "deduplication": "All-page local/parent issue-body searches for stdlib/truncation/table/code/retention found no exact match; parent30 is test dependencies and explicitly excludes shipped renderer behavior.",
+      "mcp_verification": "Not applicable: pure parser/render output mismatch; no Senzing field validity claim.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/44"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/674",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/44#issuecomment-6207522487"
+      }
+    },
+    {
+      "id": "F-025",
+      "title": "Entity Graph source filtering hides circles but leaves their detached labels visible",
+      "priority": "P2",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/scripts/senzing_viz_server.py:1479",
+      "reason": "Whole visualization reference is byte-identical pinned parent; this is inherited DOM filtering behavior.",
+      "evidence": "senzing_viz_server.py:1281–1283 appends .node-labels as a sibling layer of per-datum .node groups. At :1477–1483 legend handler selects only '#graph-container .node' and toggles display from data_sources; neither sibling labels nor edge layer is updated. Labels are no longer descendants, so circle visibility does not hide text. This affects labels-on data at≤150entities or any run where labels are enabled. Existing comments explicitly describe click-to-filter behavior and acknowledge separate label groups for paint ordering.",
+      "impact": "Filtered-out entities remain named on screen and can leave ghost labels/edges, making the displayed source filter misleading.",
+      "deduplication": "All-page local/parent issue bodies searched for label/filter/source/node/legend; no exact match found. Parent463 governs Match Keys sizing, not node-label filtering.",
+      "mcp_verification": "Not applicable: DOM selector/layer mismatch, no product-fact claim.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/46"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/676",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/46#issuecomment-6207528682"
+      }
+    },
+    {
+      "id": "F-026",
+      "title": "Snapshot Records actions falsely return not found for entities outside the graph cap",
+      "priority": "P2",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/scripts/senzing_viz_server.py:2206",
+      "reason": "Byte-identical inherited snapshot implementation, not transformed content.",
+      "evidence": "write_snapshot :2185 embeds model.graph(cap=GRAPH_NODE_CAP), with cap1500; :2186 embeds all merged entities, and other aggregate lists can refer to entities outside the graph. __recordsFor at:2206–2211 indexes only __DATA__.graph.nodes and returns 'not found: no such entity' otherwise. Synthetic1501entity model: graph1500capped, merges1501; omittedID1501 has live records. Executing the actual generated snapshot shim in Node, without SDK/browser/network, fetch('/api/records?entity_id=1501') returns notfound. Thus offline browse/aggregate entity actions can name a real entity whose Records action fails solely because its node was capped.",
+      "impact": "At production scale the retained standalone snapshot cannot deliver its promised offline Records action for every browsable entity, despite data being available in the original model and merges payload.",
+      "deduplication": "All-page local/parent issue-body search for snapshot/record/graph.nodes/cap1500 found no exact match. Parent327 concerns cap disclosure notes and deliberately leaves cap/ranking unchanged; it does not repair the records lookup denominator.",
+      "mcp_verification": "Not applicable: synthetic dictionary/shim evidence; no SDK response contract asserted.",
+      "disposition": {
+        "kind": "filed",
+        "url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/45"
+      },
+      "parent_issue": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/675",
+      "tracking_label": "awaiting-parity",
+      "escalation_verification": {
+        "child_state": "OPEN",
+        "parent_state": "OPEN",
+        "cross_links_verified": true,
+        "comment_url": "https://github.com/docktermj/senzing-bootcamp-chatgpt-plugin-development/issues/45#issuecomment-6207526080"
+      }
+    },
+    {
+      "id": "F-027",
+      "title": "Package introduction unconditionally points to optional absent keepsakes/revisit guide",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/scripts/package_bootcamp.py open_me_first",
+      "reason": "Inherited static introduction with exact known parent321 behavior; closed parent issue does not imply tagged fix imported.",
+      "evidence": "Current :359–369 unconditionally instructs opening docs/bootcamp_recap.pdf; :384–390 promises revisit state/database and docs/REVISIT_BOOTCAMP.md without consulting manifest.included. Packaging is available any time and optional missing roots are skipped. Parent321 body expressly names these same branches and conditional-manifest remedy; exact duplicate, separate from H001 inputs leaking despite exclusion promise.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/321"
+      }
+    },
+    {
+      "id": "F-028",
+      "title": "Capped Entity Graph still describes its subset as the whole relationship population",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/scripts/senzing_viz_server.py addGraphControls and graph payload",
+      "reason": "Inherited behavior and exact parent327 scope; no claim that closed issue's fix is in current pinned release.",
+      "evidence": "Current graph(cap) returns total/capped, but UI :1424–1428 says shown relationship nodes are 'the ... entities that have relationships' and 'Uncheck ... show them all' although both modes remain capped1500. Parent327 full body reviewed; explicitly covers this wording, total/related_total and capped UI branches. H004 Records-index failure is not covered by327 scope.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/327"
+      }
+    },
+    {
+      "id": "F-029",
+      "title": "Container Python visualization route points to host-only plugin assets",
+      "route": "parent-bound",
+      "source": "plugins/senzing-bootcamp/skills/module-03b-truthset-visualization/phase1-visualization.md:271",
+      "reason": "Inherited missing project-staging route; exact parent issue #490, not a Codex-native transform defect.",
+      "evidence": "Setup mounts the project directory, but the Python route invokes the installed plugin path outside that mount without staging its server, brand module and relative vendored D3 asset. Full parent #490 body explicitly covers this path and three-file staging remedy. Static route defect only; no container launch or failure claimed.",
+      "disposition": {
+        "kind": "duplicate",
+        "url": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development/issues/490"
+      }
+    }
+  ],
+  "assurance": "Coverage validation does not establish semantic correctness or runtime readiness"
+}

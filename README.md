@@ -56,16 +56,6 @@ recap PDF you can keep and share, and a production starter. See
 
     - In macOS, start "ChatGPT" and open a new project on an empty directory.
 
-1. Configure Codex.
-   This is to allow HTTP servers during the Bootcamp.
-    1. In `~/.codex/config.toml` add the following:
-
-        ```toml
-        [experimental_network]
-        enabled = true
-        allow_local_binding = true
-        ```
-
 1. Select model and effort.
     1. In the lower-right, choose `GPT-5.6 Terra` and `Medium`.
 

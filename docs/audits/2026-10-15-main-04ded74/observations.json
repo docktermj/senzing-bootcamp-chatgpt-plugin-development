@@ -1,0 +1,47 @@
+{
+  "assurance": "Direct scripts only; not an actual Codex-host dry run",
+  "observations": [
+    {
+      "case": "legacy-file-path-outside-control",
+      "evidence_type": "direct_script",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Write blocked: use a project-relative path, not a system temp or Downloads directory.\n"
+    },
+    {
+      "case": "native-patch-outside",
+      "evidence_type": "direct_script",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Write blocked: use a project-relative path, not a system temp or Downloads directory.\n"
+    },
+    {
+      "case": "empty-progress-controller",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "empty-progress-stop",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "graduated-controller",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "case": "graduated-stop-control",
+      "evidence_type": "direct_script",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

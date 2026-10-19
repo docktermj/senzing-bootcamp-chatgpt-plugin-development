@@ -1,0 +1,14 @@
+diff --git a/plugins/senzing-bootcamp/.claude-plugin/plugin.json b/plugins/senzing-bootcamp/.claude-plugin/plugin.json
+index de52355..6e1caf9 100644
+--- a/plugins/senzing-bootcamp/.claude-plugin/plugin.json
++++ b/plugins/senzing-bootcamp/.claude-plugin/plugin.json
+@@ -5,7 +5,7 @@
+   "author": {
+     "name": "Senzing"
+   },
+-  "homepage": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development",
+-  "repository": "https://github.com/docktermj/senzing-bootcamp-claude-plugin-development",
++  "homepage": "https://github.com/Senzing/senzing-bootcamp-claude-plugin",
++  "repository": "https://github.com/Senzing/senzing-bootcamp-claude-plugin",
+   "license": "Apache-2.0"
+ }
